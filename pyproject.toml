@@ -1,0 +1,35 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "mindscreen-ai"
+version = "0.1.0"
+description = "Projeto acadêmico sobre tempo de tela e saúde mental no NSCH"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "pandas",
+    "pyarrow",
+    "numpy",
+    "pyreadstat",
+    "scikit-learn>=1.9",
+    "xgboost",
+    "shap",
+    "plotly",
+    "streamlit>=1.50",
+    "joblib",
+]
+
+[project.optional-dependencies]
+dev = ["pytest"]
+
+[project.scripts]
+mindscreen = "mindscreen.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]

@@ -1,0 +1,44 @@
+{
+  "versao": "nsch-2020-2024-v1",
+  "faixa_etaria": [6, 17],
+  "preditores_numericos": ["SC_AGE_YEARS"],
+  "preditores_categoricos": ["SCREENTIME", "SC_SEX", "HOURSLEEP", "PHYSACTIV", "MAKEFRIEND"],
+  "dominios": {
+    "SCREENTIME": [1, 2, 3, 4, 5],
+    "SC_SEX": [1, 2],
+    "HOURSLEEP": [1, 2, 3, 4, 5, 6, 7],
+    "PHYSACTIV": [1, 2, 3, 4],
+    "MAKEFRIEND": [1, 2, 3],
+    "BULLIED_R": [1, 2, 3, 4, 5],
+    "BULLY": [1, 2, 3, 4, 5],
+    "K7Q70_R": [1, 2, 3, 4],
+    "K7Q82_R": [1, 2, 3, 4],
+    "K7Q83_R": [1, 2, 3, 4],
+    "K7Q84_R": [1, 2, 3, 4],
+    "K7Q85_R": [1, 2, 3, 4]
+  },
+  "rotulos": {
+    "SCREENTIME": {"1": "Menos de 1 hora", "2": "1 hora", "3": "2 horas", "4": "3 horas", "5": "4 horas ou mais"},
+    "SC_SEX": {"1": "Masculino", "2": "Feminino"},
+    "HOURSLEEP": {"1": "Menos de 6 horas", "2": "6 horas", "3": "7 horas", "4": "8 horas", "5": "9 horas", "6": "10 horas", "7": "11 horas ou mais"},
+    "PHYSACTIV": {"1": "0 dias", "2": "1–3 dias", "3": "4–6 dias", "4": "Todos os dias"},
+    "MAKEFRIEND": {"1": "Nenhuma dificuldade", "2": "Um pouco de dificuldade", "3": "Muita dificuldade"},
+    "BULLIED_R": {"1": "Nunca nos últimos 12 meses", "2": "1–2 vezes nos últimos 12 meses", "3": "1–2 vezes por mês", "4": "1–2 vezes por semana", "5": "Quase todos os dias"},
+    "BULLY": {"1": "Nunca nos últimos 12 meses", "2": "1–2 vezes nos últimos 12 meses", "3": "1–2 vezes por mês", "4": "1–2 vezes por semana", "5": "Quase todos os dias"}
+  },
+  "edicoes": {
+    "2020": {"sim": 1, "nao": 2, "registros": 42777, "sexo_contagens": [22104, 20673], "sexo_pesos": [37191391, 35581548], "screentime_contagens": [770, 4762, 5796, 11426, 8482, 11541]},
+    "2021": {"sim": 1, "nao": 2, "registros": 50892, "sexo_contagens": [26468, 24424], "sexo_pesos": [37129929, 35524100], "screentime_contagens": [959, 7625, 8779, 14047, 9129, 10353]},
+    "2022": {"sim": 1, "nao": 2, "registros": 54103, "sexo_contagens": [27911, 26192], "sexo_pesos": [37543088, 35749484], "screentime_contagens": [990, 7951, 9343, 15171, 9861, 10787]},
+    "2023": {"sim": 1, "nao": 2, "registros": 55162, "sexo_contagens": [28330, 26832], "sexo_pesos": [36960578, 35217391], "screentime_contagens": [966, 8942, 9872, 15547, 9663, 10172]},
+    "2024": {"sim": 1, "nao": 2, "registros": 51375, "sexo_contagens": [26374, 25001], "sexo_pesos": [37151252, 35352522], "screentime_contagens": [868, 7257, 7901, 13596, 9430, 12323]}
+  },
+  "metodologia": "docs/harmonizacao.md",
+  "fontes": {
+    "listas": "https://www2.census.gov/programs-surveys/nsch/technical-documentation/codebook/{ano}-NSCH-Topical-Variable-List.pdf",
+    "frequencias": "https://www2.census.gov/programs-surveys/nsch/technical-documentation/codebook/NSCH_{ano}_Topical_Frequencies.pdf",
+    "ausencias": "https://www2.census.gov/programs-surveys/nsch/technical-documentation/methodology/2020-NSCH-Methodology-Report.pdf",
+    "plurianual": "https://www2.census.gov/programs-surveys/nsch/technical-documentation/methodology/NSCH-Guide-to-Multi-Year-Estimates.pdf",
+    "enhanced": "https://www2.census.gov/programs-surveys/nsch/technical-documentation/NSCH_Enhancements_Technical_Document.pdf"
+  }
+}
