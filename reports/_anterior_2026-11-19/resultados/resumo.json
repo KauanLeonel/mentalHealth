@@ -1,0 +1,23 @@
+{
+  "targets": {
+    "depressao_atual": {
+      "modelo_selecionado_A": "xgboost",
+      "modelo_selecionado_B": "xgboost",
+      "delta_mesma_familia_roc_auc": 0.004246637927252661,
+      "delta_mesma_familia_pr_auc": 0.004947537352740505,
+      "delta_mesma_familia_f1": -0.0016752569077507773,
+      "interpretacao": "SCREENTIME apresentou incremento pontual de ROC AUC temporal nesta comparação; sua relevância e incerteza não foram estabelecidas por um teste inferencial. F1 no limiar fixo não melhorou.",
+      "fatores_shap": []
+    },
+    "ansiedade_atual": {
+      "modelo_selecionado_A": "xgboost",
+      "modelo_selecionado_B": "xgboost",
+      "delta_mesma_familia_roc_auc": 0.003582149367448273,
+      "delta_mesma_familia_pr_auc": 0.0034779437280117453,
+      "delta_mesma_familia_f1": 0.01557311161765057,
+      "interpretacao": "SCREENTIME apresentou incremento pontual de ROC AUC temporal nesta comparação; sua relevância e incerteza não foram estabelecidas por um teste inferencial.",
+      "fatores_shap": []
+    }
+  },
+  "dataset_sha256": "25edab4c0ff04a42fbba02f27d58b6e8e22c9ad2dfd43642b1a6e6f3b080da40"
+}

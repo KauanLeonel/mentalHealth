@@ -1,0 +1,635 @@
+{
+  "origem": "mindscreen-treinamento-local-v1",
+  "dataset_sha256": "25edab4c0ff04a42fbba02f27d58b6e8e22c9ad2dfd43642b1a6e6f3b080da40",
+  "artefatos": {
+    "A/depressao_atual_dummy": {
+      "arquivo": "A/depressao_atual_dummy.joblib",
+      "sha256": "fd5b064996ae80f2ce413bd3bfdc4c42f70592780702c6cfced8b5a1710dc338",
+      "target": "depressao_atual",
+      "algoritmo": "dummy",
+      "preditores": [
+        "SC_AGE_YEARS",
+        "SCREENTIME",
+        "SC_SEX",
+        "HOURSLEEP",
+        "PHYSACTIV",
+        "MAKEFRIEND"
+      ],
+      "roc_auc_cv": 0.5,
+      "limiar": 0.5
+    },
+    "A/depressao_atual_logistic": {
+      "arquivo": "A/depressao_atual_logistic.joblib",
+      "sha256": "981069b5540d4548338db6521e2dd4729d9a02007b6d9d2394f03d59c7043ace",
+      "target": "depressao_atual",
+      "algoritmo": "logistic",
+      "preditores": [
+        "SC_AGE_YEARS",
+        "SCREENTIME",
+        "SC_SEX",
+        "HOURSLEEP",
+        "PHYSACTIV",
+        "MAKEFRIEND"
+      ],
+      "roc_auc_cv": 0.8446969418489187,
+      "limiar": 0.7374321533058176
+    },
+    "A/depressao_atual_random_forest": {
+      "arquivo": "A/depressao_atual_random_forest.joblib",
+      "sha256": "32447f54909a818280213bf6c60a58c84763b41c8699cb98747bdaca5d871a90",
+      "target": "depressao_atual",
+      "algoritmo": "random_forest",
+      "preditores": [
+        "SC_AGE_YEARS",
+        "SCREENTIME",
+        "SC_SEX",
+        "HOURSLEEP",
+        "PHYSACTIV",
+        "MAKEFRIEND"
+      ],
+      "roc_auc_cv": 0.8457225225856708,
+      "limiar": 0.7340971000939608
+    },
+    "A/depressao_atual_xgboost": {
+      "arquivo": "A/depressao_atual_xgboost.joblib",
+      "sha256": "b93d0eaab041832f8d344be59034f450a05bb60d6b6ac21570a2ee0f6fb1ddb2",
+      "target": "depressao_atual",
+      "algoritmo": "xgboost",
+      "preditores": [
+        "SC_AGE_YEARS",
+        "SCREENTIME",
+        "SC_SEX",
+        "HOURSLEEP",
+        "PHYSACTIV",
+        "MAKEFRIEND"
+      ],
+      "roc_auc_cv": 0.846976814096441,
+      "limiar": 0.17517180740833282
+    },
+    "A/ansiedade_atual_dummy": {
+      "arquivo": "A/ansiedade_atual_dummy.joblib",
+      "sha256": "b5579372eaf48f05dc58675698f05a2d8e3799955e176cdd6ef061846207e4f4",
+      "target": "ansiedade_atual",
+      "algoritmo": "dummy",
+      "preditores": [
+        "SC_AGE_YEARS",
+        "SCREENTIME",
+        "SC_SEX",
+        "HOURSLEEP",
+        "PHYSACTIV",
+        "MAKEFRIEND"
+      ],
+      "roc_auc_cv": 0.5,
+      "limiar": 0.5
+    },
+    "A/ansiedade_atual_logistic": {
+      "arquivo": "A/ansiedade_atual_logistic.joblib",
+      "sha256": "cd45fc10e6c931aa00018c6a865653111e203b7aaaf946ad8f21916bc03ce3d4",
+      "target": "ansiedade_atual",
+      "algoritmo": "logistic",
+      "preditores": [
+        "SC_AGE_YEARS",
+        "SCREENTIME",
+        "SC_SEX",
+        "HOURSLEEP",
+        "PHYSACTIV",
+        "MAKEFRIEND"
+      ],
+      "roc_auc_cv": 0.7659699323388677,
+      "limiar": 0.614078991979567
+    },
+    "A/ansiedade_atual_random_forest": {
+      "arquivo": "A/ansiedade_atual_random_forest.joblib",
+      "sha256": "4702103d3626d8c653b378cf666ffa352df3422b70d1a268564fb7f0c91ab6a9",
+      "target": "ansiedade_atual",
+      "algoritmo": "random_forest",
+      "preditores": [
+        "SC_AGE_YEARS",
+        "SCREENTIME",
+        "SC_SEX",
+        "HOURSLEEP",
+        "PHYSACTIV",
+        "MAKEFRIEND"
+      ],
+      "roc_auc_cv": 0.769046511429208,
+      "limiar": 0.6082965896071791
+    },
+    "A/ansiedade_atual_xgboost": {
+      "arquivo": "A/ansiedade_atual_xgboost.joblib",
+      "sha256": "f3271dde7ed71de45a770d3ad4b51e07d8584458333f1b8e0eff02931618ae84",
+      "target": "ansiedade_atual",
+      "algoritmo": "xgboost",
+      "preditores": [
+        "SC_AGE_YEARS",
+        "SCREENTIME",
+        "SC_SEX",
+        "HOURSLEEP",
+        "PHYSACTIV",
+        "MAKEFRIEND"
+      ],
+      "roc_auc_cv": 0.7709519097615944,
+      "limiar": 0.6211563348770142
+    },
+    "B/depressao_atual_dummy": {
+      "arquivo": "B/depressao_atual_dummy.joblib",
+      "sha256": "9f7aa312bf7c4eb1c7c8349a86ce6b9196f07b01499deb2870ee9289ed38f515",
+      "target": "depressao_atual",
+      "algoritmo": "dummy",
+      "preditores": [
+        "SC_AGE_YEARS",
+        "SC_SEX",
+        "HOURSLEEP",
+        "PHYSACTIV",
+        "MAKEFRIEND"
+      ],
+      "roc_auc_cv": 0.5,
+      "limiar": 0.5
+    },
+    "B/depressao_atual_logistic": {
+      "arquivo": "B/depressao_atual_logistic.joblib",
+      "sha256": "62c1330552a8379ad195062e6d0e46bbadbac7bda9715dd1f1e80f7fcf91b854",
+      "target": "depressao_atual",
+      "algoritmo": "logistic",
+      "preditores": [
+        "SC_AGE_YEARS",
+        "SC_SEX",
+        "HOURSLEEP",
+        "PHYSACTIV",
+        "MAKEFRIEND"
+      ],
+      "roc_auc_cv": 0.8421005435639592,
+      "limiar": 0.7710597756231148
+    },
+    "B/depressao_atual_random_forest": {
+      "arquivo": "B/depressao_atual_random_forest.joblib",
+      "sha256": "1f72eb145917525eccf5983227aed0fe217c9167b638ba88198a0ba0d231a9fc",
+      "target": "depressao_atual",
+      "algoritmo": "random_forest",
+      "preditores": [
+        "SC_AGE_YEARS",
+        "SC_SEX",
+        "HOURSLEEP",
+        "PHYSACTIV",
+        "MAKEFRIEND"
+      ],
+      "roc_auc_cv": 0.8429036434418897,
+      "limiar": 0.7706982372116525
+    },
+    "B/depressao_atual_xgboost": {
+      "arquivo": "B/depressao_atual_xgboost.joblib",
+      "sha256": "ccc82f71fb0cbe64bbfdcb6d5bad862a3d986ed7421b1d0359affc18f20bc5bf",
+      "target": "depressao_atual",
+      "algoritmo": "xgboost",
+      "preditores": [
+        "SC_AGE_YEARS",
+        "SC_SEX",
+        "HOURSLEEP",
+        "PHYSACTIV",
+        "MAKEFRIEND"
+      ],
+      "roc_auc_cv": 0.8446601298061278,
+      "limiar": 0.19643090665340424
+    },
+    "B/ansiedade_atual_dummy": {
+      "arquivo": "B/ansiedade_atual_dummy.joblib",
+      "sha256": "ce81ad18bc2faeed54147e0849d6293d37cbf7dd19831301956aae37977d8c74",
+      "target": "ansiedade_atual",
+      "algoritmo": "dummy",
+      "preditores": [
+        "SC_AGE_YEARS",
+        "SC_SEX",
+        "HOURSLEEP",
+        "PHYSACTIV",
+        "MAKEFRIEND"
+      ],
+      "roc_auc_cv": 0.5,
+      "limiar": 0.5
+    },
+    "B/ansiedade_atual_logistic": {
+      "arquivo": "B/ansiedade_atual_logistic.joblib",
+      "sha256": "13f5d5748aaf91e0752fec6bfdf36965f08cc2ddd7ab6d23d37437037434ddaa",
+      "target": "ansiedade_atual",
+      "algoritmo": "logistic",
+      "preditores": [
+        "SC_AGE_YEARS",
+        "SC_SEX",
+        "HOURSLEEP",
+        "PHYSACTIV",
+        "MAKEFRIEND"
+      ],
+      "roc_auc_cv": 0.7627995010004149,
+      "limiar": 0.5748319609915866
+    },
+    "B/ansiedade_atual_random_forest": {
+      "arquivo": "B/ansiedade_atual_random_forest.joblib",
+      "sha256": "8605cb7878433c8211a7ba1dbb828d17cc4308972a8712180fa99b69f8fabdef",
+      "target": "ansiedade_atual",
+      "algoritmo": "random_forest",
+      "preditores": [
+        "SC_AGE_YEARS",
+        "SC_SEX",
+        "HOURSLEEP",
+        "PHYSACTIV",
+        "MAKEFRIEND"
+      ],
+      "roc_auc_cv": 0.7662200719044827,
+      "limiar": 0.6058573116196456
+    },
+    "B/ansiedade_atual_xgboost": {
+      "arquivo": "B/ansiedade_atual_xgboost.joblib",
+      "sha256": "4dba0619a1b75551168a89ece953a8771ed1a217b3fce01f270d1d6fe49b8f65",
+      "target": "ansiedade_atual",
+      "algoritmo": "xgboost",
+      "preditores": [
+        "SC_AGE_YEARS",
+        "SC_SEX",
+        "HOURSLEEP",
+        "PHYSACTIV",
+        "MAKEFRIEND"
+      ],
+      "roc_auc_cv": 0.7682184402285335,
+      "limiar": 0.6167521476745605
+    }
+  },
+  "selecionados": {
+    "A/depressao_atual": "A/depressao_atual_xgboost",
+    "A/ansiedade_atual": "A/ansiedade_atual_xgboost",
+    "B/depressao_atual": "B/depressao_atual_xgboost",
+    "B/ansiedade_atual": "B/ansiedade_atual_xgboost"
+  },
+  "treinamento": {
+    "A": {
+      "data_utc": "2026-11-19T22:19:28.490033+00:00",
+      "configuracao": {
+        "semente": 42,
+        "folds": 5,
+        "ano_teste": 2024,
+        "anos_desenvolvimento": [
+          2020,
+          2021,
+          2022,
+          2023
+        ],
+        "n_jobs": 1,
+        "n_estimators": 200,
+        "min_samples_leaf": 10,
+        "busca": {
+          "logistic": {
+            "model__C": [
+              0.1,
+              1.0
+            ],
+            "model__class_weight": [
+              null,
+              "balanced"
+            ]
+          },
+          "random_forest": {
+            "model__max_depth": [
+              null,
+              10
+            ],
+            "model__class_weight": [
+              null,
+              "balanced"
+            ]
+          },
+          "xgboost": {
+            "model__max_depth": [
+              3,
+              5
+            ],
+            "model__learning_rate": [
+              0.05,
+              0.1
+            ],
+            "model__scale_pos_weight": [
+              1,
+              "proporcao_classes"
+            ]
+          }
+        }
+      },
+      "manifesto": "data\\processed\\manifesto.json",
+      "sha256_dataset": "25edab4c0ff04a42fbba02f27d58b6e8e22c9ad2dfd43642b1a6e6f3b080da40",
+      "preditores": [
+        "SC_AGE_YEARS",
+        "SCREENTIME",
+        "SC_SEX",
+        "HOURSLEEP",
+        "PHYSACTIV",
+        "MAKEFRIEND"
+      ],
+      "positive_class": 1,
+      "experimento": "A_com_SCREENTIME",
+      "peso_treinamento": "Não utilizado: decisão inicial uniforme entre estimadores; os pesos permanecem no dataset de entrada. Não constitui inferência para desenho complexo.",
+      "seleção": "ROC AUC média em validação cruzada de desenvolvimento; 2024 não avaliado.",
+      "limiar": "Maximiza F1 nas previsões fora do fold (mesmos 5 folds) do melhor estimador em 2020–2023; dummy mantém 0,5.",
+      "versoes": {
+        "pandas": "3.1.1",
+        "numpy": "2.5.4",
+        "scikit-learn": "1.9.1",
+        "xgboost": "3.4.1",
+        "joblib": "1.6.0",
+        "pyarrow": "26.0.1"
+      },
+      "resultados": {
+        "depressao_atual": {
+          "registros": 128103,
+          "excluidos_target_ausente": 706,
+          "classes": {
+            "0": 119447,
+            "1": 8656
+          },
+          "modelos": {
+            "dummy": {
+              "melhores_parametros": {},
+              "roc_auc_cv": 0.5,
+              "limiar": 0.5,
+              "f1_oof": null,
+              "fit_aceita_sample_weight": true,
+              "sample_weight_utilizado": false
+            },
+            "logistic": {
+              "melhores_parametros": {
+                "model__C": 1.0,
+                "model__class_weight": "balanced"
+              },
+              "roc_auc_cv": 0.8446969418489187,
+              "limiar": 0.7374321533058176,
+              "f1_oof": 0.3862116571034126,
+              "fit_aceita_sample_weight": true,
+              "sample_weight_utilizado": false
+            },
+            "random_forest": {
+              "melhores_parametros": {
+                "model__class_weight": "balanced",
+                "model__max_depth": 10
+              },
+              "roc_auc_cv": 0.8457225225856708,
+              "limiar": 0.7340971000939608,
+              "f1_oof": 0.38305023162866747,
+              "fit_aceita_sample_weight": true,
+              "sample_weight_utilizado": false
+            },
+            "xgboost": {
+              "melhores_parametros": {
+                "model__learning_rate": 0.1,
+                "model__max_depth": 3,
+                "model__scale_pos_weight": 1
+              },
+              "roc_auc_cv": 0.846976814096441,
+              "limiar": 0.17517180740833282,
+              "f1_oof": 0.3872521122444512,
+              "fit_aceita_sample_weight": true,
+              "sample_weight_utilizado": false
+            }
+          },
+          "selecionado_por_cv": "xgboost"
+        },
+        "ansiedade_atual": {
+          "registros": 127573,
+          "excluidos_target_ausente": 1236,
+          "classes": {
+            "0": 107972,
+            "1": 19601
+          },
+          "modelos": {
+            "dummy": {
+              "melhores_parametros": {},
+              "roc_auc_cv": 0.5,
+              "limiar": 0.5,
+              "f1_oof": null,
+              "fit_aceita_sample_weight": true,
+              "sample_weight_utilizado": false
+            },
+            "logistic": {
+              "melhores_parametros": {
+                "model__C": 1.0,
+                "model__class_weight": "balanced"
+              },
+              "roc_auc_cv": 0.7659699323388677,
+              "limiar": 0.614078991979567,
+              "f1_oof": 0.44844296672968686,
+              "fit_aceita_sample_weight": true,
+              "sample_weight_utilizado": false
+            },
+            "random_forest": {
+              "melhores_parametros": {
+                "model__class_weight": "balanced",
+                "model__max_depth": 10
+              },
+              "roc_auc_cv": 0.769046511429208,
+              "limiar": 0.6082965896071791,
+              "f1_oof": 0.4497923283655021,
+              "fit_aceita_sample_weight": true,
+              "sample_weight_utilizado": false
+            },
+            "xgboost": {
+              "melhores_parametros": {
+                "model__learning_rate": 0.05,
+                "model__max_depth": 3,
+                "model__scale_pos_weight": 5.508494464568134
+              },
+              "roc_auc_cv": 0.7709519097615944,
+              "limiar": 0.6211563348770142,
+              "f1_oof": 0.4523233951114692,
+              "fit_aceita_sample_weight": true,
+              "sample_weight_utilizado": false
+            }
+          },
+          "selecionado_por_cv": "xgboost"
+        }
+      }
+    },
+    "B": {
+      "data_utc": "2026-11-19T22:50:44.904270+00:00",
+      "configuracao": {
+        "semente": 42,
+        "folds": 5,
+        "ano_teste": 2024,
+        "anos_desenvolvimento": [
+          2020,
+          2021,
+          2022,
+          2023
+        ],
+        "n_jobs": 1,
+        "n_estimators": 200,
+        "min_samples_leaf": 10,
+        "busca": {
+          "logistic": {
+            "model__C": [
+              0.1,
+              1.0
+            ],
+            "model__class_weight": [
+              null,
+              "balanced"
+            ]
+          },
+          "random_forest": {
+            "model__max_depth": [
+              null,
+              10
+            ],
+            "model__class_weight": [
+              null,
+              "balanced"
+            ]
+          },
+          "xgboost": {
+            "model__max_depth": [
+              3,
+              5
+            ],
+            "model__learning_rate": [
+              0.05,
+              0.1
+            ],
+            "model__scale_pos_weight": [
+              1,
+              "proporcao_classes"
+            ]
+          }
+        }
+      },
+      "manifesto": "data\\processed\\manifesto.json",
+      "sha256_dataset": "25edab4c0ff04a42fbba02f27d58b6e8e22c9ad2dfd43642b1a6e6f3b080da40",
+      "preditores": [
+        "SC_AGE_YEARS",
+        "SC_SEX",
+        "HOURSLEEP",
+        "PHYSACTIV",
+        "MAKEFRIEND"
+      ],
+      "positive_class": 1,
+      "experimento": "B_sem_SCREENTIME",
+      "peso_treinamento": "Não utilizado: decisão inicial uniforme entre estimadores; os pesos permanecem no dataset de entrada. Não constitui inferência para desenho complexo.",
+      "seleção": "ROC AUC média em validação cruzada de desenvolvimento; 2024 não avaliado.",
+      "limiar": "Maximiza F1 nas previsões fora do fold (mesmos 5 folds) do melhor estimador em 2020–2023; dummy mantém 0,5.",
+      "versoes": {
+        "pandas": "3.1.1",
+        "numpy": "2.5.4",
+        "scikit-learn": "1.9.1",
+        "xgboost": "3.4.1",
+        "joblib": "1.6.0",
+        "pyarrow": "26.0.1"
+      },
+      "resultados": {
+        "depressao_atual": {
+          "registros": 128103,
+          "excluidos_target_ausente": 706,
+          "classes": {
+            "0": 119447,
+            "1": 8656
+          },
+          "modelos": {
+            "dummy": {
+              "melhores_parametros": {},
+              "roc_auc_cv": 0.5,
+              "limiar": 0.5,
+              "f1_oof": null,
+              "fit_aceita_sample_weight": true,
+              "sample_weight_utilizado": false
+            },
+            "logistic": {
+              "melhores_parametros": {
+                "model__C": 0.1,
+                "model__class_weight": "balanced"
+              },
+              "roc_auc_cv": 0.8421005435639592,
+              "limiar": 0.7710597756231148,
+              "f1_oof": 0.3837775867010604,
+              "fit_aceita_sample_weight": true,
+              "sample_weight_utilizado": false
+            },
+            "random_forest": {
+              "melhores_parametros": {
+                "model__class_weight": "balanced",
+                "model__max_depth": 10
+              },
+              "roc_auc_cv": 0.8429036434418897,
+              "limiar": 0.7706982372116525,
+              "f1_oof": 0.3821579264617239,
+              "fit_aceita_sample_weight": true,
+              "sample_weight_utilizado": false
+            },
+            "xgboost": {
+              "melhores_parametros": {
+                "model__learning_rate": 0.1,
+                "model__max_depth": 3,
+                "model__scale_pos_weight": 1
+              },
+              "roc_auc_cv": 0.8446601298061278,
+              "limiar": 0.19643090665340424,
+              "f1_oof": 0.3864110836970962,
+              "fit_aceita_sample_weight": true,
+              "sample_weight_utilizado": false
+            }
+          },
+          "selecionado_por_cv": "xgboost"
+        },
+        "ansiedade_atual": {
+          "registros": 127573,
+          "excluidos_target_ausente": 1236,
+          "classes": {
+            "0": 107972,
+            "1": 19601
+          },
+          "modelos": {
+            "dummy": {
+              "melhores_parametros": {},
+              "roc_auc_cv": 0.5,
+              "limiar": 0.5,
+              "f1_oof": null,
+              "fit_aceita_sample_weight": true,
+              "sample_weight_utilizado": false
+            },
+            "logistic": {
+              "melhores_parametros": {
+                "model__C": 0.1,
+                "model__class_weight": "balanced"
+              },
+              "roc_auc_cv": 0.7627995010004149,
+              "limiar": 0.5748319609915866,
+              "f1_oof": 0.4483003263535565,
+              "fit_aceita_sample_weight": true,
+              "sample_weight_utilizado": false
+            },
+            "random_forest": {
+              "melhores_parametros": {
+                "model__class_weight": "balanced",
+                "model__max_depth": 10
+              },
+              "roc_auc_cv": 0.7662200719044827,
+              "limiar": 0.6058573116196456,
+              "f1_oof": 0.44958498301746486,
+              "fit_aceita_sample_weight": true,
+              "sample_weight_utilizado": false
+            },
+            "xgboost": {
+              "melhores_parametros": {
+                "model__learning_rate": 0.05,
+                "model__max_depth": 3,
+                "model__scale_pos_weight": 5.508494464568134
+              },
+              "roc_auc_cv": 0.7682184402285335,
+              "limiar": 0.6167521476745605,
+              "f1_oof": 0.4509856427791624,
+              "fit_aceita_sample_weight": true,
+              "sample_weight_utilizado": false
+            }
+          },
+          "selecionado_por_cv": "xgboost"
+        }
+      }
+    }
+  },
+  "calibrado": false,
+  "classe_positiva": 1,
+  "preprocessamento_sha256": "14f053fc03d9e95d6773a57a68413aeb22189e1c15f2e8f11a16aef0022b5d5f",
+  "criterio_selecao": "ROC AUC média CV 2020–2023",
+  "criterio_limiar": "máximo F1 fora do fold em 2020–2023",
+  "criado_utc": "2026-11-19T23:19:55.428106+00:00"
+}

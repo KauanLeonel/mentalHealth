@@ -1,0 +1,18 @@
+{
+  "dataset_sha256": "25edab4c0ff04a42fbba02f27d58b6e8e22c9ad2dfd43642b1a6e6f3b080da40",
+  "classe_explicada": 1,
+  "semente": 42,
+  "targets": {
+    "depressao_atual": {
+      "modelo": "A/depressao_atual_xgboost",
+      "disponivel": false,
+      "motivo": "ValueError"
+    },
+    "ansiedade_atual": {
+      "modelo": "A/ansiedade_atual_xgboost",
+      "disponivel": false,
+      "motivo": "ValueError"
+    }
+  },
+  "limitacoes": "SHAP explica a função do modelo e sua referência de desenvolvimento; não é causalidade, efeito de intervenção ou diagnóstico. Atribuições dependem da correlação entre atributos, agrupamento de one-hot e background. Compare rankings entre modelos; magnitudes em escalas diferentes não são diretamente comparáveis."
+}

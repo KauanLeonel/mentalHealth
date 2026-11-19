@@ -1,0 +1,693 @@
+{
+  "validado": true,
+  "versao_regras": "nsch-2020-2024-v1",
+  "anos": [
+    2020,
+    2021,
+    2022,
+    2023,
+    2024
+  ],
+  "registros": 166343,
+  "edicoes": [
+    {
+      "ano": 2020,
+      "validado": true,
+      "motivo": "Esquema, categorias, frequência de SCREENTIME e contagens/pesos por sexo compatíveis com publicação oficial",
+      "originais": 42777,
+      "analiticos": 30636
+    },
+    {
+      "ano": 2021,
+      "validado": true,
+      "motivo": "Esquema, categorias, frequência de SCREENTIME e contagens/pesos por sexo compatíveis com publicação oficial",
+      "originais": 50892,
+      "analiticos": 30173
+    },
+    {
+      "ano": 2022,
+      "validado": true,
+      "motivo": "Esquema, categorias, frequência de SCREENTIME e contagens/pesos por sexo compatíveis com publicação oficial",
+      "originais": 54103,
+      "analiticos": 34362
+    },
+    {
+      "ano": 2023,
+      "validado": true,
+      "motivo": "Esquema, categorias, frequência de SCREENTIME e contagens/pesos por sexo compatíveis com publicação oficial",
+      "originais": 55162,
+      "analiticos": 33638
+    },
+    {
+      "ano": 2024,
+      "validado": true,
+      "motivo": "Esquema, categorias, frequência de SCREENTIME e contagens/pesos por sexo compatíveis com publicação oficial",
+      "originais": 51375,
+      "analiticos": 37534
+    }
+  ],
+  "originais_inalterados": true,
+  "fingerprints_publicados": [
+    {
+      "ano": 2020,
+      "checagem": "SC_SEX=1",
+      "n_observado": 22104,
+      "n_oficial": 22104,
+      "soma_FWC_observada": 37191391.18109134,
+      "soma_FWC_oficial_arredondada": 37191391,
+      "aprovada": true
+    },
+    {
+      "ano": 2020,
+      "checagem": "SC_SEX=2",
+      "n_observado": 20673,
+      "n_oficial": 20673,
+      "soma_FWC_observada": 35581547.9075643,
+      "soma_FWC_oficial_arredondada": 35581548,
+      "aprovada": true
+    },
+    {
+      "ano": 2021,
+      "checagem": "SC_SEX=1",
+      "n_observado": 26468,
+      "n_oficial": 26468,
+      "soma_FWC_observada": 37129928.90328527,
+      "soma_FWC_oficial_arredondada": 37129929,
+      "aprovada": true
+    },
+    {
+      "ano": 2021,
+      "checagem": "SC_SEX=2",
+      "n_observado": 24424,
+      "n_oficial": 24424,
+      "soma_FWC_observada": 35524099.59627496,
+      "soma_FWC_oficial_arredondada": 35524100,
+      "aprovada": true
+    },
+    {
+      "ano": 2022,
+      "checagem": "SC_SEX=1",
+      "n_observado": 27911,
+      "n_oficial": 27911,
+      "soma_FWC_observada": 37543087.86007311,
+      "soma_FWC_oficial_arredondada": 37543088,
+      "aprovada": true
+    },
+    {
+      "ano": 2022,
+      "checagem": "SC_SEX=2",
+      "n_observado": 26192,
+      "n_oficial": 26192,
+      "soma_FWC_observada": 35749484.15009186,
+      "soma_FWC_oficial_arredondada": 35749484,
+      "aprovada": true
+    },
+    {
+      "ano": 2023,
+      "checagem": "SC_SEX=1",
+      "n_observado": 28330,
+      "n_oficial": 28330,
+      "soma_FWC_observada": 36960577.88481523,
+      "soma_FWC_oficial_arredondada": 36960578,
+      "aprovada": true
+    },
+    {
+      "ano": 2023,
+      "checagem": "SC_SEX=2",
+      "n_observado": 26832,
+      "n_oficial": 26832,
+      "soma_FWC_observada": 35217390.57876509,
+      "soma_FWC_oficial_arredondada": 35217391,
+      "aprovada": true
+    },
+    {
+      "ano": 2024,
+      "checagem": "SC_SEX=1",
+      "n_observado": 26374,
+      "n_oficial": 26374,
+      "soma_FWC_observada": 37151252.242888145,
+      "soma_FWC_oficial_arredondada": 37151252,
+      "aprovada": true
+    },
+    {
+      "ano": 2024,
+      "checagem": "SC_SEX=2",
+      "n_observado": 25001,
+      "n_oficial": 25001,
+      "soma_FWC_observada": 35352522.15865831,
+      "soma_FWC_oficial_arredondada": 35352522,
+      "aprovada": true
+    }
+  ],
+  "fluxo": [
+    {
+      "ano": 2020,
+      "target": "depressao_atual",
+      "decisao": "entrada_original",
+      "registros": 42777
+    },
+    {
+      "ano": 2020,
+      "target": "depressao_atual",
+      "decisao": "excluidos_fora_faixa_etaria",
+      "registros": 12141
+    },
+    {
+      "ano": 2020,
+      "target": "depressao_atual",
+      "decisao": "mantidos_faixa_etaria",
+      "registros": 30636
+    },
+    {
+      "ano": 2020,
+      "target": "depressao_atual",
+      "decisao": "target_indeterminado",
+      "registros": 138
+    },
+    {
+      "ano": 2020,
+      "target": "depressao_atual",
+      "decisao": "target_determinado",
+      "registros": 30498
+    },
+    {
+      "ano": 2020,
+      "target": "depressao_atual",
+      "decisao": "target_positivo",
+      "registros": 1834
+    },
+    {
+      "ano": 2020,
+      "target": "depressao_atual",
+      "decisao": "target_negativo",
+      "registros": 28664
+    },
+    {
+      "ano": 2020,
+      "target": "depressao_atual",
+      "decisao": "screentime_ausente_mantido",
+      "registros": 560
+    },
+    {
+      "ano": 2020,
+      "target": "ansiedade_atual",
+      "decisao": "entrada_original",
+      "registros": 42777
+    },
+    {
+      "ano": 2020,
+      "target": "ansiedade_atual",
+      "decisao": "excluidos_fora_faixa_etaria",
+      "registros": 12141
+    },
+    {
+      "ano": 2020,
+      "target": "ansiedade_atual",
+      "decisao": "mantidos_faixa_etaria",
+      "registros": 30636
+    },
+    {
+      "ano": 2020,
+      "target": "ansiedade_atual",
+      "decisao": "target_indeterminado",
+      "registros": 266
+    },
+    {
+      "ano": 2020,
+      "target": "ansiedade_atual",
+      "decisao": "target_determinado",
+      "registros": 30370
+    },
+    {
+      "ano": 2020,
+      "target": "ansiedade_atual",
+      "decisao": "target_positivo",
+      "registros": 4166
+    },
+    {
+      "ano": 2020,
+      "target": "ansiedade_atual",
+      "decisao": "target_negativo",
+      "registros": 26204
+    },
+    {
+      "ano": 2020,
+      "target": "ansiedade_atual",
+      "decisao": "screentime_ausente_mantido",
+      "registros": 560
+    },
+    {
+      "ano": 2021,
+      "target": "depressao_atual",
+      "decisao": "entrada_original",
+      "registros": 50892
+    },
+    {
+      "ano": 2021,
+      "target": "depressao_atual",
+      "decisao": "excluidos_fora_faixa_etaria",
+      "registros": 20719
+    },
+    {
+      "ano": 2021,
+      "target": "depressao_atual",
+      "decisao": "mantidos_faixa_etaria",
+      "registros": 30173
+    },
+    {
+      "ano": 2021,
+      "target": "depressao_atual",
+      "decisao": "target_indeterminado",
+      "registros": 145
+    },
+    {
+      "ano": 2021,
+      "target": "depressao_atual",
+      "decisao": "target_determinado",
+      "registros": 30028
+    },
+    {
+      "ano": 2021,
+      "target": "depressao_atual",
+      "decisao": "target_positivo",
+      "registros": 2073
+    },
+    {
+      "ano": 2021,
+      "target": "depressao_atual",
+      "decisao": "target_negativo",
+      "registros": 27955
+    },
+    {
+      "ano": 2021,
+      "target": "depressao_atual",
+      "decisao": "screentime_ausente_mantido",
+      "registros": 531
+    },
+    {
+      "ano": 2021,
+      "target": "ansiedade_atual",
+      "decisao": "entrada_original",
+      "registros": 50892
+    },
+    {
+      "ano": 2021,
+      "target": "ansiedade_atual",
+      "decisao": "excluidos_fora_faixa_etaria",
+      "registros": 20719
+    },
+    {
+      "ano": 2021,
+      "target": "ansiedade_atual",
+      "decisao": "mantidos_faixa_etaria",
+      "registros": 30173
+    },
+    {
+      "ano": 2021,
+      "target": "ansiedade_atual",
+      "decisao": "target_indeterminado",
+      "registros": 267
+    },
+    {
+      "ano": 2021,
+      "target": "ansiedade_atual",
+      "decisao": "target_determinado",
+      "registros": 29906
+    },
+    {
+      "ano": 2021,
+      "target": "ansiedade_atual",
+      "decisao": "target_positivo",
+      "registros": 4467
+    },
+    {
+      "ano": 2021,
+      "target": "ansiedade_atual",
+      "decisao": "target_negativo",
+      "registros": 25439
+    },
+    {
+      "ano": 2021,
+      "target": "ansiedade_atual",
+      "decisao": "screentime_ausente_mantido",
+      "registros": 531
+    },
+    {
+      "ano": 2022,
+      "target": "depressao_atual",
+      "decisao": "entrada_original",
+      "registros": 54103
+    },
+    {
+      "ano": 2022,
+      "target": "depressao_atual",
+      "decisao": "excluidos_fora_faixa_etaria",
+      "registros": 19741
+    },
+    {
+      "ano": 2022,
+      "target": "depressao_atual",
+      "decisao": "mantidos_faixa_etaria",
+      "registros": 34362
+    },
+    {
+      "ano": 2022,
+      "target": "depressao_atual",
+      "decisao": "target_indeterminado",
+      "registros": 215
+    },
+    {
+      "ano": 2022,
+      "target": "depressao_atual",
+      "decisao": "target_determinado",
+      "registros": 34147
+    },
+    {
+      "ano": 2022,
+      "target": "depressao_atual",
+      "decisao": "target_positivo",
+      "registros": 2478
+    },
+    {
+      "ano": 2022,
+      "target": "depressao_atual",
+      "decisao": "target_negativo",
+      "registros": 31669
+    },
+    {
+      "ano": 2022,
+      "target": "depressao_atual",
+      "decisao": "screentime_ausente_mantido",
+      "registros": 548
+    },
+    {
+      "ano": 2022,
+      "target": "ansiedade_atual",
+      "decisao": "entrada_original",
+      "registros": 54103
+    },
+    {
+      "ano": 2022,
+      "target": "ansiedade_atual",
+      "decisao": "excluidos_fora_faixa_etaria",
+      "registros": 19741
+    },
+    {
+      "ano": 2022,
+      "target": "ansiedade_atual",
+      "decisao": "mantidos_faixa_etaria",
+      "registros": 34362
+    },
+    {
+      "ano": 2022,
+      "target": "ansiedade_atual",
+      "decisao": "target_indeterminado",
+      "registros": 343
+    },
+    {
+      "ano": 2022,
+      "target": "ansiedade_atual",
+      "decisao": "target_determinado",
+      "registros": 34019
+    },
+    {
+      "ano": 2022,
+      "target": "ansiedade_atual",
+      "decisao": "target_positivo",
+      "registros": 5428
+    },
+    {
+      "ano": 2022,
+      "target": "ansiedade_atual",
+      "decisao": "target_negativo",
+      "registros": 28591
+    },
+    {
+      "ano": 2022,
+      "target": "ansiedade_atual",
+      "decisao": "screentime_ausente_mantido",
+      "registros": 548
+    },
+    {
+      "ano": 2023,
+      "target": "depressao_atual",
+      "decisao": "entrada_original",
+      "registros": 55162
+    },
+    {
+      "ano": 2023,
+      "target": "depressao_atual",
+      "decisao": "excluidos_fora_faixa_etaria",
+      "registros": 21524
+    },
+    {
+      "ano": 2023,
+      "target": "depressao_atual",
+      "decisao": "mantidos_faixa_etaria",
+      "registros": 33638
+    },
+    {
+      "ano": 2023,
+      "target": "depressao_atual",
+      "decisao": "target_indeterminado",
+      "registros": 208
+    },
+    {
+      "ano": 2023,
+      "target": "depressao_atual",
+      "decisao": "target_determinado",
+      "registros": 33430
+    },
+    {
+      "ano": 2023,
+      "target": "depressao_atual",
+      "decisao": "target_positivo",
+      "registros": 2271
+    },
+    {
+      "ano": 2023,
+      "target": "depressao_atual",
+      "decisao": "target_negativo",
+      "registros": 31159
+    },
+    {
+      "ano": 2023,
+      "target": "depressao_atual",
+      "decisao": "screentime_ausente_mantido",
+      "registros": 491
+    },
+    {
+      "ano": 2023,
+      "target": "ansiedade_atual",
+      "decisao": "entrada_original",
+      "registros": 55162
+    },
+    {
+      "ano": 2023,
+      "target": "ansiedade_atual",
+      "decisao": "excluidos_fora_faixa_etaria",
+      "registros": 21524
+    },
+    {
+      "ano": 2023,
+      "target": "ansiedade_atual",
+      "decisao": "mantidos_faixa_etaria",
+      "registros": 33638
+    },
+    {
+      "ano": 2023,
+      "target": "ansiedade_atual",
+      "decisao": "target_indeterminado",
+      "registros": 360
+    },
+    {
+      "ano": 2023,
+      "target": "ansiedade_atual",
+      "decisao": "target_determinado",
+      "registros": 33278
+    },
+    {
+      "ano": 2023,
+      "target": "ansiedade_atual",
+      "decisao": "target_positivo",
+      "registros": 5540
+    },
+    {
+      "ano": 2023,
+      "target": "ansiedade_atual",
+      "decisao": "target_negativo",
+      "registros": 27738
+    },
+    {
+      "ano": 2023,
+      "target": "ansiedade_atual",
+      "decisao": "screentime_ausente_mantido",
+      "registros": 491
+    },
+    {
+      "ano": 2024,
+      "target": "depressao_atual",
+      "decisao": "entrada_original",
+      "registros": 51375
+    },
+    {
+      "ano": 2024,
+      "target": "depressao_atual",
+      "decisao": "excluidos_fora_faixa_etaria",
+      "registros": 13841
+    },
+    {
+      "ano": 2024,
+      "target": "depressao_atual",
+      "decisao": "mantidos_faixa_etaria",
+      "registros": 37534
+    },
+    {
+      "ano": 2024,
+      "target": "depressao_atual",
+      "decisao": "target_indeterminado",
+      "registros": 259
+    },
+    {
+      "ano": 2024,
+      "target": "depressao_atual",
+      "decisao": "target_determinado",
+      "registros": 37275
+    },
+    {
+      "ano": 2024,
+      "target": "depressao_atual",
+      "decisao": "target_positivo",
+      "registros": 2537
+    },
+    {
+      "ano": 2024,
+      "target": "depressao_atual",
+      "decisao": "target_negativo",
+      "registros": 34738
+    },
+    {
+      "ano": 2024,
+      "target": "depressao_atual",
+      "decisao": "screentime_ausente_mantido",
+      "registros": 575
+    },
+    {
+      "ano": 2024,
+      "target": "ansiedade_atual",
+      "decisao": "entrada_original",
+      "registros": 51375
+    },
+    {
+      "ano": 2024,
+      "target": "ansiedade_atual",
+      "decisao": "excluidos_fora_faixa_etaria",
+      "registros": 13841
+    },
+    {
+      "ano": 2024,
+      "target": "ansiedade_atual",
+      "decisao": "mantidos_faixa_etaria",
+      "registros": 37534
+    },
+    {
+      "ano": 2024,
+      "target": "ansiedade_atual",
+      "decisao": "target_indeterminado",
+      "registros": 406
+    },
+    {
+      "ano": 2024,
+      "target": "ansiedade_atual",
+      "decisao": "target_determinado",
+      "registros": 37128
+    },
+    {
+      "ano": 2024,
+      "target": "ansiedade_atual",
+      "decisao": "target_positivo",
+      "registros": 6450
+    },
+    {
+      "ano": 2024,
+      "target": "ansiedade_atual",
+      "decisao": "target_negativo",
+      "registros": 30678
+    },
+    {
+      "ano": 2024,
+      "target": "ansiedade_atual",
+      "decisao": "screentime_ausente_mantido",
+      "registros": 575
+    }
+  ],
+  "status_targets": {
+    "depressao_atual": {
+      "negativo_por_salto_logico": 151568,
+      "positivo_atual": 11193,
+      "negativo_atual": 2617,
+      "historico_indeterminado": 713,
+      "atual_indeterminado": 252
+    },
+    "ansiedade_atual": {
+      "negativo_por_salto_logico": 135980,
+      "positivo_atual": 26051,
+      "negativo_atual": 2670,
+      "historico_indeterminado": 853,
+      "atual_indeterminado": 789
+    }
+  },
+  "fontes": [
+    {
+      "ano": 2020,
+      "arquivo": "C:\\Users\\cg3034011\\Documents\\mentalHealth\\Dados\\nsch_2020e_topical.csv",
+      "sha256": "5407058bacdf0d42eadd891379f5ff0198140d74c6ebff77202229fc1a575b40",
+      "enhanced_indicio_nome": true,
+      "lista_oficial": "https://www2.census.gov/programs-surveys/nsch/technical-documentation/codebook/2020-NSCH-Topical-Variable-List.pdf",
+      "frequencias_oficiais": "https://www2.census.gov/programs-surveys/nsch/technical-documentation/codebook/NSCH_2020_Topical_Frequencies.pdf"
+    },
+    {
+      "ano": 2021,
+      "arquivo": "C:\\Users\\cg3034011\\Documents\\mentalHealth\\Dados\\nsch_2021e_topical.csv",
+      "sha256": "9abe4531d80ab28f969d08b50f0c2069acba3a6309a36c66ba99b04d094d37c9",
+      "enhanced_indicio_nome": true,
+      "lista_oficial": "https://www2.census.gov/programs-surveys/nsch/technical-documentation/codebook/2021-NSCH-Topical-Variable-List.pdf",
+      "frequencias_oficiais": "https://www2.census.gov/programs-surveys/nsch/technical-documentation/codebook/NSCH_2021_Topical_Frequencies.pdf"
+    },
+    {
+      "ano": 2022,
+      "arquivo": "C:\\Users\\cg3034011\\Documents\\mentalHealth\\Dados\\nsch_2022e_topical.csv",
+      "sha256": "261f70f4863fed7e702bc744177377086f91eb1963b7360c4cc037b909c590d9",
+      "enhanced_indicio_nome": true,
+      "lista_oficial": "https://www2.census.gov/programs-surveys/nsch/technical-documentation/codebook/2022-NSCH-Topical-Variable-List.pdf",
+      "frequencias_oficiais": "https://www2.census.gov/programs-surveys/nsch/technical-documentation/codebook/NSCH_2022_Topical_Frequencies.pdf"
+    },
+    {
+      "ano": 2023,
+      "arquivo": "C:\\Users\\cg3034011\\Documents\\mentalHealth\\Dados\\nsch_2023e_topical.csv",
+      "sha256": "dd1a56299fe7fa88a51506d0522621f7fb6e293f8307d1dce539dc0bed53c76d",
+      "enhanced_indicio_nome": true,
+      "lista_oficial": "https://www2.census.gov/programs-surveys/nsch/technical-documentation/codebook/2023-NSCH-Topical-Variable-List.pdf",
+      "frequencias_oficiais": "https://www2.census.gov/programs-surveys/nsch/technical-documentation/codebook/NSCH_2023_Topical_Frequencies.pdf"
+    },
+    {
+      "ano": 2024,
+      "arquivo": "C:\\Users\\cg3034011\\Documents\\mentalHealth\\Dados\\nsch_2024e_topical.csv",
+      "sha256": "36cd860f9028d03296f3afab28bf0ff504761c68466aa9fce13c52d3378947fd",
+      "enhanced_indicio_nome": true,
+      "lista_oficial": "https://www2.census.gov/programs-surveys/nsch/technical-documentation/codebook/2024-NSCH-Topical-Variable-List.pdf",
+      "frequencias_oficiais": "https://www2.census.gov/programs-surveys/nsch/technical-documentation/codebook/NSCH_2024_Topical_Frequencies.pdf"
+    }
+  ],
+  "limitacoes": [
+    "Validação técnica automatizada; não é aprovação científica por orientador nem autenticação byte a byte do PUF original.",
+    "CSV não preserva necessariamente motivos de ausência: campo vazio não permite distinguir recusa de ausência não especificada.",
+    "SCREENTIME: a lista de 2024 explicita exclusão de tarefas escolares; as anteriores não trazem essa frase no item. A mudança documental não prova mudança de medição.",
+    "Bullying tem instrução adicional desde 2022; preservado para exploração, excluído dos preditores iniciais.",
+    "MAKEFRIEND mudou o universo em 2022; a restrição de 6–17 anos mantém aplicabilidade comum.",
+    "Comportamento/desempenho escolar preservados para descrição; não entram nos modelos iniciais por possível proximidade com sintomas e causalidade reversa.",
+    "ENGAGECONCERN e BODYIMAGE não incluídas na versão analítica; exigem revisão metodológica.",
+    "FWC é preservado; peso médio do período é FWC/número de edições incluídas. Desenho complexo e estimativas de variância ainda exigem método apropriado.",
+    "Associação não implica causalidade; respostas de responsável sobre diagnóstico informado por profissional não são diagnósticos produzidos pelo sistema."
+  ]
+}

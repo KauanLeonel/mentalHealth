@@ -11,22 +11,3 @@ dist/
 venv/
 .env
 .ipynb_checkpoints/
-
-# Microdados e artefatos gerados; arquivos já rastreados continuam rastreados.
-*.csv
-*.sas7bdat
-*.xpt
-*.sav
-*.dta
-*.parquet
-*.mdb
-data/raw/*
-data/interim/*
-data/processed/*
-models/*
-reports/*
-!data/raw/.gitkeep
-!data/interim/.gitkeep
-!data/processed/.gitkeep
-!models/.gitkeep
-!reports/.gitkeep

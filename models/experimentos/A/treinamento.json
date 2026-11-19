@@ -1,0 +1,184 @@
+{
+  "data_utc": "2026-11-19T22:19:28.490033+00:00",
+  "configuracao": {
+    "semente": 42,
+    "folds": 5,
+    "ano_teste": 2024,
+    "anos_desenvolvimento": [
+      2020,
+      2021,
+      2022,
+      2023
+    ],
+    "n_jobs": 1,
+    "n_estimators": 200,
+    "min_samples_leaf": 10,
+    "busca": {
+      "logistic": {
+        "model__C": [
+          0.1,
+          1.0
+        ],
+        "model__class_weight": [
+          null,
+          "balanced"
+        ]
+      },
+      "random_forest": {
+        "model__max_depth": [
+          null,
+          10
+        ],
+        "model__class_weight": [
+          null,
+          "balanced"
+        ]
+      },
+      "xgboost": {
+        "model__max_depth": [
+          3,
+          5
+        ],
+        "model__learning_rate": [
+          0.05,
+          0.1
+        ],
+        "model__scale_pos_weight": [
+          1,
+          "proporcao_classes"
+        ]
+      }
+    }
+  },
+  "manifesto": "data\\processed\\manifesto.json",
+  "sha256_dataset": "25edab4c0ff04a42fbba02f27d58b6e8e22c9ad2dfd43642b1a6e6f3b080da40",
+  "preditores": [
+    "SC_AGE_YEARS",
+    "SCREENTIME",
+    "SC_SEX",
+    "HOURSLEEP",
+    "PHYSACTIV",
+    "MAKEFRIEND"
+  ],
+  "positive_class": 1,
+  "experimento": "A_com_SCREENTIME",
+  "peso_treinamento": "Não utilizado: decisão inicial uniforme entre estimadores; os pesos permanecem no dataset de entrada. Não constitui inferência para desenho complexo.",
+  "seleção": "ROC AUC média em validação cruzada de desenvolvimento; 2024 não avaliado.",
+  "limiar": "Maximiza F1 nas previsões fora do fold (mesmos 5 folds) do melhor estimador em 2020–2023; dummy mantém 0,5.",
+  "versoes": {
+    "pandas": "3.1.1",
+    "numpy": "2.5.4",
+    "scikit-learn": "1.9.1",
+    "xgboost": "3.4.1",
+    "joblib": "1.6.0",
+    "pyarrow": "26.0.1"
+  },
+  "resultados": {
+    "depressao_atual": {
+      "registros": 128103,
+      "excluidos_target_ausente": 706,
+      "classes": {
+        "0": 119447,
+        "1": 8656
+      },
+      "modelos": {
+        "dummy": {
+          "melhores_parametros": {},
+          "roc_auc_cv": 0.5,
+          "limiar": 0.5,
+          "f1_oof": null,
+          "fit_aceita_sample_weight": true,
+          "sample_weight_utilizado": false
+        },
+        "logistic": {
+          "melhores_parametros": {
+            "model__C": 1.0,
+            "model__class_weight": "balanced"
+          },
+          "roc_auc_cv": 0.8446969418489187,
+          "limiar": 0.7374321533058176,
+          "f1_oof": 0.3862116571034126,
+          "fit_aceita_sample_weight": true,
+          "sample_weight_utilizado": false
+        },
+        "random_forest": {
+          "melhores_parametros": {
+            "model__class_weight": "balanced",
+            "model__max_depth": 10
+          },
+          "roc_auc_cv": 0.8457225225856708,
+          "limiar": 0.7340971000939608,
+          "f1_oof": 0.38305023162866747,
+          "fit_aceita_sample_weight": true,
+          "sample_weight_utilizado": false
+        },
+        "xgboost": {
+          "melhores_parametros": {
+            "model__learning_rate": 0.1,
+            "model__max_depth": 3,
+            "model__scale_pos_weight": 1
+          },
+          "roc_auc_cv": 0.846976814096441,
+          "limiar": 0.17517180740833282,
+          "f1_oof": 0.3872521122444512,
+          "fit_aceita_sample_weight": true,
+          "sample_weight_utilizado": false
+        }
+      },
+      "selecionado_por_cv": "xgboost"
+    },
+    "ansiedade_atual": {
+      "registros": 127573,
+      "excluidos_target_ausente": 1236,
+      "classes": {
+        "0": 107972,
+        "1": 19601
+      },
+      "modelos": {
+        "dummy": {
+          "melhores_parametros": {},
+          "roc_auc_cv": 0.5,
+          "limiar": 0.5,
+          "f1_oof": null,
+          "fit_aceita_sample_weight": true,
+          "sample_weight_utilizado": false
+        },
+        "logistic": {
+          "melhores_parametros": {
+            "model__C": 1.0,
+            "model__class_weight": "balanced"
+          },
+          "roc_auc_cv": 0.7659699323388677,
+          "limiar": 0.614078991979567,
+          "f1_oof": 0.44844296672968686,
+          "fit_aceita_sample_weight": true,
+          "sample_weight_utilizado": false
+        },
+        "random_forest": {
+          "melhores_parametros": {
+            "model__class_weight": "balanced",
+            "model__max_depth": 10
+          },
+          "roc_auc_cv": 0.769046511429208,
+          "limiar": 0.6082965896071791,
+          "f1_oof": 0.4497923283655021,
+          "fit_aceita_sample_weight": true,
+          "sample_weight_utilizado": false
+        },
+        "xgboost": {
+          "melhores_parametros": {
+            "model__learning_rate": 0.05,
+            "model__max_depth": 3,
+            "model__scale_pos_weight": 5.508494464568134
+          },
+          "roc_auc_cv": 0.7709519097615944,
+          "limiar": 0.6211563348770142,
+          "f1_oof": 0.4523233951114692,
+          "fit_aceita_sample_weight": true,
+          "sample_weight_utilizado": false
+        }
+      },
+      "selecionado_por_cv": "xgboost"
+    }
+  }
+}

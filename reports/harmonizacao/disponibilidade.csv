@@ -1,0 +1,101 @@
+﻿ano,variavel,classificacao,motivo,preditor_inicial
+2020,SCREENTIME,Disponível com diferenças,Ver diferenças de redação/documentação ou universo em docs/harmonizacao.md; categorias mantidas sem imputação,True
+2020,SC_SEX,Disponível e compatível,Domínio confirmado na lista oficial para a população de 6–17 anos,True
+2020,SC_AGE_YEARS,Disponível e compatível,Domínio confirmado na lista oficial para a população de 6–17 anos,True
+2020,MAKEFRIEND,Disponível com diferenças,Ver diferenças de redação/documentação ou universo em docs/harmonizacao.md; categorias mantidas sem imputação,True
+2020,PHYSACTIV,Disponível e compatível,Domínio confirmado na lista oficial para a população de 6–17 anos,True
+2020,HOURSLEEP,Disponível e compatível,Domínio confirmado na lista oficial para a população de 6–17 anos,True
+2020,ENGAGECONCERN,Ausente,Coluna ausente no CSV,False
+2020,BODYIMAGE,Ausente,Coluna ausente no CSV,False
+2020,BULLIED_R,Disponível com diferenças,Ver diferenças de redação/documentação ou universo em docs/harmonizacao.md; categorias mantidas sem imputação,False
+2020,BULLY,Disponível com diferenças,Ver diferenças de redação/documentação ou universo em docs/harmonizacao.md; categorias mantidas sem imputação,False
+2020,K7Q70_R,Disponível e compatível,Domínio confirmado na lista oficial para a população de 6–17 anos,False
+2020,K7Q84_R,Disponível e compatível,Domínio confirmado na lista oficial para a população de 6–17 anos,False
+2020,K7Q83_R,Disponível e compatível,Domínio confirmado na lista oficial para a população de 6–17 anos,False
+2020,K7Q85_R,Disponível e compatível,Domínio confirmado na lista oficial para a população de 6–17 anos,False
+2020,K7Q82_R,Disponível e compatível,Domínio confirmado na lista oficial para a população de 6–17 anos,False
+2020,K2Q32A,Disponível e compatível,Domínio confirmado na lista oficial para a população de 6–17 anos,False
+2020,K2Q32B,Disponível e compatível,Domínio confirmado na lista oficial para a população de 6–17 anos,False
+2020,K2Q33A,Disponível e compatível,Domínio confirmado na lista oficial para a população de 6–17 anos,False
+2020,K2Q33B,Disponível e compatível,Domínio confirmado na lista oficial para a população de 6–17 anos,False
+2020,FWC,Disponível e compatível,Domínio confirmado na lista oficial para a população de 6–17 anos,False
+2021,SCREENTIME,Disponível com diferenças,Ver diferenças de redação/documentação ou universo em docs/harmonizacao.md; categorias mantidas sem imputação,True
+2021,SC_SEX,Disponível e compatível,Domínio confirmado na lista oficial para a população de 6–17 anos,True
+2021,SC_AGE_YEARS,Disponível e compatível,Domínio confirmado na lista oficial para a população de 6–17 anos,True
+2021,MAKEFRIEND,Disponível com diferenças,Ver diferenças de redação/documentação ou universo em docs/harmonizacao.md; categorias mantidas sem imputação,True
+2021,PHYSACTIV,Disponível e compatível,Domínio confirmado na lista oficial para a população de 6–17 anos,True
+2021,HOURSLEEP,Disponível e compatível,Domínio confirmado na lista oficial para a população de 6–17 anos,True
+2021,ENGAGECONCERN,Ausente,Coluna ausente no CSV,False
+2021,BODYIMAGE,Ausente,Coluna ausente no CSV,False
+2021,BULLIED_R,Disponível com diferenças,Ver diferenças de redação/documentação ou universo em docs/harmonizacao.md; categorias mantidas sem imputação,False
+2021,BULLY,Disponível com diferenças,Ver diferenças de redação/documentação ou universo em docs/harmonizacao.md; categorias mantidas sem imputação,False
+2021,K7Q70_R,Disponível e compatível,Domínio confirmado na lista oficial para a população de 6–17 anos,False
+2021,K7Q84_R,Disponível e compatível,Domínio confirmado na lista oficial para a população de 6–17 anos,False
+2021,K7Q83_R,Disponível e compatível,Domínio confirmado na lista oficial para a população de 6–17 anos,False
+2021,K7Q85_R,Disponível e compatível,Domínio confirmado na lista oficial para a população de 6–17 anos,False
+2021,K7Q82_R,Disponível e compatível,Domínio confirmado na lista oficial para a população de 6–17 anos,False
+2021,K2Q32A,Disponível e compatível,Domínio confirmado na lista oficial para a população de 6–17 anos,False
+2021,K2Q32B,Disponível e compatível,Domínio confirmado na lista oficial para a população de 6–17 anos,False
+2021,K2Q33A,Disponível e compatível,Domínio confirmado na lista oficial para a população de 6–17 anos,False
+2021,K2Q33B,Disponível e compatível,Domínio confirmado na lista oficial para a população de 6–17 anos,False
+2021,FWC,Disponível e compatível,Domínio confirmado na lista oficial para a população de 6–17 anos,False
+2022,SCREENTIME,Disponível com diferenças,Ver diferenças de redação/documentação ou universo em docs/harmonizacao.md; categorias mantidas sem imputação,True
+2022,SC_SEX,Disponível e compatível,Domínio confirmado na lista oficial para a população de 6–17 anos,True
+2022,SC_AGE_YEARS,Disponível e compatível,Domínio confirmado na lista oficial para a população de 6–17 anos,True
+2022,MAKEFRIEND,Disponível e compatível,Domínio confirmado na lista oficial para a população de 6–17 anos,True
+2022,PHYSACTIV,Disponível e compatível,Domínio confirmado na lista oficial para a população de 6–17 anos,True
+2022,HOURSLEEP,Disponível e compatível,Domínio confirmado na lista oficial para a população de 6–17 anos,True
+2022,ENGAGECONCERN,Necessita revisão metodológica,Não incluída nesta versão analítica; aplicabilidade e comparabilidade ainda não aprovadas,False
+2022,BODYIMAGE,Necessita revisão metodológica,Não incluída nesta versão analítica; aplicabilidade e comparabilidade ainda não aprovadas,False
+2022,BULLIED_R,Disponível com diferenças,Ver diferenças de redação/documentação ou universo em docs/harmonizacao.md; categorias mantidas sem imputação,False
+2022,BULLY,Disponível com diferenças,Ver diferenças de redação/documentação ou universo em docs/harmonizacao.md; categorias mantidas sem imputação,False
+2022,K7Q70_R,Disponível e compatível,Domínio confirmado na lista oficial para a população de 6–17 anos,False
+2022,K7Q84_R,Disponível e compatível,Domínio confirmado na lista oficial para a população de 6–17 anos,False
+2022,K7Q83_R,Disponível e compatível,Domínio confirmado na lista oficial para a população de 6–17 anos,False
+2022,K7Q85_R,Disponível e compatível,Domínio confirmado na lista oficial para a população de 6–17 anos,False
+2022,K7Q82_R,Disponível e compatível,Domínio confirmado na lista oficial para a população de 6–17 anos,False
+2022,K2Q32A,Disponível e compatível,Domínio confirmado na lista oficial para a população de 6–17 anos,False
+2022,K2Q32B,Disponível e compatível,Domínio confirmado na lista oficial para a população de 6–17 anos,False
+2022,K2Q33A,Disponível e compatível,Domínio confirmado na lista oficial para a população de 6–17 anos,False
+2022,K2Q33B,Disponível e compatível,Domínio confirmado na lista oficial para a população de 6–17 anos,False
+2022,FWC,Disponível e compatível,Domínio confirmado na lista oficial para a população de 6–17 anos,False
+2023,SCREENTIME,Disponível com diferenças,Ver diferenças de redação/documentação ou universo em docs/harmonizacao.md; categorias mantidas sem imputação,True
+2023,SC_SEX,Disponível e compatível,Domínio confirmado na lista oficial para a população de 6–17 anos,True
+2023,SC_AGE_YEARS,Disponível e compatível,Domínio confirmado na lista oficial para a população de 6–17 anos,True
+2023,MAKEFRIEND,Disponível e compatível,Domínio confirmado na lista oficial para a população de 6–17 anos,True
+2023,PHYSACTIV,Disponível e compatível,Domínio confirmado na lista oficial para a população de 6–17 anos,True
+2023,HOURSLEEP,Disponível e compatível,Domínio confirmado na lista oficial para a população de 6–17 anos,True
+2023,ENGAGECONCERN,Necessita revisão metodológica,Não incluída nesta versão analítica; aplicabilidade e comparabilidade ainda não aprovadas,False
+2023,BODYIMAGE,Necessita revisão metodológica,Não incluída nesta versão analítica; aplicabilidade e comparabilidade ainda não aprovadas,False
+2023,BULLIED_R,Disponível com diferenças,Ver diferenças de redação/documentação ou universo em docs/harmonizacao.md; categorias mantidas sem imputação,False
+2023,BULLY,Disponível com diferenças,Ver diferenças de redação/documentação ou universo em docs/harmonizacao.md; categorias mantidas sem imputação,False
+2023,K7Q70_R,Disponível e compatível,Domínio confirmado na lista oficial para a população de 6–17 anos,False
+2023,K7Q84_R,Disponível e compatível,Domínio confirmado na lista oficial para a população de 6–17 anos,False
+2023,K7Q83_R,Disponível e compatível,Domínio confirmado na lista oficial para a população de 6–17 anos,False
+2023,K7Q85_R,Disponível e compatível,Domínio confirmado na lista oficial para a população de 6–17 anos,False
+2023,K7Q82_R,Disponível e compatível,Domínio confirmado na lista oficial para a população de 6–17 anos,False
+2023,K2Q32A,Disponível e compatível,Domínio confirmado na lista oficial para a população de 6–17 anos,False
+2023,K2Q32B,Disponível e compatível,Domínio confirmado na lista oficial para a população de 6–17 anos,False
+2023,K2Q33A,Disponível e compatível,Domínio confirmado na lista oficial para a população de 6–17 anos,False
+2023,K2Q33B,Disponível e compatível,Domínio confirmado na lista oficial para a população de 6–17 anos,False
+2023,FWC,Disponível e compatível,Domínio confirmado na lista oficial para a população de 6–17 anos,False
+2024,SCREENTIME,Disponível com diferenças,Ver diferenças de redação/documentação ou universo em docs/harmonizacao.md; categorias mantidas sem imputação,True
+2024,SC_SEX,Disponível e compatível,Domínio confirmado na lista oficial para a população de 6–17 anos,True
+2024,SC_AGE_YEARS,Disponível e compatível,Domínio confirmado na lista oficial para a população de 6–17 anos,True
+2024,MAKEFRIEND,Disponível e compatível,Domínio confirmado na lista oficial para a população de 6–17 anos,True
+2024,PHYSACTIV,Disponível e compatível,Domínio confirmado na lista oficial para a população de 6–17 anos,True
+2024,HOURSLEEP,Disponível e compatível,Domínio confirmado na lista oficial para a população de 6–17 anos,True
+2024,ENGAGECONCERN,Necessita revisão metodológica,Não incluída nesta versão analítica; aplicabilidade e comparabilidade ainda não aprovadas,False
+2024,BODYIMAGE,Necessita revisão metodológica,Não incluída nesta versão analítica; aplicabilidade e comparabilidade ainda não aprovadas,False
+2024,BULLIED_R,Disponível com diferenças,Ver diferenças de redação/documentação ou universo em docs/harmonizacao.md; categorias mantidas sem imputação,False
+2024,BULLY,Disponível com diferenças,Ver diferenças de redação/documentação ou universo em docs/harmonizacao.md; categorias mantidas sem imputação,False
+2024,K7Q70_R,Disponível e compatível,Domínio confirmado na lista oficial para a população de 6–17 anos,False
+2024,K7Q84_R,Disponível e compatível,Domínio confirmado na lista oficial para a população de 6–17 anos,False
+2024,K7Q83_R,Disponível e compatível,Domínio confirmado na lista oficial para a população de 6–17 anos,False
+2024,K7Q85_R,Disponível e compatível,Domínio confirmado na lista oficial para a população de 6–17 anos,False
+2024,K7Q82_R,Disponível e compatível,Domínio confirmado na lista oficial para a população de 6–17 anos,False
+2024,K2Q32A,Disponível e compatível,Domínio confirmado na lista oficial para a população de 6–17 anos,False
+2024,K2Q32B,Disponível e compatível,Domínio confirmado na lista oficial para a população de 6–17 anos,False
+2024,K2Q33A,Disponível e compatível,Domínio confirmado na lista oficial para a população de 6–17 anos,False
+2024,K2Q33B,Disponível e compatível,Domínio confirmado na lista oficial para a população de 6–17 anos,False
+2024,FWC,Disponível e compatível,Domínio confirmado na lista oficial para a população de 6–17 anos,False
