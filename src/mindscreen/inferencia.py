@@ -35,6 +35,7 @@ def predict_profile(profile, manifest, rules, registry_path=Path("models/experim
         key = registry["selecionados"]["A/" + target]
         model = load_model(registry_path, key, manifest["sha256"])
         score = float(positive_probability(model, X)[0])
-        result[target] = {"classe_pesquisa": int(score >= 0.5), "score": score, "calibrado": bool(registry["calibrado"]),
+        threshold = float(registry["artefatos"][key].get("limiar", 0.5))
+        result[target] = {"classe_pesquisa": int(score >= threshold), "score": score, "limiar": threshold, "calibrado": bool(registry["calibrado"]),
                           "modelo": registry["artefatos"][key]["algoritmo"], "classe_positiva": 1}
     return result

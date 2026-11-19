@@ -151,7 +151,7 @@ def page_simulator(manifest):
             with col:
                 st.subheader(LABELS[target])
                 st.metric("Rótulo previsto na tarefa de pesquisa", str(prediction["classe_pesquisa"]))
-                st.write(f"Pontuação bruta do classificador: **{prediction['score']:.4f}**")
+                st.write(f"Pontuação bruta do classificador: **{prediction['score']:.4f}** · limiar do modelo: {prediction['limiar']:.4f} (escolhido na validação cruzada de 2020–2023)")
                 st.caption(f"Modelo: {prediction['modelo']}. Classe 1 corresponde ao relato de condição atual na pesquisa; classe 0 à ausência atual segundo as regras documentadas.")
         st.info("Pontuações não calibradas: não interprete os números como probabilidades individuais de doença. A classificação não determina se uma pessoa está clinicamente doente e não orienta condutas médicas.")
 

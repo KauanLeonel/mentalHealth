@@ -8,7 +8,7 @@ from pathlib import Path
 import pandas as pd
 
 from mindscreen.artefatos import MODELS_ROOT, load_model, preprocessing_signature
-from mindscreen.avaliacao import binary_metrics, positive_probability
+from mindscreen.avaliacao import binary_metrics, paired_bootstrap, positive_probability
 from mindscreen.dados_validados import TARGETS, load_dataset, safe_output
 from mindscreen.harmonizacao import sha256
 from mindscreen.treinamento import train
@@ -21,7 +21,7 @@ def register_models(manifest, models):
         raise ValueError("Os experimentos devem ficar em models/")
     registry = {"origem": "mindscreen-treinamento-local-v1", "dataset_sha256": manifest["sha256"],
                 "artefatos": {}, "selecionados": {}, "treinamento": {}, "calibrado": False,
-                "classe_positiva": 1, "preprocessamento_sha256": preprocessing_signature(), "criterio_selecao": "ROC AUC média CV 2020–2023", "criado_utc": datetime.now(timezone.utc).isoformat()}
+                "classe_positiva": 1, "preprocessamento_sha256": preprocessing_signature(), "criterio_selecao": "ROC AUC média CV 2020–2023", "criterio_limiar": "máximo F1 fora do fold em 2020–2023", "criado_utc": datetime.now(timezone.utc).isoformat()}
     for experiment in ["A", "B"]:
         log = json.loads((models / experiment / "treinamento.json").read_text(encoding="utf-8"))
         if log["sha256_dataset"] != manifest["sha256"]:
@@ -35,7 +35,9 @@ def register_models(manifest, models):
                 artifact = models / experiment / filename
                 registry["artefatos"][experiment + "/" + target + "_" + name] = {
                     "arquivo": experiment + "/" + filename, "sha256": sha256(artifact), "target": target, "algoritmo": name,
-                    "preditores": log["preditores"], "roc_auc_cv": log["resultados"][target]["modelos"][name]["roc_auc_cv"]}
+                    "preditores": log["preditores"], "roc_auc_cv": log["resultados"][target]["modelos"][name]["roc_auc_cv"],
+                    # Registros antigos (antes da escolha do limiar por CV) usavam 0,5.
+                    "limiar": float(log["resultados"][target]["modelos"][name].get("limiar", 0.5))}
     if registry["treinamento"]["A"]["configuracao"] != registry["treinamento"]["B"]["configuracao"]:
         raise ValueError("A e B devem usar a mesma configuração de busca")
     expected = set(registry["treinamento"]["A"]["preditores"]) - {"SCREENTIME"}
@@ -49,7 +51,7 @@ def register_models(manifest, models):
     return registry
 
 
-def run(manifest_path, config, models, output, do_train=False):
+def run(manifest_path, config, models, output, do_train=False, bootstrap=1000, seed=42):
     manifest, frame = load_dataset(manifest_path)
     models, output = safe_output(models), safe_output(output)
     if do_train:
@@ -63,7 +65,7 @@ def run(manifest_path, config, models, output, do_train=False):
             else:
                 train(manifest_path, config, models / experiment, without_screen=experiment == "B")
     registry = register_models(manifest, models)
-    rows, curves = [], {}
+    rows, curves, scores_by_key = [], {}, {}
     for experiment in ["A", "B"]:
         for target in TARGETS:
             test = frame.loc[frame.ano.eq(2024) & frame[target].notna()]
@@ -74,7 +76,8 @@ def run(manifest_path, config, models, output, do_train=False):
                 model = load_model(models / "registro.json", key, manifest["sha256"])
                 features = registry["artefatos"][key]["preditores"]
                 scores = positive_probability(model, test[features])
-                metrics, curve = binary_metrics(test[target], scores)
+                scores_by_key[key] = scores
+                metrics, curve = binary_metrics(test[target], scores, threshold=registry["artefatos"][key]["limiar"])
                 rows.append({"experimento": experiment, "target": target, "modelo": name,
                              "selecionado_cv": key == registry["selecionados"][experiment + "/" + target],
                              "roc_auc_cv": registry["artefatos"][key]["roc_auc_cv"], **metrics})
@@ -82,12 +85,21 @@ def run(manifest_path, config, models, output, do_train=False):
     metrics = pd.DataFrame(rows)
     a, b = metrics.loc[metrics.experimento.eq("A")].set_index(["target", "modelo"]), metrics.loc[metrics.experimento.eq("B")].set_index(["target", "modelo"])
     deltas = (a[["roc_auc", "pr_auc", "average_precision", "f1"]] - b[["roc_auc", "pr_auc", "average_precision", "f1"]]).add_prefix("delta_A_menos_B_").reset_index()
+    intervals = []
+    for target in TARGETS:
+        y = frame.loc[frame.ano.eq(2024) & frame[target].notna(), target]
+        for name in ("logistic", "random_forest", "xgboost"):
+            ci = paired_bootstrap(y, scores_by_key[f"A/{target}_{name}"], scores_by_key[f"B/{target}_{name}"], n=bootstrap, seed=seed)
+            intervals.append({"target": target, "modelo": name, **ci})
+    intervals = pd.DataFrame(intervals)
     output.mkdir(parents=True, exist_ok=True)
+    intervals.to_csv(output / "intervalos_bootstrap.csv", index=False, encoding="utf-8-sig")
     metrics.to_csv(output / "metricas_2024.csv", index=False, encoding="utf-8-sig")
     deltas.to_csv(output / "ablation.csv", index=False, encoding="utf-8-sig")
-    payload = {"dataset_sha256": manifest["sha256"], "metricas": rows, "curvas": curves, "ablation": deltas.to_dict("records"),
-               "protocolo": "Cinco folds estratificados idênticos por target em 2020–2023; limiar fixo 0.5; seleção por ROC AUC CV. Teste: todos os elegíveis de 2024, com exclusão apenas do target indeterminado. Métricas amostrais não ponderadas.",
-               "pr_auc_definicao": "PR-AUC operacionalizada por Average Precision (AP), sem interpolação linear; área trapezoidal também registrada separadamente.",
+    payload = {"dataset_sha256": manifest["sha256"], "metricas": rows, "curvas": curves, "ablation": deltas.to_dict("records"), "intervalos": intervals.to_dict("records"),
+               "bootstrap": {"reamostras": bootstrap, "semente": seed, "tipo": "percentil 95%, pareado entre A e B, reamostrando registros de 2024 sem pesos"},
+               "protocolo": "Cinco folds estratificados idênticos por target em 2020–2023; seleção da família por ROC AUC CV; limiar de cada modelo escolhido pelo máximo F1 nas previsões fora do fold de 2020–2023 e congelado antes do teste. Teste: todos os elegíveis de 2024, com exclusão apenas do target indeterminado. Métricas amostrais não ponderadas.",
+               "pr_auc_definicao": "PR-AUC operacionalizada por Average Precision (AP), sem interpolação linear.",
                "selecao": registry["selecionados"], "calibrado": False}
     (output / "avaliacao.json").write_text(json.dumps(payload, ensure_ascii=False, indent=2), encoding="utf-8")
     return payload

@@ -61,7 +61,9 @@ def test_streamlit_paginas_e_formulario_reais(monkeypatch):
         raise AssertionError("Treinamento durante navegação é proibido")
     monkeypatch.setattr("mindscreen.treinamento.train", no_training)
     monkeypatch.setattr("sklearn.pipeline.Pipeline.fit", no_training)
-    app = AppTest.from_file("app/streamlit_app.py", default_timeout=60).run()
+    # AppTest resolve caminhos relativos a partir deste arquivo, não do diretório de trabalho.
+    script = Path(__file__).resolve().parents[1] / "app" / "streamlit_app.py"
+    app = AppTest.from_file(str(script), default_timeout=60).run()
     assert not app.exception
     for page in ["Análise exploratória", "Comparação dos modelos", "Explicabilidade"]:
         app.sidebar.radio[0].set_value(page).run(timeout=60)

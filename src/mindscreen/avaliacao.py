@@ -1,7 +1,7 @@
 """Métricas amostrais e avaliação temporal; nenhuma escolha é feita em 2024."""
 
 import numpy as np
-from sklearn.metrics import (accuracy_score, auc, average_precision_score, balanced_accuracy_score,
+from sklearn.metrics import (accuracy_score, average_precision_score, balanced_accuracy_score,
                              brier_score_loss, confusion_matrix, f1_score, precision_recall_curve,
                              precision_score, recall_score, roc_auc_score, roc_curve)
 
@@ -28,7 +28,7 @@ def binary_metrics(y, scores, threshold=0.5):
     precision, recall, _ = precision_recall_curve(y, scores, drop_intermediate=True)
     fpr, tpr, _ = roc_curve(y, scores)
     metrics = {"n": len(y), "positivos": int(y.sum()), "roc_auc": float(roc_auc_score(y, scores)),
-               "pr_auc": float(average_precision_score(y, scores)), "pr_auc_trapezoidal": float(auc(recall[::-1], precision[::-1])), "average_precision": float(average_precision_score(y, scores)),
+               "pr_auc": float(average_precision_score(y, scores)), "average_precision": float(average_precision_score(y, scores)),
                "accuracy": float(accuracy_score(y, predicted)), "precision": float(precision_score(y, predicted, zero_division=0)),
                "recall": float(recall_score(y, predicted, zero_division=0)), "f1": float(f1_score(y, predicted, zero_division=0)),
                "specificity": float(tn / (tn + fp)), "balanced_accuracy": float(balanced_accuracy_score(y, predicted)),
@@ -38,3 +38,42 @@ def binary_metrics(y, scores, threshold=0.5):
         index = np.unique(np.linspace(0, len(a) - 1, min(len(a), 500)).astype(int))
         return {"x": a[index].tolist(), "y": b[index].tolist()}
     return metrics, {"roc": sampled(fpr, tpr), "pr": sampled(recall, precision)}
+
+
+def choose_threshold(y, scores):
+    """Limiar que maximiza F1 em scores fora do fold (desenvolvimento); nunca usar dados de teste."""
+    y, scores = np.asarray(y).astype(int), np.asarray(scores, dtype=float)
+    if set(np.unique(y)) != {0, 1}:
+        raise ValueError("A escolha do limiar exige ambas as classes")
+    precision, recall, thresholds = precision_recall_curve(y, scores)
+    precision, recall = precision[:-1], recall[:-1]
+    f1 = np.divide(2 * precision * recall, precision + recall, out=np.zeros_like(precision), where=(precision + recall) > 0)
+    best = int(np.argmax(f1))
+    return float(thresholds[best]), float(f1[best])
+
+
+def paired_bootstrap(y, scores_a, scores_b, metrics=("roc_auc", "average_precision"), n=1000, seed=42, level=0.95):
+    """IC percentil por bootstrap pareado (mesmas reamostras) para métricas de A, B e A − B."""
+    functions = {"roc_auc": roc_auc_score, "average_precision": average_precision_score}
+    y, a, b = np.asarray(y).astype(int), np.asarray(scores_a, dtype=float), np.asarray(scores_b, dtype=float)
+    if not (len(y) == len(a) == len(b)):
+        raise ValueError("Tamanhos inconsistentes no bootstrap")
+    rng = np.random.default_rng(seed)
+    draws = {m: {"A": [], "B": [], "delta": []} for m in metrics}
+    for _ in range(n):
+        index = rng.integers(0, len(y), len(y))
+        if y[index].min() == y[index].max():
+            continue
+        for m in metrics:
+            va, vb = functions[m](y[index], a[index]), functions[m](y[index], b[index])
+            draws[m]["A"].append(va); draws[m]["B"].append(vb); draws[m]["delta"].append(va - vb)
+    low, high = (1 - level) / 2 * 100, (1 + level) / 2 * 100
+    result = {}
+    for m in metrics:
+        for part, values in draws[m].items():
+            values = np.asarray(values)
+            result[f"{m}_{part}_ic_inf"] = float(np.percentile(values, low))
+            result[f"{m}_{part}_ic_sup"] = float(np.percentile(values, high))
+        result[f"{m}_delta_prop_positivo"] = float(np.mean(np.asarray(draws[m]["delta"]) > 0))
+    result["reamostras_validas"] = len(draws[metrics[0]]["delta"])
+    return result

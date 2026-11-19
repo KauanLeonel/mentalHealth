@@ -12,7 +12,7 @@ joblib = pytest.importorskip("joblib")
 pytest.importorskip("sklearn")
 pytest.importorskip("xgboost")
 
-from mindscreen.treinamento import train
+from mindscreen.treinamento import resolve_grid, train
 from mindscreen.dados_validados import load_dataset
 
 
@@ -36,7 +36,7 @@ def test_treinamento_isola_2024_e_persiste_pipeline_completo():
     config = {"ano_teste": 2024, "anos_desenvolvimento": [2020, 2021, 2022, 2023], "folds": 5,
               "semente": 42, "n_jobs": 1, "n_estimators": 2,
               "busca": {"logistic": {"model__C": [1.0]}, "random_forest": {"model__max_depth": [2]},
-                        "xgboost": {"model__max_depth": [2]}}}
+                        "xgboost": {"model__max_depth": [2], "model__scale_pos_weight": [1, "proporcao_classes"]}}}
     saved = {}
     log = {}
     dump_original = joblib.dump
@@ -67,3 +67,10 @@ def test_treinamento_isola_2024_e_persiste_pipeline_completo():
         assert result["registros"] == 32
         assert result["classes"] == {"0": 16, "1": 16}
         assert all(not m["sample_weight_utilizado"] for m in result["modelos"].values())
+        assert result["modelos"]["dummy"]["limiar"] == 0.5
+        assert all(0 <= m["limiar"] <= 1 and m["f1_oof"] is not None for n, m in result["modelos"].items() if n != "dummy")
+
+
+def test_grade_substitui_proporcao_de_classes_pelo_desenvolvimento():
+    y = pd.Series([0, 0, 0, 1])
+    assert resolve_grid({"model__scale_pos_weight": [1, "proporcao_classes"], "model__max_depth": [3]}, y) ==         {"model__scale_pos_weight": [1, 3.0], "model__max_depth": [3]}

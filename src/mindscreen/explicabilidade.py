@@ -44,32 +44,57 @@ def explain_pipeline(pipeline, background, sample, seed=42):
     preprocess, estimator = pipeline.named_steps["preprocess"], pipeline.named_steps["model"]
     if isinstance(estimator, DummyClassifier):
         raise ValueError("Baseline constante: não há contribuições de atributos a explicar")
+    xgboost_like = hasattr(estimator, "get_booster")
+
     def dense(frame):
         array = preprocess.transform(frame)
-        return np.asarray(array.toarray() if hasattr(array, "toarray") else array, dtype=float)
+        if not hasattr(array, "tocoo"):
+            return np.asarray(array, dtype=float)
+        if not xgboost_like:
+            return np.asarray(array.toarray(), dtype=float)
+        # No XGBoost, entradas não armazenadas de matriz esparsa são "ausentes", não zero.
+        # Densificar com 0 explicaria outra função (margens divergem em até ~3 log-odds).
+        coo = array.tocoo()
+        out = np.full(coo.shape, np.nan)
+        out[coo.row, coo.col] = coo.data
+        return out
     Z, reference = dense(sample), dense(background)
     groups = transformed_groups(preprocess)
     if Z.shape[1] != len(groups):
         raise ValueError("Mapeamento de colunas transformadas inconsistente")
+    def additive(values, bases, expected):
+        return np.allclose(bases + values.sum(axis=1), expected, atol=2e-5, rtol=2e-5)
+
     fallback = None
     if isinstance(estimator, LogisticRegression):
         explanation = shap.LinearExplainer(estimator, reference)(Z)
         values, bases = class_one_values(explanation.values, explanation.base_values, estimator.classes_)
         expected = estimator.decision_function(Z)
         unit, method = "log-odds da classe 1", "LinearExplainer"
+    elif xgboost_like:
+        # XGBoost: explica a margem (log-odds). O modo "probability" do TreeExplainer não é
+        # aditivo com shap 0.54 + xgboost 3.x quando base_score é estimado (erro de até 0,7).
+        explanation = shap.TreeExplainer(estimator, reference, model_output="raw", feature_perturbation="interventional")(Z)
+        values, bases = class_one_values(explanation.values, explanation.base_values, estimator.classes_)
+        # Referência: a margem do pipeline real (entrada como o modelo a recebe), não da matriz densa.
+        expected = np.asarray(estimator.predict(preprocess.transform(sample), output_margin=True), dtype=float)
+        unit, method = "log-odds da classe 1", "TreeExplainer interventional (margem)"
     else:
+        expected = positive_probability(pipeline, sample)
+        unit = "score de probabilidade não calibrada da classe 1"
         try:
             explanation = shap.TreeExplainer(estimator, reference, model_output="probability", feature_perturbation="interventional")(Z)
             values, bases = class_one_values(explanation.values, explanation.base_values, estimator.classes_)
-            unit, method = "score de probabilidade não calibrada da classe 1", "TreeExplainer interventional"
+            method = "TreeExplainer interventional"
+            if not additive(values, bases, expected):
+                raise ValueError("TreeExplainer não aditivo")
         except (ValueError, TypeError, NotImplementedError) as exc:
             fallback = type(exc).__name__
             explainer = shap.Explainer(lambda matrix: positive_probability(estimator, matrix), reference, algorithm="permutation", seed=seed)
             explanation = explainer(Z, max_evals=2 * Z.shape[1] + 1)
             values, bases = np.asarray(explanation.values), np.asarray(explanation.base_values).reshape(-1)
-            unit, method = "score de probabilidade não calibrada da classe 1", "PermutationExplainer (fallback)"
-        expected = positive_probability(pipeline, sample)
-    if not np.allclose(bases + values.sum(axis=1), expected, atol=2e-5, rtol=2e-5):
+            method = "PermutationExplainer (fallback)"
+    if not additive(values, bases, expected):
         raise ValueError("SHAP falhou na verificação de aditividade para a classe 1")
     features = list(dict.fromkeys(groups))
     grouped = np.column_stack([values[:, np.array(groups) == feature].sum(axis=1) for feature in features])
@@ -95,7 +120,7 @@ def save_figure(figure, path):
     path.with_suffix(".json").write_text(figure.to_json(), encoding="utf-8")
 
 
-def run(manifest_path, registry_path, output, sample_size=128, background_size=64, seed=42):
+def run(manifest_path, registry_path, output, sample_size=1000, background_size=100, seed=42):
     manifest, frame = load_dataset(manifest_path)
     registry, output = read_registry(registry_path), safe_output(output)
     output.mkdir(parents=True, exist_ok=True)

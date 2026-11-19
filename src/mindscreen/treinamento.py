@@ -9,6 +9,15 @@ from pathlib import Path
 
 from mindscreen.dados_validados import TARGETS, load_dataset, safe_output
 
+PROPORCAO_CLASSES = "proporcao_classes"
+
+
+def resolve_grid(grid, y):
+    """Substitui o marcador de proporção de classes por negativos/positivos do desenvolvimento."""
+    counts = y.value_counts()
+    ratio = float(counts.get(0, 0) / counts.get(1, 1))
+    return {key: [ratio if value == PROPORCAO_CLASSES else value for value in values] for key, values in grid.items()}
+
 
 def categorical_text(frame):
     """Normaliza tipos dentro do pipeline, preservando ausências para imputação."""
@@ -59,7 +68,10 @@ def train(manifest_path, config_path, output, without_screen=False):
     if set(dev["ano"].unique()) != set(config["anos_desenvolvimento"]):
         raise ValueError("Faltam anos de desenvolvimento")
     import joblib
-    from sklearn.model_selection import GridSearchCV, StratifiedKFold
+    from sklearn.base import clone
+    from sklearn.model_selection import GridSearchCV, StratifiedKFold, cross_val_predict
+
+    from mindscreen.avaliacao import choose_threshold
 
     numeric = [c for c in manifest["preditores_numericos"] if not (without_screen and c == "SCREENTIME")]
     categorical = [c for c in manifest["preditores_categoricos"] if not (without_screen and c == "SCREENTIME")]
@@ -76,6 +88,7 @@ def train(manifest_path, config_path, output, without_screen=False):
            "preditores": features, "positive_class": 1, "experimento": "B_sem_SCREENTIME" if without_screen else "A_com_SCREENTIME",
            "peso_treinamento": "Não utilizado: decisão inicial uniforme entre estimadores; os pesos permanecem no dataset de entrada. Não constitui inferência para desenho complexo.",
            "seleção": "ROC AUC média em validação cruzada de desenvolvimento; 2024 não avaliado.",
+           "limiar": "Maximiza F1 nas previsões fora do fold (mesmos 5 folds) do melhor estimador em 2020–2023; dummy mantém 0,5.",
            "versoes": {p: version(p) for p in ("pandas", "numpy", "scikit-learn", "xgboost", "joblib", "pyarrow")}, "resultados": {}}
     for target in TARGETS:
         y = dev[target].dropna()
@@ -93,13 +106,19 @@ def train(manifest_path, config_path, output, without_screen=False):
             estimator = pipe.named_steps["model"]
             print(f"{target} / {name} / {'B' if without_screen else 'A'}: validação cruzada", flush=True)
             cv = StratifiedKFold(n_splits=5, shuffle=True, random_state=seed)
-            search = GridSearchCV(pipe, config["busca"].get(name, {}), cv=cv, scoring="roc_auc", n_jobs=config["n_jobs"], error_score="raise", refit=True)
+            grid = resolve_grid(config["busca"].get(name, {}), y)
+            search = GridSearchCV(pipe, grid, cv=cv, scoring="roc_auc", n_jobs=config["n_jobs"], error_score="raise", refit=True)
             search.fit(X, y)
             joblib.dump(search.best_estimator_, output / f"{target}_{name}.joblib")
+            threshold, f1_oof = 0.5, None
+            if name != "dummy":
+                oof = cross_val_predict(clone(search.best_estimator_), X, y, cv=cv, method="predict_proba", n_jobs=config["n_jobs"])[:, 1]
+                threshold, f1_oof = choose_threshold(y, oof)
             log["resultados"][target]["modelos"][name] = {"melhores_parametros": search.best_params_, "roc_auc_cv": float(search.best_score_),
+                                                          "limiar": threshold, "f1_oof": f1_oof,
                                                           "fit_aceita_sample_weight": "sample_weight" in signature(estimator.fit).parameters,
                                                           "sample_weight_utilizado": False}
-            print(f"  ROC AUC CV: {search.best_score_:.6f}", flush=True)
+            print(f"  ROC AUC CV: {search.best_score_:.6f}; limiar OOF: {threshold:.4f}", flush=True)
         scores = log["resultados"][target]["modelos"]
         log["resultados"][target]["selecionado_por_cv"] = max(scores, key=lambda name: scores[name]["roc_auc_cv"])
     (output / "treinamento.json").write_text(json.dumps(log, indent=2, ensure_ascii=False), encoding="utf-8")
