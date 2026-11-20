@@ -55,6 +55,22 @@ $env:PYTHONPATH = "src"
 
 A execução completa tem 72 etapas: 2 targets × 2 modelos × (10 conjuntos ajustados + 8 comparações com bootstrap).
 
+## Análise dos resultados
+
+Depois do treinamento, a análise lê as saídas da versão (sem ajustar modelos) e grava em `analise/`:
+
+```powershell
+$env:PYTHONPATH = "src"
+.\.venv\Scripts\python.exe -m mindscreen.analise_contribuicao
+# outra versão: --resultados reports\modelagem\v4_contribuicao_reexecucao
+```
+
+- `relatorio.md`: população; resposta principal; sobreposição (contribuição isolada contra incremental e fração que permanece); consistência entre edições; concordância entre modelos e com pesos FWC; faixas etárias; perfil ponderado da rotina; comparação com a v3.
+- Tabelas: `sobreposicao.csv`, `consistencia_por_ano.csv`, `concordancia_modelos.csv`, `faixas_etarias.csv` e `comparacao_v3.csv`.
+- `figuras/`: gráficos Plotly (`.html` e `.json`), com `plotly.min.js` local.
+
+A análise confere o SHA-256 do dataset com o do manifesto e não sobrescreve uma pasta `analise/` que já tenha conteúdo.
+
 ## Como ler os resultados
 
 - A ROC AUC é a chance de o modelo ordenar um relato positivo acima de um negativo. Um ΔAUC de 0,004 equivale a 0,4 ponto percentual nessa chance.

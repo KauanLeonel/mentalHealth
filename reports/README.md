@@ -33,7 +33,7 @@ Os quatro primeiros são gravados por `python -m mindscreen.analises --models <m
 | `v1_limiar05/` | `models/experimentos_v1_limiar05` | Primeira execução: limiar fixo 0,5, XGBoost sem `scale_pos_weight`. Preservada para comparação. |
 | `v2_limiar_cv/` | `models/experimentos` | Limiar escolhido na validação cruzada e balanceamento no XGBoost. Padrão de `mindscreen.analises`. |
 | `v3_calibrada/` | `models/experimentos_calibrados` | Modelos da v2 com calibração de probabilidades. Usada pela interface de pesquisa (`app/pesquisa_streamlit.py`, `configs/interface.json`). |
-| `v4_contribuicao/` | nenhum (não salva modelos) | Contribuição incremental de cada fator de rotina com validação deixando um ano fora, em 2020–2024 (`python -m mindscreen.contribuicao`). Estrutura própria: `metricas.csv`, `contribuicoes.csv`, `perfil_rotina.csv`, `contribuicao.json`, `resumo_familias.json` e `interpretacao.md`. Usada na página Pesquisa do app familiar. Ver `docs/contribuicao-incremental.md`. |
+| `v4_contribuicao/` | nenhum (não salva modelos) | Contribuição incremental de cada fator de rotina com validação deixando um ano fora, em 2020–2024 (`python -m mindscreen.contribuicao`). Estrutura própria: `metricas.csv`, `contribuicoes.csv`, `perfil_rotina.csv`, `contribuicao.json`, `resumo_familias.json` e `interpretacao.md`, mais `analise/` (relatório, tabelas e figuras de `python -m mindscreen.analise_contribuicao`). Usada na página Pesquisa do app familiar. Ver `docs/contribuicao-incremental.md`. |
 
 Diferenças de conteúdo entre versões refletem o que cada execução produziu e não foram preenchidas manualmente:
 

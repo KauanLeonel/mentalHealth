@@ -23,9 +23,12 @@ def test_versao_tem_estrutura_padrao(versao):
     presentes = {p.name for p in versao.iterdir() if p.is_dir()}
     if (versao / "contribuicao.json").exists():
         # Versões de contribuição incremental (v4+) não salvam modelos e têm estrutura própria.
+        from mindscreen.analise_contribuicao import PASTA
         from mindscreen.contribuicao import ARQUIVOS
-        assert not presentes
-        assert {p.name for p in versao.iterdir()} == set(ARQUIVOS)
+        assert presentes <= {PASTA}
+        assert {p.name for p in versao.iterdir() if p.is_file()} == set(ARQUIVOS)
+        if presentes:
+            assert (versao / PASTA / "relatorio.md").exists() and (versao / PASTA / "analise.json").exists()
         return
     assert SUBPASTAS <= presentes
     assert presentes - SUBPASTAS <= {"calibracao"}

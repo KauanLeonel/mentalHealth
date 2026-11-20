@@ -10,6 +10,7 @@ import pandas as pd
 import plotly.express as px
 import streamlit as st
 
+from mindscreen.analise_contribuicao import sobreposicao
 from mindscreen.conteudo import caminho_resultados_pesquisa, carregar_conteudo, carregar_resultados_pesquisa
 from mindscreen.painel import contribution_chart, routine_history_chart, routine_profile_chart, ROTINA_ROTULOS
 from mindscreen.rotina import (ATIVIDADES, AVALIACAO, COMBINADOS, ESCALA, PERGUNTAS, QUEM_REGISTRA, RESPOSTAS_ATRAPALHOU,
@@ -189,12 +190,19 @@ def pesquisa():
     st.subheader("A pergunta")
     st.write(resumo["pergunta"])
     st.success(resumo["mensagem_principal"])
+    sobre = sobreposicao(resultados["contribuicoes"])
     abas = st.tabs([b["rotulo"].capitalize() for b in resumo["blocos"]])
-    for aba, bloco in zip(abas, resumo["blocos"]):
+    for i, (aba, bloco) in enumerate(zip(abas, resumo["blocos"])):
         with aba:
             st.markdown("\n".join("- " + f for f in bloco["frases"]))
-            st.plotly_chart(contribution_chart(resultados["contribuicoes"], bloco["target"], resumo["modelo"]), width="stretch")
-            st.caption("Cada ponto mostra quanto a capacidade de ordenação (ROC AUC) muda quando o fator é retirado do modelo que já tem todos os outros. "
+            tipo = st.radio("Contribuição de cada fator", ["incremental", "isolado"], horizontal=True, key=f"tipo_{i}",
+                            format_func={"incremental": "Além dos demais fatores", "isolado": "Sozinho (só com idade e sexo)"}.get)
+            st.plotly_chart(contribution_chart(resultados["contribuicoes"], bloco["target"], resumo["modelo"], tipo), width="stretch")
+            s = sobre.loc[sobre.target.eq(bloco["target"]) & sobre.modelo.eq(resumo["modelo"]) & sobre.fator.eq("SCREENTIME")].iloc[0]
+            st.write(f"Sozinho, o tempo de tela parece contribuir mais ({num(s.delta_isolado, 3)}). Quando sono, atividade física e amizades já estão "
+                     f"no modelo, restam cerca de {s.fracao_que_permanece:.0%} dessa contribuição ({num(s.delta_incremental, 3)}): boa parte do que o tempo de tela "
+                     "informa já aparece no restante da rotina. Isso não mostra qual hábito influencia qual.")
+            st.caption("Cada ponto mostra quanto a capacidade de ordenação (ROC AUC) muda com o fator. "
                        "A linha horizontal é o intervalo de 95%. ROC AUC 0,5 é o acaso; 1 é a ordenação perfeita.")
     st.subheader("Como é a rotina de crianças e adolescentes na NSCH")
     variavel = st.selectbox("Fator de rotina", list(ROTINA_ROTULOS), format_func=ROTINA_ROTULOS.get)

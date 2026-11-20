@@ -1,0 +1,22 @@
+{
+  "dataset_sha256": "25edab4c0ff04a42fbba02f27d58b6e8e22c9ad2dfd43642b1a6e6f3b080da40",
+  "origem": "v4_contribuicao",
+  "figuras": [
+    "ansiedade_atual_auc_conjuntos",
+    "ansiedade_atual_faixas",
+    "ansiedade_atual_incremental",
+    "ansiedade_atual_isolado",
+    "ansiedade_atual_por_ano",
+    "depressao_atual_auc_conjuntos",
+    "depressao_atual_faixas",
+    "depressao_atual_incremental",
+    "depressao_atual_isolado",
+    "depressao_atual_por_ano",
+    "perfil_HOURSLEEP",
+    "perfil_MAKEFRIEND",
+    "perfil_PHYSACTIV",
+    "perfil_SCREENTIME",
+    "tela_por_ano"
+  ],
+  "comparacao_v3": true
+}
