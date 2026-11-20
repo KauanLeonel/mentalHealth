@@ -27,6 +27,7 @@ def register_models(manifest, models):
         if log["sha256_dataset"] != manifest["sha256"]:
             raise ValueError("Experimentos não usam o mesmo dataset")
         registry["treinamento"][experiment] = log
+        registry["calibrado"] = bool(log.get("calibracao")) if experiment == "A" else registry["calibrado"] and bool(log.get("calibracao"))
         for target in TARGETS:
             selected = log["resultados"][target]["selecionado_por_cv"]
             registry["selecionados"][experiment + "/" + target] = experiment + "/" + target + "_" + selected
@@ -100,7 +101,7 @@ def run(manifest_path, config, models, output, do_train=False, bootstrap=1000, s
                "bootstrap": {"reamostras": bootstrap, "semente": seed, "tipo": "percentil 95%, pareado entre A e B, reamostrando registros de 2024 sem pesos"},
                "protocolo": "Cinco folds estratificados idênticos por target em 2020–2023; seleção da família por ROC AUC CV; limiar de cada modelo escolhido pelo máximo F1 nas previsões fora do fold de 2020–2023 e congelado antes do teste. Teste: todos os elegíveis de 2024, com exclusão apenas do target indeterminado. Métricas amostrais não ponderadas.",
                "pr_auc_definicao": "PR-AUC operacionalizada por Average Precision (AP), sem interpolação linear.",
-               "selecao": registry["selecionados"], "calibrado": False}
+               "selecao": registry["selecionados"], "calibrado": registry["calibrado"]}
     (output / "avaliacao.json").write_text(json.dumps(payload, ensure_ascii=False, indent=2), encoding="utf-8")
     return payload
 
@@ -110,7 +111,7 @@ def main():
     parser.add_argument("--manifesto", type=Path, default=Path("data/processed/manifesto.json"))
     parser.add_argument("--config", type=Path, default=Path("configs/treinamento.json"))
     parser.add_argument("--models", type=Path, default=Path("models/experimentos"))
-    parser.add_argument("--output", type=Path, default=Path("reports/avaliacao"))
+    parser.add_argument("--output", type=Path, default=Path("reports/modelagem/v2_limiar_cv/avaliacao"))
     parser.add_argument("--treinar", action="store_true")
     args = parser.parse_args()
     run(args.manifesto, args.config, args.models, args.output, args.treinar)

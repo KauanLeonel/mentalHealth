@@ -41,7 +41,7 @@ A CLI verifica a execução do pacote, não a disponibilidade de todas as depend
 - `app/`: protótipo familiar e interface de pesquisa preservada.
 - `data/raw/`, `data/interim/`, `data/processed/`: dados originais, intermediários e processados, respectivamente.
 - `configs/`: regras de harmonização e configurações de treinamento; `docs/`: decisões e documentação metodológica.
-- `models/`, `reports/`: artefatos de modelos e relatórios.
+- `models/`, `reports/`: artefatos de modelos e relatórios (organização de `reports/` em `reports/README.md`).
 - `tests/`: testes automatizados.
 
 Os arquivos NSCH já existentes na raiz e em `Dados/` foram preservados. Antes de usar os microdados, planeje sua organização sem modificar arquivos existentes em `data/raw/`. Arquivos de dados e artefatos gerados são ignorados pelo Git, mas arquivos já rastreados continuam rastreados.

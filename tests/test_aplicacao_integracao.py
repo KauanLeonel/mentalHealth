@@ -9,13 +9,15 @@ from mindscreen.artefatos import load_model, read_registry
 from mindscreen.avaliacao import positive_probability
 from mindscreen.dados_validados import load_dataset
 from mindscreen.inferencia import predict_profile, profile_frame
-from mindscreen.painel import json_result
+from mindscreen.painel import interface_paths, json_result
 
-REGISTRY = Path("models/experimentos/registro.json")
+PATHS = interface_paths(Path(__file__).resolve().parents[1])
+REGISTRY = PATHS["registro"]
+REPORTS = PATHS["relatorios"]
 
 
 def require_results():
-    if not REGISTRY.exists() or not Path("reports/avaliacao/avaliacao.json").exists():
+    if not REGISTRY.exists() or not (REPORTS / "avaliacao/avaliacao.json").exists():
         pytest.skip("Experimentos reais ainda não concluídos")
 
 
@@ -23,7 +25,7 @@ def test_metricas_modelos_e_interface_usam_mesmo_dataset():
     require_results()
     manifest, frame = load_dataset("data/processed/manifesto.json")
     registry = read_registry(REGISTRY)
-    evaluation = json_result("reports/avaliacao/avaliacao.json", manifest["sha256"])
+    evaluation = json_result(REPORTS / "avaliacao/avaliacao.json", manifest["sha256"])
     assert len(evaluation["metricas"]) == 16
     rules = json.loads(Path("configs/harmonizacao.json").read_text(encoding="utf-8"))
     profile = {"SC_AGE_YEARS": 12, "SCREENTIME": 3, "SC_SEX": 1, "HOURSLEEP": 4, "PHYSACTIV": 2, "MAKEFRIEND": 1}
@@ -32,7 +34,7 @@ def test_metricas_modelos_e_interface_usam_mesmo_dataset():
     for target, value in predictions.items():
         model = load_model(REGISTRY, registry["selecionados"]["A/" + target], manifest["sha256"])
         assert positive_probability(model, X)[0] == value["score"]
-        assert value["calibrado"] is False
+        assert value["calibrado"] is registry["calibrado"]
     for metric in evaluation["metricas"]:
         expected = int((frame.ano.eq(2024) & frame[metric["target"]].notna()).sum())
         assert metric["n"] == expected
@@ -42,7 +44,7 @@ def test_metricas_modelos_e_interface_usam_mesmo_dataset():
 
 def test_streamlit_paginas_e_formulario_reais(monkeypatch):
     require_results()
-    if not Path("reports/figures/explicabilidade.json").exists():
+    if not (REPORTS / "figuras/explicabilidade.json").exists():
         pytest.skip("Explicabilidade ainda não concluída")
     import tempfile
     from uuid import uuid4

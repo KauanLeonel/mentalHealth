@@ -40,6 +40,47 @@ def binary_metrics(y, scores, threshold=0.5):
     return metrics, {"roc": sampled(fpr, tpr), "pr": sampled(recall, precision)}
 
 
+def calibration_metrics(y, scores, bins=10):
+    """Concordância entre pontuação e frequência observada (calibração), sem escolher nada.
+
+    - brier_prevalencia: Brier de prever a prevalência observada nos próprios dados (referência);
+      brier_skill = 1 − brier/brier_prevalencia (> 0: melhor que a prevalência constante).
+    - intercepto/inclinação de Cox: regressão logística de y no logit da pontuação (ideal 0 e 1;
+      inclinação < 1 indica pontuações extremas demais, > 1 tímidas demais).
+    - ECE: erro absoluto médio ponderado entre pontuação média e frequência observada em bins de quantis.
+    """
+    from sklearn.linear_model import LogisticRegression
+    from sklearn.metrics import log_loss
+    y, p = np.asarray(y).astype(int), np.asarray(scores, dtype=float)
+    if y.ndim != 1 or len(y) != len(p) or set(np.unique(y)) != {0, 1}:
+        raise ValueError("A calibração exige ambas as classes e tamanhos consistentes")
+    if not np.isfinite(p).all() or np.any((p < 0) | (p > 1)):
+        raise ValueError("Scores inválidos")
+    prevalence = float(y.mean())
+    brier = float(brier_score_loss(y, p))
+    reference = prevalence * (1 - prevalence)
+    intercept = slope = float("nan")
+    if np.ptp(p) > 1e-12:
+        clipped = np.clip(p, 1e-6, 1 - 1e-6)
+        cox = LogisticRegression(C=np.inf, max_iter=1000).fit(np.log(clipped / (1 - clipped)).reshape(-1, 1), y)
+        intercept, slope = float(cox.intercept_[0]), float(cox.coef_[0, 0])
+    edges = np.unique(np.quantile(p, np.linspace(0, 1, bins + 1)))
+    index = np.zeros(len(p), dtype=int) if len(edges) < 2 else np.clip(np.searchsorted(edges, p, side="right") - 1, 0, len(edges) - 2)
+    curve = {"media_prevista": [], "frequencia_observada": [], "n": []}
+    ece = mce = 0.0
+    for b in np.unique(index):
+        mask = index == b
+        predicted, observed = float(p[mask].mean()), float(y[mask].mean())
+        curve["media_prevista"].append(predicted); curve["frequencia_observada"].append(observed); curve["n"].append(int(mask.sum()))
+        ece += mask.mean() * abs(predicted - observed)
+        mce = max(mce, abs(predicted - observed))
+    metrics = {"n": len(y), "prevalencia_observada": prevalence, "media_prevista": float(p.mean()),
+               "diferenca_media": float(p.mean() - prevalence), "brier": brier, "brier_prevalencia": reference,
+               "brier_skill": float(1 - brier / reference), "log_loss": float(log_loss(y, np.clip(p, 1e-15, 1 - 1e-15), labels=[0, 1])),
+               "intercepto_cox": intercept, "inclinacao_cox": slope, "ece": float(ece), "mce": float(mce), "bins": len(curve["n"])}
+    return metrics, curve
+
+
 def choose_threshold(y, scores):
     """Limiar que maximiza F1 em scores fora do fold (desenvolvimento); nunca usar dados de teste."""
     y, scores = np.asarray(y).astype(int), np.asarray(scores, dtype=float)

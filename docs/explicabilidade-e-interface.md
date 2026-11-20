@@ -12,7 +12,7 @@ $env:PYTHONPATH = "src"
 .\.venv\Scripts\python.exe -m streamlit run app/pesquisa_streamlit.py
 ```
 
-O primeiro comando reutiliza experimentos já concluídos quando dataset e configuração coincidem. Sem `--treinar`, exige modelos prontos e apenas reproduz avaliação, SHAP, associação e relatórios. Artefatos incompletos não são tratados como treinamento concluído. Os modelos ficam em `models/experimentos/A` e `B`; métricas em `reports/avaliacao`, odds ratios em `reports/associacao`, gráficos HTML/JSON em `reports/figures` e interpretação em `reports/resultados`. Ao compartilhar os HTMLs, inclua o arquivo `plotly.min.js` da mesma pasta. A interface usa JSON/Plotly e não depende de rede para carregar gráficos.
+O primeiro comando reutiliza experimentos já concluídos quando dataset e configuração coincidem. Sem `--treinar`, exige modelos prontos e apenas reproduz avaliação, SHAP, associação e relatórios. Artefatos incompletos não são tratados como treinamento concluído. Os modelos ficam em `models/experimentos/A` e `B`; os relatórios ficam em `reports/modelagem/v2_limiar_cv/`: métricas em `avaliacao`, odds ratios em `associacao`, gráficos HTML/JSON em `figuras` e interpretação em `resultados` (estrutura descrita em `reports/README.md`). Ao compartilhar os HTMLs, inclua o arquivo `plotly.min.js` da mesma pasta. A interface usa JSON/Plotly e não depende de rede para carregar gráficos.
 
 ## Protocolo congelado antes da avaliação
 
@@ -24,11 +24,11 @@ Pesos de classe são opções de busca para regressão logística e floresta (`c
 
 2024 é avaliado integralmente após excluir apenas a indeterminação do target em questão. O limiar de cada modelo (exceto o dummy, que mantém 0,5) é o que maximiza F1 nas previsões fora do fold do melhor estimador, nos mesmos cinco folds de 2020–2023; ele é gravado no log de treinamento e no registro e aplicado sem alteração a F1, precisão, recall, matriz de confusão e ao simulador. As curvas e AUCs usam scores contínuos da classe 1. PR-AUC é operacionalizada por Average Precision (AP) ([documentação do Scikit-learn](https://scikit-learn.org/stable/modules/generated/sklearn.metrics.average_precision_score.html)); a área trapezoidal foi removida porque, para um classificador constante, produzia valores próximos de 0,5 que não correspondem à prevalência. A curva gráfica pode ser reduzida a até 500 pontos para apresentação, mas as métricas usam todos os pontos.
 
-Intervalos de 95% (`reports/avaliacao/intervalos_bootstrap.csv`) vêm de 1.000 reamostras bootstrap pareadas dos registros de 2024 (mesmas reamostras para A e B), por percentil, sem pesos amostrais nem estratos; não representam incerteza populacional sob o desenho complexo.
+Intervalos de 95% (`reports/modelagem/v2_limiar_cv/avaliacao/intervalos_bootstrap.csv`) vêm de 1.000 reamostras bootstrap pareadas dos registros de 2024 (mesmas reamostras para A e B), por percentil, sem pesos amostrais nem estratos; não representam incerteza populacional sob o desenho complexo.
 
 ### Revisão do protocolo (versão 2, 2026-11-19)
 
-A primeira execução (limiar fixo 0,5, XGBoost sem `scale_pos_weight`) está preservada em `models/experimentos_v1_limiar05` e `reports/_anterior_2026-11-19`. A revisão foi motivada pelo baixo recall do XGBoost selecionado observado em 2024 (9% em depressão), resultado de pontuações não compensadas pelo desbalanceamento cruzarem pouco o limiar 0,5. As novas escolhas usam somente 2020–2023, mas, por transparência, 2024 deixou de ser um teste totalmente cego para esta decisão de protocolo. Nenhuma outra alteração (preditores, famílias, folds, semente) foi feita. Comparações entre versões devem citar essa limitação.
+A primeira execução (limiar fixo 0,5, XGBoost sem `scale_pos_weight`) está preservada em `models/experimentos_v1_limiar05` e `reports/modelagem/v1_limiar05`. A revisão foi motivada pelo baixo recall do XGBoost selecionado observado em 2024 (9% em depressão), resultado de pontuações não compensadas pelo desbalanceamento cruzarem pouco o limiar 0,5. As novas escolhas usam somente 2020–2023, mas, por transparência, 2024 deixou de ser um teste totalmente cego para esta decisão de protocolo. Nenhuma outra alteração (preditores, famílias, folds, semente) foi feita. Comparações entre versões devem citar essa limitação.
 
 ## SHAP
 

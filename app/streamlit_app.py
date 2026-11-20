@@ -8,7 +8,12 @@ sys.path.insert(0, str(ROOT / "src"))
 
 import plotly.express as px
 import streamlit as st
-from mindscreen.rotina import ATIVIDADES, COMBINADOS, PERGUNTAS, criar_registro, historico, registrar
+
+from mindscreen.dados_validados import TARGETS, load_dataset
+from mindscreen.harmonizacao import sha256
+from mindscreen.inferencia import predict_profile
+from mindscreen.painel import (LABELS, distribution_chart, filter_frame, json_result, load_figure,
+                              outcome_by, overview)
 
 st.set_page_config(page_title="MindScreen | Rotina digital", page_icon="🌱", layout="wide")
 

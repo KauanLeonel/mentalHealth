@@ -1,0 +1,116 @@
+{
+  "dataset_sha256": "25edab4c0ff04a42fbba02f27d58b6e8e22c9ad2dfd43642b1a6e6f3b080da40",
+  "odds_ratios": [
+    {
+      "target": "depressao_atual",
+      "categoria_screentime": 2,
+      "referencia": 1,
+      "coef_log_odds": -0.03383131463842067,
+      "odds_ratio_ajustada_amostral": 0.9667345648538078,
+      "n_casos_completos": 124795
+    },
+    {
+      "target": "depressao_atual",
+      "categoria_screentime": 3,
+      "referencia": 1,
+      "coef_log_odds": 0.19488736450635655,
+      "odds_ratio_ajustada_amostral": 1.2151741070457238,
+      "n_casos_completos": 124795
+    },
+    {
+      "target": "depressao_atual",
+      "categoria_screentime": 4,
+      "referencia": 1,
+      "coef_log_odds": 0.3176428620657184,
+      "odds_ratio_ajustada_amostral": 1.3738855069673983,
+      "n_casos_completos": 124795
+    },
+    {
+      "target": "depressao_atual",
+      "categoria_screentime": 5,
+      "referencia": 1,
+      "coef_log_odds": 0.5817042775342782,
+      "odds_ratio_ajustada_amostral": 1.7890849312267227,
+      "n_casos_completos": 124795
+    },
+    {
+      "target": "ansiedade_atual",
+      "categoria_screentime": 2,
+      "referencia": 1,
+      "coef_log_odds": 0.12560795742187691,
+      "odds_ratio_ajustada_amostral": 1.1338375685341626,
+      "n_casos_completos": 124299
+    },
+    {
+      "target": "ansiedade_atual",
+      "categoria_screentime": 3,
+      "referencia": 1,
+      "coef_log_odds": 0.2408278764646962,
+      "odds_ratio_ajustada_amostral": 1.2723020233379814,
+      "n_casos_completos": 124299
+    },
+    {
+      "target": "ansiedade_atual",
+      "categoria_screentime": 4,
+      "referencia": 1,
+      "coef_log_odds": 0.3580477503397224,
+      "odds_ratio_ajustada_amostral": 1.430533927330062,
+      "n_casos_completos": 124299
+    },
+    {
+      "target": "ansiedade_atual",
+      "categoria_screentime": 5,
+      "referencia": 1,
+      "coef_log_odds": 0.5028474881936363,
+      "odds_ratio_ajustada_amostral": 1.653422675473681,
+      "n_casos_completos": 124299
+    }
+  ],
+  "detalhes": {
+    "depressao_atual": {
+      "n_desenvolvimento": 128809,
+      "n_completos": 124795,
+      "excluidos_ausencia_target_ou_covariavel": 4014,
+      "covariaveis": [
+        "SC_SEX",
+        "HOURSLEEP",
+        "PHYSACTIV",
+        "MAKEFRIEND",
+        "ano",
+        "SC_AGE_YEARS"
+      ],
+      "anos": [
+        2020,
+        2021,
+        2022,
+        2023
+      ],
+      "penalizacao": null,
+      "pesos": false,
+      "intervalos_confianca": null
+    },
+    "ansiedade_atual": {
+      "n_desenvolvimento": 128809,
+      "n_completos": 124299,
+      "excluidos_ausencia_target_ou_covariavel": 4510,
+      "covariaveis": [
+        "SC_SEX",
+        "HOURSLEEP",
+        "PHYSACTIV",
+        "MAKEFRIEND",
+        "ano",
+        "SC_AGE_YEARS"
+      ],
+      "anos": [
+        2020,
+        2021,
+        2022,
+        2023
+      ],
+      "penalizacao": null,
+      "pesos": false,
+      "intervalos_confianca": null
+    }
+  },
+  "interpretacao": "OR condicional da amostra em casos completos, sem pesos, erros padrão ou IC. Categoria de referência: menos de 1 hora. Ajuste simultâneo por idade, sexo, sono, atividade física, amizade e ano. Não estima risco relativo, efeito causal ou inferência para população. Covariáveis contemporâneas podem ser mediadoras ou consequências do desfecho; o ajuste não elimina confundimento."
+}

@@ -1,0 +1,69 @@
+{
+  "targets": {
+    "depressao_atual": {
+      "modelo_selecionado_A": "xgboost",
+      "modelo_selecionado_B": "xgboost",
+      "delta_mesma_familia_roc_auc": 0.004246637927252661,
+      "delta_mesma_familia_pr_auc": 0.004947537352740505,
+      "delta_mesma_familia_f1": -0.0036867351231140155,
+      "interpretacao": "O IC 95% bootstrap da diferença de ROC AUC A − B fica inteiramente acima de zero: o ganho preditivo de SCREENTIME é pequeno, mas distinguível de zero nesta amostra. F1 no limiar escolhido por CV não melhorou.",
+      "fatores_shap": [
+        "SC_AGE_YEARS",
+        "MAKEFRIEND",
+        "SCREENTIME"
+      ],
+      "intervalo_bootstrap": {
+        "target": "depressao_atual",
+        "modelo": "xgboost",
+        "roc_auc_A_ic_inf": 0.8317711750300015,
+        "roc_auc_A_ic_sup": 0.8464563288487034,
+        "roc_auc_B_ic_inf": 0.8273263119431018,
+        "roc_auc_B_ic_sup": 0.8423145210089125,
+        "roc_auc_delta_ic_inf": 0.002680664527291857,
+        "roc_auc_delta_ic_sup": 0.005705852575480011,
+        "roc_auc_delta_prop_positivo": 1.0,
+        "average_precision_A_ic_inf": 0.3101360290686311,
+        "average_precision_A_ic_sup": 0.3476931391376511,
+        "average_precision_B_ic_inf": 0.3047554046089162,
+        "average_precision_B_ic_sup": 0.341891119559114,
+        "average_precision_delta_ic_inf": 0.000946028166916577,
+        "average_precision_delta_ic_sup": 0.008659478009662191,
+        "average_precision_delta_prop_positivo": 0.994,
+        "reamostras_validas": 1000
+      }
+    },
+    "ansiedade_atual": {
+      "modelo_selecionado_A": "xgboost",
+      "modelo_selecionado_B": "xgboost",
+      "delta_mesma_familia_roc_auc": 0.0029058042755684133,
+      "delta_mesma_familia_pr_auc": 0.0020941317760781453,
+      "delta_mesma_familia_f1": 0.0006199817132752083,
+      "interpretacao": "O IC 95% bootstrap da diferença de ROC AUC A − B fica inteiramente acima de zero: o ganho preditivo de SCREENTIME é pequeno, mas distinguível de zero nesta amostra.",
+      "fatores_shap": [
+        "MAKEFRIEND",
+        "SC_AGE_YEARS",
+        "SC_SEX"
+      ],
+      "intervalo_bootstrap": {
+        "target": "ansiedade_atual",
+        "modelo": "xgboost",
+        "roc_auc_A_ic_inf": 0.7537592199790181,
+        "roc_auc_A_ic_sup": 0.7669948986922953,
+        "roc_auc_B_ic_inf": 0.750787507742343,
+        "roc_auc_B_ic_sup": 0.763969911260898,
+        "roc_auc_delta_ic_inf": 0.0013982532895679884,
+        "roc_auc_delta_ic_sup": 0.004375458802474394,
+        "roc_auc_delta_prop_positivo": 1.0,
+        "average_precision_A_ic_inf": 0.4360396448997307,
+        "average_precision_A_ic_sup": 0.46345687361730653,
+        "average_precision_B_ic_inf": 0.4337762037126322,
+        "average_precision_B_ic_sup": 0.4610069326592608,
+        "average_precision_delta_ic_inf": 0.0006114917463749227,
+        "average_precision_delta_ic_sup": 0.0037256985547529887,
+        "average_precision_delta_prop_positivo": 0.997,
+        "reamostras_validas": 1000
+      }
+    }
+  },
+  "dataset_sha256": "25edab4c0ff04a42fbba02f27d58b6e8e22c9ad2dfd43642b1a6e6f3b080da40"
+}
