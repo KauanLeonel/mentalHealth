@@ -1,0 +1,6 @@
+{
+  "metodos": ["nenhum", "sigmoide", "isotonica"],
+  "criterio": "brier",
+  "bins_curva": 10,
+  "bootstrap": 1000
+}
