@@ -14,6 +14,18 @@ LABELS = {"depressao_atual": "Depressão atual", "ansiedade_atual": "Ansiedade a
           "BULLIED_R": "Bullying sofrido", "BULLY": "Bullying praticado", "ano": "Ano da pesquisa", "faixa_etaria": "Faixa etária"}
 
 
+def interface_paths(root, config_path=None):
+    """Registro de modelos e pasta de relatórios usados pela interface (configs/interface.json)."""
+    root = Path(root)
+    config = json.loads(Path(config_path or root / "configs/interface.json").read_text(encoding="utf-8"))
+    paths = {"registro": (root / config["registro"]).resolve(), "relatorios": (root / config["relatorios"]).resolve()}
+    if (root / "models").resolve() not in paths["registro"].parents or paths["registro"].name != "registro.json":
+        raise ValueError("Registro de modelos fora de models/")
+    if paths["relatorios"] != (root / "reports").resolve() and (root / "reports").resolve() not in paths["relatorios"].parents:
+        raise ValueError("Relatórios fora de reports/")
+    return paths
+
+
 def json_result(path, expected_sha):
     value = json.loads(Path(path).read_text(encoding="utf-8"))
     if value.get("dataset_sha256") != expected_sha:

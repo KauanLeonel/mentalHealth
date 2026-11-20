@@ -14,7 +14,7 @@ import streamlit as st
 from mindscreen.dados_validados import TARGETS, load_dataset
 from mindscreen.harmonizacao import sha256
 from mindscreen.inferencia import predict_profile
-from mindscreen.painel import (LABELS, distribution_chart, filter_frame, json_result, load_figure,
+from mindscreen.painel import (LABELS, distribution_chart, filter_frame, interface_paths, json_result, load_figure,
                               outcome_by, overview)
 
 st.set_page_config(page_title="MindScreen AI", page_icon="🧠", layout="wide")
@@ -26,8 +26,10 @@ section[data-testid="stSidebar"] {border-right:1px solid #e4e7f0;}
 </style>""", unsafe_allow_html=True)
 
 MANIFEST = ROOT / "data/processed/manifesto.json"
-REGISTRY = ROOT / "models/experimentos/registro.json"
-FIGURES = ROOT / "reports/figures"
+PATHS = interface_paths(ROOT)
+REGISTRY = PATHS["registro"]
+REPORTS = PATHS["relatorios"]
+FIGURES = REPORTS / "figuras"
 NOTICE = "Projeto acadêmico. As saídas são estimativas estatísticas de respostas declaradas por responsáveis na pesquisa norte-americana NSCH. A ferramenta não realiza diagnósticos e não é um instrumento clínico validado."
 
 
@@ -45,7 +47,7 @@ def figure(name):
 
 
 def result(name, manifest):
-    return json_result(ROOT / "reports" / name, manifest["sha256"])
+    return json_result(REPORTS / name, manifest["sha256"])
 
 
 def page_overview(frame, manifest):
@@ -66,7 +68,7 @@ def page_overview(frame, manifest):
     with right:
         st.subheader("Modelos e protocolo")
         st.write("Regressão logística, Random Forest e XGBoost, com DummyClassifier como referência. Desenvolvimento em 2020–2023; avaliação temporal em 2024. A escolha usa validação cruzada de desenvolvimento.")
-    path = ROOT / "reports/resultados/resumo.json"
+    path = REPORTS / "resultados/resumo.json"
     if path.exists():
         summary = result("resultados/resumo.json", manifest)
         st.subheader("Resultados efetivamente obtidos")
@@ -124,6 +126,10 @@ def page_models(manifest):
         figure(f"{experiment}_{target}_pr")
     model = st.selectbox("Matriz de confusão do algoritmo", selected.modelo.tolist(), index=selected.modelo.tolist().index(chosen))
     figure(f"{experiment}_{target}_{model}_confusao")
+    if evaluation.get("calibrado"):
+        st.subheader("Calibração das pontuações (modelo selecionado)")
+        figure(f"{target}_calibracao")
+        st.caption("Curva de confiabilidade em 2024: cada ponto é um grupo de registros com pontuações parecidas. Na diagonal, a pontuação média coincide com a frequência observada do relato. Método de calibração escolhido apenas na validação cruzada de 2020–2023.")
     st.caption("Resultados de 2024 são descritivos do teste final. Não devem ser usados para escolher o modelo ou ajustar o limiar.")
 
 
@@ -151,14 +157,18 @@ def page_simulator(manifest):
             with col:
                 st.subheader(LABELS[target])
                 st.metric("Rótulo previsto na tarefa de pesquisa", str(prediction["classe_pesquisa"]))
-                st.write(f"Pontuação bruta do classificador: **{prediction['score']:.4f}** · limiar do modelo: {prediction['limiar']:.4f} (escolhido na validação cruzada de 2020–2023)")
+                kind = "calibrada" if prediction["calibrado"] else "bruta do classificador"
+                st.write(f"Pontuação {kind}: **{prediction['score']:.4f}** · limiar do modelo: {prediction['limiar']:.4f} (escolhido na validação cruzada de 2020–2023)")
                 st.caption(f"Modelo: {prediction['modelo']}. Classe 1 corresponde ao relato de condição atual na pesquisa; classe 0 à ausência atual segundo as regras documentadas.")
-        st.info("Pontuações não calibradas: não interprete os números como probabilidades individuais de doença. A classificação não determina se uma pessoa está clinicamente doente e não orienta condutas médicas.")
+        if all(p["calibrado"] for p in predictions.values()):
+            st.info("Pontuações calibradas na validação cruzada de 2020–2023: aproximam a frequência do relato na pesquisa entre perfis semelhantes, sem pesos amostrais. Não são probabilidade individual de doença. A classificação não determina se uma pessoa está clinicamente doente e não orienta condutas médicas.")
+        else:
+            st.info("Pontuações não calibradas: não interprete os números como probabilidades individuais de doença. A classificação não determina se uma pessoa está clinicamente doente e não orienta condutas médicas.")
 
 
 def page_explanations(manifest):
     st.title("Explicabilidade e contribuição do tempo de tela")
-    summary = result("figures/explicabilidade.json", manifest)
+    summary = result("figuras/explicabilidade.json", manifest)
     target = st.selectbox("Desfecho explicado", TARGETS, format_func=lambda t: LABELS[t])
     data = summary["targets"].get(target, {})
     if data.get("disponivel"):
