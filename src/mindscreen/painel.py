@@ -76,3 +76,54 @@ def overview(frame):
     return {"registros": len(frame), "anos": sorted(int(y) for y in frame.ano.unique()),
             "targets": {target: {"positivos": int(frame[target].eq(1).sum()), "negativos": int(frame[target].eq(0).sum()),
                                  "indeterminados": int(frame[target].isna().sum())} for target in TARGETS}}
+
+
+ROTINA_ROTULOS = {"SCREENTIME": "Tempo de tela", "HOURSLEEP": "Sono", "PHYSACTIV": "Atividade física", "MAKEFRIEND": "Dificuldade com amizades"}
+
+
+def contribution_chart(contrib, target, modelo, tipo="incremental", foco="SCREENTIME"):
+    """Diferença de ROC AUC (com − sem o fator) e IC, com todos os fatores de rotina lado a lado."""
+    import plotly.graph_objects as go
+    table = contrib.loc[contrib.target.eq(target) & contrib.modelo.eq(modelo) & contrib.tipo.eq(tipo)].sort_values("delta_auc")
+    if table.empty:
+        raise ValueError("Sem contribuições para a combinação pedida")
+    labels = [ROTINA_ROTULOS.get(f, f) for f in table.fator]
+    colors = ["#c4572a" if f == foco else "#4c6fa5" for f in table.fator]
+    figure = go.Figure(go.Scatter(x=table.delta_auc, y=labels, mode="markers", marker={"size": 12, "color": colors},
+                                  error_x={"type": "data", "symmetric": False, "array": table.delta_auc_ic_sup - table.delta_auc,
+                                           "arrayminus": table.delta_auc - table.delta_auc_ic_inf, "color": "#8a8f9c"},
+                                  hovertemplate="%{y}: %{x:.4f}<extra></extra>"))
+    figure.add_vline(x=0, line_dash="dot", line_color="#8a8f9c")
+    title = "Quanto cada fator acrescenta além dos demais" if tipo == "incremental" else "Quanto cada fator acrescenta sozinho a idade e sexo"
+    figure.update_layout(title=f"{title} — {LABELS.get(target, target)}", template="plotly_white", showlegend=False,
+                         xaxis_title="Diferença na ROC AUC (com − sem o fator)", yaxis_title="", height=320, margin={"l": 10, "r": 10})
+    return figure
+
+
+def routine_profile_chart(perfil, variavel, periodo="2020–2024"):
+    """Distribuição ponderada (estimativa pontual) de um fator de rotina por faixa etária."""
+    table = perfil.loc[perfil.variavel.eq(variavel) & perfil.periodo.astype(str).eq(periodo)].sort_values("categoria")
+    if table.empty:
+        raise ValueError("Sem perfil para a variável e o período pedidos")
+    figure = px.bar(table, x="rotulo_categoria", y="percentual_ponderado", color="faixa_etaria", barmode="group",
+                    color_discrete_sequence=["#4c6fa5", "#6b8c65"], labels={"rotulo_categoria": "", "percentual_ponderado": "% ponderado", "faixa_etaria": "Idade"},
+                    title=f"{ROTINA_ROTULOS.get(variavel, variavel)} — NSCH {periodo}")
+    figure.update_layout(template="plotly_white", height=340, margin={"l": 10, "r": 10})
+    return figure
+
+
+def routine_history_chart(frame, objetivos=()):
+    """Tela e sono informados pela família no mesmo gráfico, com as linhas dos objetivos que ela escolheu."""
+    import plotly.graph_objects as go
+    figure = go.Figure()
+    for column, name, color in [("tela_horas", "Tela recreativa", "#4c6fa5"), ("sono_horas", "Sono", "#6b8c65")]:
+        points = frame.dropna(subset=[column])
+        if not points.empty:
+            figure.add_trace(go.Scatter(x=points.data, y=points[column], name=name, mode="lines+markers", line={"color": color}))
+    for objetivo in objetivos:
+        if objetivo["tipo"] in ("tela_max", "sono_min"):
+            color = "#4c6fa5" if objetivo["tipo"] == "tela_max" else "#6b8c65"
+            figure.add_hline(y=objetivo["valor"], line_dash="dash", line_color=color, annotation_text=objetivo["descricao"], annotation_position="top left")
+    figure.update_layout(template="plotly_white", title="Tela e sono nos dias registrados", xaxis_title="Data", yaxis_title="Horas",
+                         legend={"orientation": "h", "y": -0.2}, height=380)
+    return figure

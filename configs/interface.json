@@ -1,4 +1,5 @@
 {
   "registro": "models/experimentos_calibrados/registro.json",
-  "relatorios": "reports/modelagem/v3_calibrada"
+  "relatorios": "reports/modelagem/v3_calibrada",
+  "contribuicao": "reports/modelagem/v4_contribuicao"
 }

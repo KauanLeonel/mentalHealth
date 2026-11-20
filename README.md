@@ -2,7 +2,12 @@
 
 Projeto acadêmico que investiga rotina digital e apresenta um protótipo de reflexão familiar. A pesquisa preservada analisa, de forma exploratória, tempo de tela e relatos de ansiedade e depressão na National Survey of Children's Health (NSCH), edições de 2020 a 2024. O protótipo não faz previsões individuais nem diagnósticos.
 
-O aplicativo permite registrar voluntariamente tempo recreativo de tela, sono e atividades, ver um histórico da sessão e escolher combinados familiares. Os dados permanecem apenas em memória durante a sessão e podem desaparecer ao recarregar ou desconectar; o aplicativo não os grava em arquivos ou banco de dados. Ainda não foi avaliado com famílias. O código e as análises anteriores permanecem disponíveis para pesquisa; associação não implica causalidade.
+O projeto se organiza em duas perguntas:
+
+1. **Pesquisa com a base atual** — qual é a contribuição incremental do tempo de tela, além de outras características de rotina, para a classificação exploratória de relatos atuais de ansiedade e depressão na NSCH? (`python -m mindscreen.contribuicao`, ver `docs/contribuicao-incremental.md`)
+2. **Pesquisa com o produto** — uma plataforma de acompanhamento da rotina digital ajuda famílias a compreender seus hábitos e construir planos considerados úteis por elas? (estudo próprio ainda não realizado, ver `docs/estudo-com-usuarios.md`)
+
+O aplicativo permite registrar voluntariamente tempo recreativo de tela, sono e atividades (inclusive as definidas pela família), ver o histórico da sessão, escolher combinados e objetivos familiares, responder perguntas de reflexão, ler conteúdo educativo com fontes, conhecer em linguagem simples os achados da pesquisa e avaliar o protótipo. Os dados permanecem apenas em memória durante a sessão e podem desaparecer ao recarregar ou desconectar; o aplicativo não os grava em arquivos ou banco de dados. Ainda não foi avaliado com famílias. O código e as análises anteriores permanecem disponíveis para pesquisa; associação não implica causalidade.
 
 ## Abrir o protótipo
 
