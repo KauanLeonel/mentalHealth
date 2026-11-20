@@ -1,0 +1,166 @@
+{
+  "dataset_sha256": "25edab4c0ff04a42fbba02f27d58b6e8e22c9ad2dfd43642b1a6e6f3b080da40",
+  "classe_explicada": 1,
+  "semente": 42,
+  "targets": {
+    "depressao_atual": {
+      "modelo": "A/depressao_atual_xgboost",
+      "disponivel": true,
+      "n_amostra": 1000,
+      "n_background": 100,
+      "unidade": "log-odds da classe 1",
+      "metodo": "TreeExplainer interventional (margem)",
+      "max_erro_aditividade": 3.848004820561357e-06,
+      "importancia": [
+        {
+          "variavel": "SC_AGE_YEARS",
+          "media_absoluta_shap": 0.7217107058141758
+        },
+        {
+          "variavel": "MAKEFRIEND",
+          "media_absoluta_shap": 0.65937076007422
+        },
+        {
+          "variavel": "SCREENTIME",
+          "media_absoluta_shap": 0.20206944355734527
+        },
+        {
+          "variavel": "SC_SEX",
+          "media_absoluta_shap": 0.1900161653585999
+        },
+        {
+          "variavel": "HOURSLEEP",
+          "media_absoluta_shap": 0.17422183303000774
+        },
+        {
+          "variavel": "PHYSACTIV",
+          "media_absoluta_shap": 0.15275390410071804
+        }
+      ],
+      "screentime": [
+        {
+          "categoria": "1",
+          "n": 62,
+          "contribuicao_media": -0.20902198315090867
+        },
+        {
+          "categoria": "2",
+          "n": 122,
+          "contribuicao_media": -0.34991200143658624
+        },
+        {
+          "categoria": "3",
+          "n": 262,
+          "contribuicao_media": -0.07660790153500549
+        },
+        {
+          "categoria": "4",
+          "n": 200,
+          "contribuicao_media": 0.04535133087856376
+        },
+        {
+          "categoria": "5",
+          "n": 344,
+          "contribuicao_media": 0.3369323157389831
+        },
+        {
+          "categoria": "ausente",
+          "n": 10,
+          "contribuicao_media": 0.02134050983666384
+        }
+      ],
+      "exemplo": {
+        "base": -3.706264576273494,
+        "saida": -4.391312122344971,
+        "valores_questionario": {
+          "SC_AGE_YEARS": 11,
+          "SCREENTIME": 4,
+          "SC_SEX": 2,
+          "HOURSLEEP": 5,
+          "PHYSACTIV": 4,
+          "MAKEFRIEND": 1
+        }
+      }
+    },
+    "ansiedade_atual": {
+      "modelo": "A/ansiedade_atual_xgboost",
+      "disponivel": true,
+      "n_amostra": 1000,
+      "n_background": 100,
+      "unidade": "log-odds da classe 1",
+      "metodo": "TreeExplainer interventional (margem)",
+      "max_erro_aditividade": 1.5430492565915443e-06,
+      "importancia": [
+        {
+          "variavel": "MAKEFRIEND",
+          "media_absoluta_shap": 0.6617928271313832
+        },
+        {
+          "variavel": "SC_AGE_YEARS",
+          "media_absoluta_shap": 0.2307222665719888
+        },
+        {
+          "variavel": "SC_SEX",
+          "media_absoluta_shap": 0.20112914115160013
+        },
+        {
+          "variavel": "SCREENTIME",
+          "media_absoluta_shap": 0.13012735402842382
+        },
+        {
+          "variavel": "HOURSLEEP",
+          "media_absoluta_shap": 0.08400974184055632
+        },
+        {
+          "variavel": "PHYSACTIV",
+          "media_absoluta_shap": 0.04276123917292713
+        }
+      ],
+      "screentime": [
+        {
+          "categoria": "1",
+          "n": 63,
+          "contribuicao_media": -0.29107658262347297
+        },
+        {
+          "categoria": "2",
+          "n": 141,
+          "contribuicao_media": -0.18032623908904832
+        },
+        {
+          "categoria": "3",
+          "n": 256,
+          "contribuicao_media": -0.09064547467635237
+        },
+        {
+          "categoria": "4",
+          "n": 234,
+          "contribuicao_media": 0.033397013364507525
+        },
+        {
+          "categoria": "5",
+          "n": 298,
+          "contribuicao_media": 0.1800707235548778
+        },
+        {
+          "categoria": "ausente",
+          "n": 8,
+          "contribuicao_media": -0.203101073981411
+        }
+      ],
+      "exemplo": {
+        "base": -0.37164845913775935,
+        "saida": -1.6753480434417725,
+        "valores_questionario": {
+          "SC_AGE_YEARS": 6,
+          "SCREENTIME": 2,
+          "SC_SEX": 1,
+          "HOURSLEEP": 4,
+          "PHYSACTIV": 4,
+          "MAKEFRIEND": 1
+        }
+      }
+    }
+  },
+  "limitacoes": "SHAP explica a função do modelo e sua referência de desenvolvimento; não é causalidade, efeito de intervenção ou diagnóstico. Atribuições dependem da correlação entre atributos, agrupamento de one-hot e background. Compare rankings entre modelos; magnitudes em escalas diferentes não são diretamente comparáveis."
+}

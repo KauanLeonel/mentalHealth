@@ -1,0 +1,515 @@
+{
+  "data_utc": "2026-11-19T22:19:28.490033+00:00",
+  "configuracao": {
+    "semente": 42,
+    "folds": 5,
+    "ano_teste": 2024,
+    "anos_desenvolvimento": [
+      2020,
+      2021,
+      2022,
+      2023
+    ],
+    "n_jobs": 1,
+    "n_estimators": 200,
+    "min_samples_leaf": 10,
+    "busca": {
+      "logistic": {
+        "model__C": [
+          0.1,
+          1.0
+        ],
+        "model__class_weight": [
+          null,
+          "balanced"
+        ]
+      },
+      "random_forest": {
+        "model__max_depth": [
+          null,
+          10
+        ],
+        "model__class_weight": [
+          null,
+          "balanced"
+        ]
+      },
+      "xgboost": {
+        "model__max_depth": [
+          3,
+          5
+        ],
+        "model__learning_rate": [
+          0.05,
+          0.1
+        ],
+        "model__scale_pos_weight": [
+          1,
+          "proporcao_classes"
+        ]
+      }
+    }
+  },
+  "manifesto": "data\\processed\\manifesto.json",
+  "sha256_dataset": "25edab4c0ff04a42fbba02f27d58b6e8e22c9ad2dfd43642b1a6e6f3b080da40",
+  "preditores": [
+    "SC_AGE_YEARS",
+    "SCREENTIME",
+    "SC_SEX",
+    "HOURSLEEP",
+    "PHYSACTIV",
+    "MAKEFRIEND"
+  ],
+  "positive_class": 1,
+  "experimento": "A_com_SCREENTIME",
+  "peso_treinamento": "Não utilizado: decisão inicial uniforme entre estimadores; os pesos permanecem no dataset de entrada. Não constitui inferência para desenho complexo.",
+  "seleção": "ROC AUC média em validação cruzada de desenvolvimento; 2024 não avaliado.",
+  "limiar": "Maximiza F1 nas previsões fora do fold (mesmos 5 folds) do melhor estimador em 2020–2023; dummy mantém 0,5.",
+  "versoes": {
+    "pandas": "3.1.1",
+    "numpy": "2.5.4",
+    "scikit-learn": "1.9.1",
+    "xgboost": "3.4.1",
+    "joblib": "1.6.0",
+    "pyarrow": "26.0.1"
+  },
+  "resultados": {
+    "depressao_atual": {
+      "registros": 128103,
+      "excluidos_target_ausente": 706,
+      "classes": {
+        "0": 119447,
+        "1": 8656
+      },
+      "modelos": {
+        "dummy": {
+          "melhores_parametros": {},
+          "roc_auc_cv": 0.5,
+          "limiar": 0.5,
+          "f1_oof": null,
+          "fit_aceita_sample_weight": true,
+          "sample_weight_utilizado": false,
+          "limiar_sem_calibracao": 0.5,
+          "calibracao": {
+            "metodo": "nenhum",
+            "metricas_cv": {}
+          }
+        },
+        "logistic": {
+          "melhores_parametros": {
+            "model__C": 1.0,
+            "model__class_weight": "balanced"
+          },
+          "roc_auc_cv": 0.8446969418489187,
+          "limiar": 0.17582417582417584,
+          "f1_oof": 0.38558791801510245,
+          "fit_aceita_sample_weight": true,
+          "sample_weight_utilizado": false,
+          "limiar_sem_calibracao": 0.7374321533058176,
+          "calibracao": {
+            "metodo": "isotonica",
+            "metricas_cv": {
+              "nenhum": {
+                "n": 128103,
+                "prevalencia_observada": 0.06757062676127804,
+                "media_prevista": 0.3451524969862814,
+                "diferenca_media": 0.27758187022500336,
+                "brier": 0.15996348993006537,
+                "brier_prevalencia": 0.06300483716036609,
+                "brier_skill": -1.5389080765800665,
+                "log_loss": 0.4925977354330652,
+                "intercepto_cox": -2.6155617841433143,
+                "inclinacao_cox": 0.9427026856325961,
+                "ece": 0.27758187022500336,
+                "mce": 0.5410011233957641,
+                "bins": 10
+              },
+              "sigmoide": {
+                "n": 128103,
+                "prevalencia_observada": 0.06757062676127804,
+                "media_prevista": 0.0676170110942763,
+                "diferenca_media": 4.638433299826439e-05,
+                "brier": 0.0529924499566118,
+                "brier_prevalencia": 0.06300483716036609,
+                "brier_skill": 0.15891457949918641,
+                "log_loss": 0.19096665046851144,
+                "intercepto_cox": 0.0008726090834817894,
+                "inclinacao_cox": 1.0009744721844578,
+                "ece": 0.0038276600658012395,
+                "mce": 0.010964138903711812,
+                "bins": 10
+              },
+              "isotonica": {
+                "n": 128103,
+                "prevalencia_observada": 0.06757062676127804,
+                "media_prevista": 0.06756955413552115,
+                "diferenca_media": -1.0726257568816067e-06,
+                "brier": 0.05294457994858143,
+                "brier_prevalencia": 0.06300483716036609,
+                "brier_skill": 0.1596743625601048,
+                "log_loss": 0.1914994402734713,
+                "intercepto_cox": -0.022889429270348625,
+                "inclinacao_cox": 0.9881322905483003,
+                "ece": 0.0007273908387833253,
+                "mce": 0.0017739570178843533,
+                "bins": 10
+              }
+            }
+          }
+        },
+        "random_forest": {
+          "melhores_parametros": {
+            "model__class_weight": "balanced",
+            "model__max_depth": 10
+          },
+          "roc_auc_cv": 0.8457225225856708,
+          "limiar": 0.18652335615340582,
+          "f1_oof": 0.38303867654410767,
+          "fit_aceita_sample_weight": true,
+          "sample_weight_utilizado": false,
+          "limiar_sem_calibracao": 0.7340971000939608,
+          "calibracao": {
+            "metodo": "sigmoide",
+            "metricas_cv": {
+              "nenhum": {
+                "n": 128103,
+                "prevalencia_observada": 0.06757062676127804,
+                "media_prevista": 0.3472230580952214,
+                "diferenca_media": 0.27965243133394335,
+                "brier": 0.15819249886943615,
+                "brier_prevalencia": 0.06300483716036609,
+                "brier_skill": -1.510799265567326,
+                "log_loss": 0.48262544077779934,
+                "intercepto_cox": -2.586468680751467,
+                "inclinacao_cox": 1.096200764086404,
+                "ece": 0.2796524313339434,
+                "mce": 0.5202283633287796,
+                "bins": 10
+              },
+              "sigmoide": {
+                "n": 128103,
+                "prevalencia_observada": 0.06757062676127804,
+                "media_prevista": 0.06763968652334082,
+                "diferenca_media": 6.905976206278419e-05,
+                "brier": 0.05298644277368242,
+                "brier_prevalencia": 0.06300483716036609,
+                "brier_skill": 0.15900992428857286,
+                "log_loss": 0.19056801834068843,
+                "intercepto_cox": 0.0012066400786379665,
+                "inclinacao_cox": 1.0013049979082946,
+                "ece": 0.0017428330192628006,
+                "mce": 0.0049594165156853776,
+                "bins": 10
+              },
+              "isotonica": {
+                "n": 128103,
+                "prevalencia_observada": 0.06757062676127804,
+                "media_prevista": 0.06755121824412534,
+                "diferenca_media": -1.9408517152694205e-05,
+                "brier": 0.05301604672359225,
+                "brier_prevalencia": 0.06300483716036609,
+                "brier_skill": 0.15854005639835855,
+                "log_loss": 0.19109482141254144,
+                "intercepto_cox": -0.021165569165547293,
+                "inclinacao_cox": 0.9887933894121038,
+                "ece": 0.0010595385331908912,
+                "mce": 0.0026287526794076255,
+                "bins": 10
+              }
+            }
+          }
+        },
+        "xgboost": {
+          "melhores_parametros": {
+            "model__learning_rate": 0.1,
+            "model__max_depth": 3,
+            "model__scale_pos_weight": 1
+          },
+          "roc_auc_cv": 0.846976814096441,
+          "limiar": 0.17506889515996246,
+          "f1_oof": 0.3873066104078762,
+          "fit_aceita_sample_weight": true,
+          "sample_weight_utilizado": false,
+          "limiar_sem_calibracao": 0.17517180740833282,
+          "calibracao": {
+            "metodo": "sigmoide",
+            "metricas_cv": {
+              "nenhum": {
+                "n": 128103,
+                "prevalencia_observada": 0.06757062676127804,
+                "media_prevista": 0.0675900892015681,
+                "diferenca_media": 1.9462440290066163e-05,
+                "brier": 0.05280749084560578,
+                "brier_prevalencia": 0.06300483716036609,
+                "brier_skill": 0.16185021300515423,
+                "log_loss": 0.18983552995809186,
+                "intercepto_cox": -0.020662853625737096,
+                "inclinacao_cox": 0.989434038361004,
+                "ece": 0.001580719054265227,
+                "mce": 0.005664154581480896,
+                "bins": 10
+              },
+              "sigmoide": {
+                "n": 128103,
+                "prevalencia_observada": 0.06757062676127804,
+                "media_prevista": 0.0675721758749675,
+                "diferenca_media": 1.5491136894640878e-06,
+                "brier": 0.052804688973290534,
+                "brier_prevalencia": 0.06300483716036609,
+                "brier_skill": 0.16189468375440985,
+                "log_loss": 0.18983426351443175,
+                "intercepto_cox": 1.562614259463112e-05,
+                "inclinacao_cox": 1.000031480361835,
+                "ece": 0.001358421879811403,
+                "mce": 0.003864017947911233,
+                "bins": 10
+              },
+              "isotonica": {
+                "n": 128103,
+                "prevalencia_observada": 0.06757062676127804,
+                "media_prevista": 0.0675799715967783,
+                "diferenca_media": 9.344835500260662e-06,
+                "brier": 0.05281850909414048,
+                "brier_prevalencia": 0.06300483716036609,
+                "brier_skill": 0.16167533359856745,
+                "log_loss": 0.19015505022287638,
+                "intercepto_cox": -0.01858853994020951,
+                "inclinacao_cox": 0.9903832155110829,
+                "ece": 0.000730901701435107,
+                "mce": 0.002529718730708952,
+                "bins": 10
+              }
+            }
+          }
+        }
+      },
+      "selecionado_por_cv": "xgboost"
+    },
+    "ansiedade_atual": {
+      "registros": 127573,
+      "excluidos_target_ausente": 1236,
+      "classes": {
+        "0": 107972,
+        "1": 19601
+      },
+      "modelos": {
+        "dummy": {
+          "melhores_parametros": {},
+          "roc_auc_cv": 0.5,
+          "limiar": 0.5,
+          "f1_oof": null,
+          "fit_aceita_sample_weight": true,
+          "sample_weight_utilizado": false,
+          "limiar_sem_calibracao": 0.5,
+          "calibracao": {
+            "metodo": "nenhum",
+            "metricas_cv": {}
+          }
+        },
+        "logistic": {
+          "melhores_parametros": {
+            "model__C": 1.0,
+            "model__class_weight": "balanced"
+          },
+          "roc_auc_cv": 0.7659699323388677,
+          "limiar": 0.23179791976225855,
+          "f1_oof": 0.44767911310913727,
+          "fit_aceita_sample_weight": true,
+          "sample_weight_utilizado": false,
+          "limiar_sem_calibracao": 0.614078991979567,
+          "calibracao": {
+            "metodo": "isotonica",
+            "metricas_cv": {
+              "nenhum": {
+                "n": 127573,
+                "prevalencia_observada": 0.15364536383090466,
+                "media_prevista": 0.42531889629921155,
+                "diferenca_media": 0.2716735324683069,
+                "brier": 0.18964979984333588,
+                "brier_prevalencia": 0.1300384660041736,
+                "brier_skill": -0.45841308092060284,
+                "log_loss": 0.5711786629065033,
+                "intercepto_cox": -1.705693592299812,
+                "inclinacao_cox": 0.9864719146430888,
+                "ece": 0.2716735324683069,
+                "mce": 0.4131934671951375,
+                "bins": 10
+              },
+              "sigmoide": {
+                "n": 127573,
+                "prevalencia_observada": 0.15364536383090466,
+                "media_prevista": 0.15364545734698795,
+                "diferenca_media": 9.351608329377648e-08,
+                "brier": 0.10951203673543505,
+                "brier_prevalencia": 0.1300384660041736,
+                "brier_skill": 0.15784890347814273,
+                "log_loss": 0.3626843140498208,
+                "intercepto_cox": -0.0002443282360164202,
+                "inclinacao_cox": 0.9998182179711648,
+                "ece": 0.01027736901449697,
+                "mce": 0.033602361348321785,
+                "bins": 10
+              },
+              "isotonica": {
+                "n": 127573,
+                "prevalencia_observada": 0.15364536383090466,
+                "media_prevista": 0.1536324205769151,
+                "diferenca_media": -1.294325398956686e-05,
+                "brier": 0.10933677088418997,
+                "brier_prevalencia": 0.1300384660041736,
+                "brier_skill": 0.15919670353016313,
+                "log_loss": 0.3624396504934532,
+                "intercepto_cox": -0.012368811204391676,
+                "inclinacao_cox": 0.9913296050498801,
+                "ece": 0.001203482289364986,
+                "mce": 0.003374099339866987,
+                "bins": 10
+              }
+            }
+          }
+        },
+        "random_forest": {
+          "melhores_parametros": {
+            "model__class_weight": "balanced",
+            "model__max_depth": 10
+          },
+          "roc_auc_cv": 0.769046511429208,
+          "limiar": 0.2268305929425806,
+          "f1_oof": 0.44975104156081697,
+          "fit_aceita_sample_weight": true,
+          "sample_weight_utilizado": false,
+          "limiar_sem_calibracao": 0.6082965896071791,
+          "calibracao": {
+            "metodo": "sigmoide",
+            "metricas_cv": {
+              "nenhum": {
+                "n": 127573,
+                "prevalencia_observada": 0.15364536383090466,
+                "media_prevista": 0.42379299466745285,
+                "diferenca_media": 0.2701476308365482,
+                "brier": 0.18810622921349932,
+                "brier_prevalencia": 0.1300384660041736,
+                "brier_skill": -0.44654297296510737,
+                "log_loss": 0.5650509751211042,
+                "intercepto_cox": -1.6885657386663022,
+                "inclinacao_cox": 1.0610660321279726,
+                "ece": 0.2701476308365482,
+                "mce": 0.3965297462496295,
+                "bins": 10
+              },
+              "sigmoide": {
+                "n": 127573,
+                "prevalencia_observada": 0.15364536383090466,
+                "media_prevista": 0.15367099876065746,
+                "diferenca_media": 2.563492975279913e-05,
+                "brier": 0.10912271918579615,
+                "brier_prevalencia": 0.1300384660041736,
+                "brier_skill": 0.16084276799840258,
+                "log_loss": 0.3609854781454602,
+                "intercepto_cox": -0.0009381758047954008,
+                "inclinacao_cox": 0.9994940117402622,
+                "ece": 0.0035580631848975575,
+                "mce": 0.009643863998790081,
+                "bins": 10
+              },
+              "isotonica": {
+                "n": 127573,
+                "prevalencia_observada": 0.15364536383090466,
+                "media_prevista": 0.15363964205017291,
+                "diferenca_media": -5.721780731743342e-06,
+                "brier": 0.10916405114387276,
+                "brier_prevalencia": 0.1300384660041736,
+                "brier_skill": 0.16052492390698359,
+                "log_loss": 0.361618223617136,
+                "intercepto_cox": -0.01291122517678294,
+                "inclinacao_cox": 0.9909715738066793,
+                "ece": 0.001423597239797084,
+                "mce": 0.0023917992664052035,
+                "bins": 10
+              }
+            }
+          }
+        },
+        "xgboost": {
+          "melhores_parametros": {
+            "model__learning_rate": 0.05,
+            "model__max_depth": 3,
+            "model__scale_pos_weight": 5.508494464568134
+          },
+          "roc_auc_cv": 0.7709519097615944,
+          "limiar": 0.23302044878926326,
+          "f1_oof": 0.4523656560213873,
+          "fit_aceita_sample_weight": true,
+          "sample_weight_utilizado": false,
+          "limiar_sem_calibracao": 0.6211563348770142,
+          "calibracao": {
+            "metodo": "sigmoide",
+            "metricas_cv": {
+              "nenhum": {
+                "n": 127573,
+                "prevalencia_observada": 0.15364536383090466,
+                "media_prevista": 0.42265578230932555,
+                "diferenca_media": 0.2690104184784209,
+                "brier": 0.18867360775987352,
+                "brier_prevalencia": 0.1300384660041736,
+                "brier_skill": -0.4509061322964085,
+                "log_loss": 0.5658891370720779,
+                "intercepto_cox": -1.7016202444309543,
+                "inclinacao_cox": 1.0219949443369163,
+                "ece": 0.2690104184784209,
+                "mce": 0.40632328154170505,
+                "bins": 10
+              },
+              "sigmoide": {
+                "n": 127573,
+                "prevalencia_observada": 0.15364536383090466,
+                "media_prevista": 0.15364599091316083,
+                "diferenca_media": 6.270822561771361e-07,
+                "brier": 0.10889355836191196,
+                "brier_prevalencia": 0.1300384660041736,
+                "brier_skill": 0.16260502212924433,
+                "log_loss": 0.36017103143191265,
+                "intercepto_cox": -0.00029078017760878405,
+                "inclinacao_cox": 0.9997845646130313,
+                "ece": 0.0029455807405816743,
+                "mce": 0.010715315657969793,
+                "bins": 10
+              },
+              "isotonica": {
+                "n": 127573,
+                "prevalencia_observada": 0.15364536383090466,
+                "media_prevista": 0.15360403982386459,
+                "diferenca_media": -4.132400704007222e-05,
+                "brier": 0.1089428832966629,
+                "brier_prevalencia": 0.1300384660041736,
+                "brier_skill": 0.16222571178926104,
+                "log_loss": 0.3610527730845197,
+                "intercepto_cox": -0.012896009134916675,
+                "inclinacao_cox": 0.990742436223141,
+                "ece": 0.0012199395488039977,
+                "mce": 0.002569171088493749,
+                "bins": 10
+              }
+            }
+          }
+        }
+      },
+      "selecionado_por_cv": "xgboost"
+    }
+  },
+  "calibracao": {
+    "data_utc": "2026-11-19T23:45:45.502920+00:00",
+    "modelos_origem": "C:\\Users\\cg3034011\\Documents\\mentalHealth\\models\\experimentos",
+    "configuracao": {
+      "metodos": [
+        "nenhum",
+        "sigmoide",
+        "isotonica"
+      ],
+      "criterio": "brier",
+      "bins_curva": 10,
+      "bootstrap": 1000
+    },
+    "protocolo": "Pós-hoc sobre os pipelines congelados: previsões fora do fold nos mesmos folds do treinamento (2020–2023); cada método é avaliado por calibração cruzada (calibrador do fold k ajustado nos demais folds); escolhe-se o menor Brier; o limiar maximiza o F1 nas pontuações calibradas fora do fold; o calibrador final é ajustado em todas as previsões fora do fold. 2024 não é usado."
+  }
+}
