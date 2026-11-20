@@ -24,8 +24,12 @@ def categorical_text(frame):
     return frame.astype("string").astype(object).where(frame.notna(), None)
 
 
-def make_pipeline(manifest, name, config, without_screen=False):
-    """Constrói pipeline independente; sem ajustes fora dos folds."""
+def make_pipeline(manifest, name, config, without_screen=False, predictors=None):
+    """Constrói pipeline independente; sem ajustes fora dos folds.
+
+    `predictors` restringe os preditores aprovados no manifesto a um subconjunto (usado na análise de
+    contribuição incremental); nomes fora do manifesto são recusados.
+    """
     from sklearn.compose import ColumnTransformer
     from sklearn.dummy import DummyClassifier
     from sklearn.ensemble import RandomForestClassifier
@@ -36,6 +40,12 @@ def make_pipeline(manifest, name, config, without_screen=False):
     from xgboost import XGBClassifier
     numeric = [c for c in manifest["preditores_numericos"] if not (without_screen and c == "SCREENTIME")]
     categorical = [c for c in manifest["preditores_categoricos"] if not (without_screen and c == "SCREENTIME")]
+    if predictors is not None:
+        unknown = set(predictors) - set(numeric) - set(categorical)
+        if unknown or not predictors:
+            raise ValueError(f"Preditores fora do manifesto ou lista vazia: {sorted(unknown)}")
+        numeric = [c for c in numeric if c in predictors]
+        categorical = [c for c in categorical if c in predictors]
     transforms = []
     if numeric:
         steps = [("impute", SimpleImputer(strategy="median", keep_empty_features=True))]

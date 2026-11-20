@@ -1,0 +1,51 @@
+{
+  "aviso": "Conteúdo informativo e geral. Não substitui a avaliação de um profissional de saúde e não serve para diagnosticar ninguém.",
+  "secoes": [
+    {
+      "titulo": "Telas fazem parte da rotina",
+      "itens": [
+        "Não existe um único número de horas que sirva para todas as famílias. A Academia Americana de Pediatria propõe que cada família monte um plano de mídia adaptado à própria rotina e às próprias prioridades.",
+        "Além do tempo, vale olhar para o conteúdo, para o contexto (sozinho ou acompanhado, de dia ou à noite) e para o que o uso de telas deixa ou não deixa espaço para fazer.",
+        "Sono, atividade física, convivência e outras atividades importantes para a família são bons pontos de partida para a conversa.",
+        "Combinados costumam funcionar melhor quando são construídos em conjunto, com espaço para a opinião da criança ou do adolescente, e revistos de tempos em tempos."
+      ],
+      "fontes": ["aap_plano"]
+    },
+    {
+      "titulo": "O que a pesquisa consegue e não consegue dizer",
+      "itens": [
+        "Pesquisas como a NSCH mostram padrões em grupos grandes de famílias. Elas não dizem o que acontece com uma criança específica.",
+        "Encontrar uma associação entre tempo de tela e saúde mental não significa que uma coisa cause a outra.",
+        "Relatos de diagnóstico dependem também de acesso a atendimento, de lembrança e da disposição em informar."
+      ],
+      "fontes": ["cdc_saude_mental", "nsch"]
+    },
+    {
+      "titulo": "Quando conversar com um profissional",
+      "itens": [
+        "Mudanças no sono, no apetite, no humor ou na energia que duram semanas.",
+        "Perda de interesse por atividades de que a criança ou o adolescente gostava, ou afastamento de amigos e da família.",
+        "Queda importante no desempenho escolar, ou recusa frequente em ir à escola.",
+        "Preocupações, medos ou irritação que atrapalham o dia a dia.",
+        "Conflitos frequentes sobre o uso de telas que a família não consegue resolver conversando.",
+        "Procure o pediatra ou médico de família, a Unidade Básica de Saúde (UBS) ou um psicólogo. A escola também pode ajudar a orientar."
+      ],
+      "fontes": []
+    },
+    {
+      "titulo": "Em situação de urgência",
+      "itens": [
+        "Se a criança ou o adolescente falar em se machucar ou em morrer, procure ajuda imediatamente e não deixe a pessoa sozinha.",
+        "SAMU: ligue 192. Centro de Valorização da Vida (CVV): ligue 188, ligação gratuita e atendimento 24 horas.",
+        "Você também pode procurar o pronto-socorro mais próximo."
+      ],
+      "fontes": ["cvv"]
+    }
+  ],
+  "fontes": {
+    "aap_plano": {"nome": "American Academy of Pediatrics — Family Media Plan (em inglês)", "url": "https://www.healthychildren.org/English/family-life/Media/Pages/How-to-Make-a-Family-Media-Use-Plan.aspx"},
+    "cdc_saude_mental": {"nome": "CDC — Children's Mental Health: dados e pesquisa (em inglês)", "url": "https://www.cdc.gov/children-mental-health/"},
+    "nsch": {"nome": "National Survey of Children's Health — dados oficiais (em inglês)", "url": "https://www.census.gov/programs-surveys/nsch/data/datasets.html"},
+    "cvv": {"nome": "Centro de Valorização da Vida (CVV)", "url": "https://cvv.org.br/"}
+  }
+}

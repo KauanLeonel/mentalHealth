@@ -32,8 +32,25 @@ def test_fluxo_diario_plano_e_apagar(monkeypatch):
     app.sidebar.radio[0].set_value("Pesquisa").run()
     app.sidebar.radio[0].set_value("Plano em família").run()
     assert app.multiselect[0].value == ["Combinar momentos sem telas"]
+    # Objetivo escolhido pela família aparece no plano e no progresso do histórico.
+    app.selectbox[0].set_value("tela_max")
+    app.number_input[0].set_value(2.0)
+    next(button for button in app.button if button.label == "Incluir objetivo").click().run()
+    assert not app.exception
+    assert any("Até 2 h de tela recreativa por dia" in str(m.value) for m in app.markdown)
+    app.sidebar.radio[0].set_value("Histórico").run()
+    assert not app.exception
+    assert len(app.dataframe) == 2
+    for page in ["Saiba mais", "Pesquisa", "Avaliar o protótipo"]:
+        app.sidebar.radio[0].set_value(page).run()
+        assert not app.exception
+    app.radio[0].set_value("Talvez")
+    next(button for button in app.button if button.label == "Guardar avaliação").click().run()
+    assert not app.exception
+    assert app.session_state["avaliacao_prototipo"]["voltaria"] == "Talvez"
     app.sidebar.button[0].click().run()
     assert not app.exception
     app.sidebar.radio[0].set_value("Histórico").run()
     assert not app.exception
     assert not app.dataframe
+    assert "avaliacao_prototipo" not in app.session_state and "objetivos" not in app.session_state

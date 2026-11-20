@@ -21,6 +21,12 @@ def versoes():
 @pytest.mark.parametrize("versao", versoes(), ids=lambda p: p.name)
 def test_versao_tem_estrutura_padrao(versao):
     presentes = {p.name for p in versao.iterdir() if p.is_dir()}
+    if (versao / "contribuicao.json").exists():
+        # Versões de contribuição incremental (v4+) não salvam modelos e têm estrutura própria.
+        from mindscreen.contribuicao import ARQUIVOS
+        assert not presentes
+        assert {p.name for p in versao.iterdir()} == set(ARQUIVOS)
+        return
     assert SUBPASTAS <= presentes
     assert presentes - SUBPASTAS <= {"calibracao"}
     assert (versao / "avaliacao/avaliacao.json").exists()
@@ -39,6 +45,7 @@ def test_interface_aponta_para_versao_existente():
     config = json.loads((ROOT / "configs/interface.json").read_text(encoding="utf-8"))
     relatorios = (ROOT / config["relatorios"]).resolve()
     assert relatorios.parent == MODELAGEM.resolve()
+    assert (ROOT / config["contribuicao"]).resolve().parent == MODELAGEM.resolve()
 
 
 @pytest.mark.parametrize("destino", [analises.REPORTS_ROOT, analises.REPORTS_V2])

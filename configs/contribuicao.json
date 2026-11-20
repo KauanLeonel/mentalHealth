@@ -1,0 +1,18 @@
+{
+  "versao": "v4_contribuicao",
+  "semente": 42,
+  "anos": [2020, 2021, 2022, 2023, 2024],
+  "base": ["SC_AGE_YEARS", "SC_SEX"],
+  "fatores_rotina": ["SCREENTIME", "HOURSLEEP", "PHYSACTIV", "MAKEFRIEND"],
+  "fator_foco": "SCREENTIME",
+  "modelo_principal": "logistic",
+  "modelos": {
+    "logistic": {"C": 1.0},
+    "xgboost": {"n_estimators": 200, "max_depth": 3, "learning_rate": 0.1, "n_jobs": 4}
+  },
+  "bootstrap": 1000,
+  "nivel_confianca": 0.95,
+  "peso_amostral": "FWC",
+  "peso_descritivo_periodo": "FWC_media_anual_periodo",
+  "faixas_etarias": {"6–11": [6, 11], "12–17": [12, 17]}
+}

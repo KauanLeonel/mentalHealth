@@ -1,0 +1,52 @@
+{
+  "dataset_sha256": "25edab4c0ff04a42fbba02f27d58b6e8e22c9ad2dfd43642b1a6e6f3b080da40",
+  "pergunta": "Quanto o tempo de tela acrescenta, além de outras características da rotina, à ordenação de relatos atuais de ansiedade e depressão na NSCH?",
+  "modelo": "logistic",
+  "blocos": [
+    {
+      "target": "depressao_atual",
+      "rotulo": "depressão atual",
+      "frases": [
+        "Com idade, sexo e os demais fatores de rotina já considerados, acrescentar o tempo de tela mudou a ROC AUC em 0,003 (IC 95%: 0,002 a 0,004).",
+        "Isso equivale a cerca de 0,3 ponto percentual na chance de o modelo ordenar um relato positivo acima de um negativo.",
+        "Na mesma comparação, a contribuição dos outros fatores foi — dificuldade com amizades: 0,073; sono: 0,004; atividade física: 0,002. O tempo de tela ficou em 3º lugar entre 4 fatores.",
+        "A diferença foi positiva em 5 de 5 edições avaliadas separadamente.",
+        "O intervalo não inclui zero, mas o tamanho da diferença é o que importa: compare-o com o dos outros fatores."
+      ],
+      "delta_auc": 0.002948234735990596,
+      "ic": [
+        0.002283769410813072,
+        0.003662096531354314
+      ],
+      "posicao_entre_fatores": 3,
+      "auc_rotina_completa": 0.8422186542386619
+    },
+    {
+      "target": "ansiedade_atual",
+      "rotulo": "ansiedade atual",
+      "frases": [
+        "Com idade, sexo e os demais fatores de rotina já considerados, acrescentar o tempo de tela mudou a ROC AUC em 0,003 (IC 95%: 0,003 a 0,004).",
+        "Isso equivale a cerca de 0,3 ponto percentual na chance de o modelo ordenar um relato positivo acima de um negativo.",
+        "Na mesma comparação, a contribuição dos outros fatores foi — dificuldade com amizades: 0,109; sono: 0,001; atividade física: 0,000. O tempo de tela ficou em 2º lugar entre 4 fatores.",
+        "A diferença foi positiva em 5 de 5 edições avaliadas separadamente.",
+        "O intervalo não inclui zero, mas o tamanho da diferença é o que importa: compare-o com o dos outros fatores."
+      ],
+      "delta_auc": 0.0031753744766206404,
+      "ic": [
+        0.0026006053424477457,
+        0.0037400202881737203
+      ],
+      "posicao_entre_fatores": 2,
+      "auc_rotina_completa": 0.7623688002048411
+    }
+  ],
+  "limites": [
+    "Associação e capacidade de ordenação não indicam causa: os dados são transversais e o tempo de tela pode ser consequência, e não causa, do relato.",
+    "Os desfechos são relatos de responsáveis, nos Estados Unidos, sobre condições atuais informadas por profissionais; dependem de acesso a diagnóstico, recordação e disposição para informar.",
+    "Os modelos não foram validados clinicamente nem para famílias brasileiras e não são usados para prever condições de pessoas no aplicativo.",
+    "As categorias de tempo de tela são estimativas de um dia típico, informadas pelo responsável, e a redação do item mudou entre edições.",
+    "Os intervalos reamostram registros e não incorporam estratos e conglomerados do desenho amostral; a AUC ponderada é apenas uma análise de sensibilidade.",
+    "Os hiperparâmetros vêm de escolhas anteriores em 2020–2023, e 2024 já havia sido examinado em versões anteriores do protocolo; não há conjunto completamente cego."
+  ],
+  "mensagem_principal": "Tempo de tela é uma parte da rotina, observada junto com sono, atividade física e convivência. Os resultados descrevem padrões de uma pesquisa e não dizem o que acontece com uma criança específica."
+}
