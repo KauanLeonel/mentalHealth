@@ -111,7 +111,7 @@ def main():
     parser.add_argument("--manifesto", type=Path, default=Path("data/processed/manifesto.json"))
     parser.add_argument("--config", type=Path, default=Path("configs/treinamento.json"))
     parser.add_argument("--models", type=Path, default=Path("models/experimentos"))
-    parser.add_argument("--output", type=Path, default=Path("reports/avaliacao"))
+    parser.add_argument("--output", type=Path, default=Path("reports/modelagem/v2_limiar_cv/avaliacao"))
     parser.add_argument("--treinar", action="store_true")
     args = parser.parse_args()
     run(args.manifesto, args.config, args.models, args.output, args.treinar)
