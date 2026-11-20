@@ -12,6 +12,7 @@ dependencies = [
     "pandas",
     "pyarrow",
     "numpy",
+    "scipy",
     "pyreadstat",
     "scikit-learn>=1.9",
     "xgboost",

@@ -178,6 +178,8 @@ def saiba_mais():
 
 def pesquisa():
     st.title("A pesquisa por trás do projeto")
+    st.write("O estudo explora dados da National Survey of Children’s Health dos Estados Unidos de 2020 a 2024. A pesquisa reúne relatos de responsáveis e não acompanha as mesmas crianças ao longo do tempo.")
+    st.write("O artigo compara associações amostrais com uma análise complementar que considera o desenho da NSCH. A classificação de relatos foi avaliada em 2024 após uma revisão de protocolo. O diário funciona de forma independente dessas análises.")
     st.write("O estudo explora dados da National Survey of Children’s Health dos Estados Unidos de 2020 a 2024. A pesquisa reúne relatos de "
              "responsáveis e não acompanha as mesmas crianças ao longo do tempo.")
     try:
