@@ -9,11 +9,7 @@ sys.path.insert(0, str(ROOT / "src"))
 import plotly.express as px
 import streamlit as st
 
-from mindscreen.dados_validados import TARGETS, load_dataset
-from mindscreen.harmonizacao import sha256
-from mindscreen.inferencia import predict_profile
-from mindscreen.painel import (LABELS, distribution_chart, filter_frame, json_result, load_figure,
-                              outcome_by, overview)
+from mindscreen.rotina import ATIVIDADES, COMBINADOS, PERGUNTAS, criar_registro, historico, registrar
 
 st.set_page_config(page_title="MindScreen | Rotina digital", page_icon="🌱", layout="wide")
 
@@ -90,7 +86,7 @@ def plano():
 def pesquisa():
     st.title("A pesquisa por trás do projeto")
     st.write("O estudo explora dados da National Survey of Children’s Health dos Estados Unidos de 2020 a 2024. A pesquisa reúne relatos de responsáveis e não acompanha as mesmas crianças ao longo do tempo.")
-    st.write("Os resultados de associação existentes são exploratórios e não ponderados. As análises de classificação foram avaliadas em 2024 após uma revisão de protocolo e não fundamentam uma previsão individual neste aplicativo.")
+    st.write("O artigo compara associações amostrais com uma análise complementar que considera o desenho da NSCH. A classificação de relatos foi avaliada em 2024 após uma revisão de protocolo. O diário funciona de forma independente dessas análises.")
     st.write("O diário do aplicativo foi criado para reflexão: seus registros não fazem parte da NSCH e ainda não foram avaliados em um estudo com famílias.")
     st.link_button("Conhecer os dados oficiais da NSCH", "https://www.census.gov/programs-surveys/nsch/data/datasets.html")
 

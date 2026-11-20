@@ -57,5 +57,52 @@ def gerar(caminho, destino):
     im.save(destino, dpi=(300, 300))
 
 
+def gerar_ponderada(caminho, destino):
+    dados = json.loads(Path(caminho).read_text(encoding="utf-8"))["desfechos"]
+    im = Image.new("RGB", (1800, 920), "white")
+    draw = ImageDraw.Draw(im)
+    fonte_rotulo, fonte_eixo = fonte(40), fonte(32)
+    x0, x1 = 390, 1670
+    xmin, xmax = 0.4, 1.8
+
+    def escala(valor):
+        return x0 + (valor - xmin) * (x1 - x0) / (xmax - xmin)
+
+    desfechos = [("depressao_atual", "Depressão", "#235c9f", -24),
+                 ("ansiedade_atual", "Ansiedade", "#a54022", 24)]
+    for i, tick in enumerate((0.4, 0.6, 0.8, 1.0, 1.2, 1.4, 1.6, 1.8)):
+        x = escala(tick)
+        draw.line((x, 150, x, 720), fill="#777777" if i == 3 else "#e4e4e4", width=4)
+        draw.text((x, 744), f"{tick:.1f}".replace(".", ","), fill="black", font=fonte_eixo, anchor="mt")
+    for i, (target, nome, cor, deslocamento) in enumerate(desfechos):
+        x = 550 + i * 470
+        draw.text((x + 33, 87), nome, fill="black", font=fonte_rotulo, anchor="lm")
+        marcador = draw.ellipse if i == 0 else draw.rectangle
+        marcador((x-10, 77, x+10, 97), fill=cor)
+        valores = dados[target]["modelos"]["completo"]["categorias"]
+        for codigo in range(2, 6):
+            y = 220 + (codigo - 2) * 142 + deslocamento
+            item = valores[str(codigo)]
+            lo, hi = item["ic95"]
+            x = escala(item["or"])
+            if not xmin <= lo <= item["or"] <= hi <= xmax:
+                raise ValueError("O intervalo da figura excede o eixo ou está fora de ordem")
+            draw.line((escala(lo), y, escala(hi), y), fill=cor, width=6)
+            for extremo in (lo, hi):
+                xf = escala(extremo)
+                draw.line((xf, y-10, xf, y+10), fill=cor, width=4)
+            if i == 0:
+                draw.ellipse((x-11, y-11, x+11, y+11), fill=cor)
+            else:
+                draw.rectangle((x-10, y-10, x+10, y+10), fill=cor)
+    for i, texto in enumerate(("1 hora", "2 horas", "3 horas", "4 horas ou mais")):
+        draw.text((355, 220 + i * 142), texto, fill="black", font=fonte_rotulo, anchor="rm")
+    draw.text((1030, 815), "Razão de chances (referência: menos de 1 hora)", fill="black", font=fonte_eixo, anchor="mt")
+    Path(destino).parent.mkdir(parents=True, exist_ok=True)
+    im.save(destino, dpi=(300, 300))
+
+
 if __name__ == "__main__":
-    gerar(ROOT / "reports/associacao/associacao.json", ROOT / "artigo/figuras/associacao.png")
+    gerar(ROOT / "reports/modelagem/v2_limiar_cv/associacao/associacao.json", ROOT / "artigo/figuras/associacao.png")
+    gerar_ponderada(ROOT / "artigo/resultados_reproducao/desenho_nsch.json",
+                    ROOT / "artigo/figuras/associacao_ponderada.png")

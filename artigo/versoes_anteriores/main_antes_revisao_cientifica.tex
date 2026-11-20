@@ -1,0 +1,134 @@
+﻿\documentclass[12pt]{article}
+\usepackage{sbc-template}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[brazil]{babel}
+\usepackage{graphicx,url}
+\sloppy
+
+\title{MindScreen: um protótipo de reflexão familiar sobre rotina digital informado por uma análise da NSCH (2020--2024)}
+\author{Kauan Edson Leonel Lira\inst{1}, Eduarda Gonçalves Luiz de Andrade\inst{1}}
+\address{Instituto Federal de São Paulo -- Câmpus Caraguatatuba -- Brasil}
+
+\begin{document}
+\maketitle
+\begin{abstract}
+We present MindScreen, a prototype for family reflection on digital routines, informed by five annual US National Survey of Children's Health cross-sections (166,343 records aged 6--17). In an exploratory, unweighted 2024 evaluation, adding screen time increased ROC AUC by 0.0042 for reported current depression and 0.0029 for reported current anxiety. The prototype combines a voluntary diary, charts and family planning without individual scores. Automated tests checked the implemented workflow. Usefulness for families remains to be evaluated.
+\end{abstract}
+\begin{resumo}
+Apresentamos o MindScreen, protótipo de reflexão familiar sobre rotina digital informado por cinco edições transversais da National Survey of Children's Health dos EUA (166.343 registros de 6 a 17 anos). Na avaliação exploratória não ponderada de 2024, incluir tempo de tela acrescentou 0,0042 à ROC AUC para relato de depressão atual e 0,0029 para ansiedade atual. O protótipo reúne diário voluntário, gráficos e plano familiar, sem escores individuais. Testes automatizados verificaram o fluxo implementado. A utilidade para famílias permanece por avaliar.
+\end{resumo}
+
+\section{Introdução}
+Uma estimativa diária de tempo de tela resume atividades tão distintas quanto jogar, assistir a vídeos ou conversar com amigos. Essa medida ajuda a descrever a rotina, mas oferece pouca informação sobre a experiência digital em si, como conteúdo, finalidade e contexto. Entre crianças de 9 a 10 anos, \cite{paulich2021} encontraram associações de magnitude modesta entre tempo de tela e indicadores acadêmicos, sociais e de saúde mental. Na prática, uma ferramenta que acompanha hábitos precisa preservar a diferença entre observar durações e interpretar o que elas significam para uma família.
+
+A \textit{National Survey of Children's Health} (NSCH) reúne informações de responsáveis sobre a saúde e o contexto de crianças que residem em domicílios nos Estados Unidos \cite{censusdata,censusguide}. Usamos cinco edições para investigar duas perguntas complementares. Como as categorias de tempo de tela se associam a relatos de depressão e ansiedade atuais nos casos completos de 2020--2023? Quanto a inclusão dessa variável altera a classificação desses relatos quando outras características de rotina já estão disponíveis e os modelos são avaliados na amostra de 2024? A primeira pergunta trata de associação condicionada a covariáveis. A segunda trata da contribuição incremental de uma variável a uma tarefa de classificação contemporânea.
+
+Essas perguntas informam uma decisão de projeto. O MindScreen reúne registros voluntários e combinados familiares, deixando a análise de saúde mental no âmbito da pesquisa. O trabalho contribui com a harmonização das edições, a comparação das duas análises quantitativas e a descrição de um protótipo com verificação funcional. A avaliação de utilidade para famílias requer um estudo próprio.
+
+\section{Trabalhos relacionados}
+\subsection{Tempo de tela e indicadores de saúde mental}
+A literatura oferece resultados diferentes conforme o que se mede e quando se mede. \cite{boers2019} acompanharam adolescentes canadenses e distinguiram atividades digitais e associações entre indivíduos e dentro do mesmo indivíduo. Uma metanálise de coortes prospectivas identificou associação entre maior exposição inicial e depressão posterior, com elevada heterogeneidade \cite{gao2024}. Já a revisão longitudinal de \cite{tang2021} encontrou associações pequenas ou muito pequenas para sintomas depressivos posteriores e evidência limitada para ansiedade. Na coorte australiana de \cite{li2025}, as associações foram mais fracas no seguimento que no corte transversal, sem associação longitudinal para ansiedade em 12 meses. Sintomas em escalas, funcionamento psicossocial e condições relatadas por responsáveis são desfechos distintos.
+
+Essa diversidade também aparece nos estudos sobre redes sociais, que investigam apenas parte do uso de telas. \cite{kreski2021} encontraram associações pouco consistentes entre uso diário de redes e sintomas depressivos em adolescentes norte-americanos. \cite{valkenburg2022} identificaram interpretações divergentes entre revisões, muitas delas descrevendo associações fracas. A qualidade da evidência e a variação individual merecem atenção ao interpretar médias \cite{stiglic2019,orben2020}. Em uma edição anterior da NSCH, \cite{przybylski2020} estudaram tempo de tela e funcionamento psicossocial, com medidas diferentes das adotadas aqui. A literatura sobre sono também documenta associações com uso de tela e limitações de mensuração \cite{hale2015}, o que motiva considerar as duas dimensões da rotina sem assumir uma direção causal.
+
+\subsection{Autorregistro e planejamento familiar}
+A pesquisa em informática pessoal situa o autorregistro em um processo que envolve coleta, organização, reflexão e ação \cite{li2010informatica}. Pausas e retomadas de uso fazem parte desse processo \cite{epstein2015}. Essas ideias ajudam a interpretar o fluxo do MindScreen, no qual registros parciais podem servir de ponto de partida para uma conversa. A Academia Americana de Pediatria orienta que famílias construam um plano de mídia adequado às suas prioridades e reservem espaço para outras atividades \cite{aap2026}. Em um ensaio randomizado com responsáveis e adolescentes de 12 a 17 anos, completar um plano familiar de mídia não produziu diferença estatisticamente detectável no envolvimento com as regras de mídia \cite{moreno2021}. A presença de um plano na interface, portanto, é uma funcionalidade a avaliar, com resultados de uso próprios.
+
+\section{Materiais e métodos}
+\subsection{Fonte, seleção e harmonização}
+Os arquivos públicos \textit{topical} da NSCH de 2020 a 2024 foram analisados como cortes transversais anuais. Cada registro corresponde a uma criança selecionada e cada edição tem sua própria amostra. O recorte de 6 a 17 anos preservou o universo comum das variáveis empregadas. A rotina de harmonização verificou identificadores, idade, formulário, estrato, peso e valores permitidos. Para cada edição, foram confrontados contagens e totais ponderados por sexo e frequências de \texttt{SCREENTIME} com os controles publicados pelo Census. Os arquivos locais de 2020 e 2021 têm a nomenclatura da versão aprimorada e controles compatíveis com os pesos publicados. A verificação sustenta a compatibilidade dos campos examinados. A procedência integral dos arquivos originais ainda carece de confirmação independente \cite{censusguide}.
+
+O item \texttt{SCREENTIME} reúne cinco categorias para um dia de semana habitual, de menos de uma hora a quatro horas ou mais. A categoria superior é aberta e foi mantida como categoria. A lista de 2024 explicita a exclusão de tarefas escolares, uma diferença de redação documentada em relação às listas anteriores usadas no projeto \cite{census2020,census2024}. Os indicadores de depressão e ansiedade foram construídos separadamente com os pares \texttt{K2Q32A/B} e \texttt{K2Q33A/B}. Os itens distinguem a condição alguma vez informada por profissional e a indicação de que ela está presente atualmente. Histórico negativo com salto documentado foi codificado como ausência atual, assim como a resposta negativa explícita compatível. Histórico desconhecido, condição atual indeterminada e combinações inconsistentes foram mantidos como ausentes. Os indicadores representam relatos de responsáveis.
+
+\subsection{Associação e contribuição incremental}
+Foram ajustadas regressões logísticas separadas, sem penalização, por casos completos de 2020--2023. Os modelos incluíram idade em anos e indicadores para sexo, sono, atividade física, dificuldade para fazer amigos, ano e categoria de tela. A referência foi menos de uma hora. As razões de chances (OR) correspondem aos exponenciais dos coeficientes das categorias. Descrevem contrastes condicionados às covariáveis, sob o modelo ajustado. Os arquivos harmonizados preservam o peso \texttt{FWC} e as variáveis de desenho. As análises aqui relatadas são não ponderadas. As regressões não incorporam estratos e unidades amostrais, por isso são apresentadas como descrições da amostra, sem intervalos de confiança de desenho ou testes de tendência \cite{censusguide}.
+
+A comparação de classificadores empregou dois conjuntos de variáveis: A, com tempo de tela, e B, sem tempo de tela. Ambos incluíram idade, sexo, sono, atividade física e dificuldade para fazer amigos. Componentes dos desfechos foram excluídos dos preditores. Regressão logística, floresta aleatória e XGBoost foram comparados com um classificador de referência. A seleção por área sob a curva ROC (ROC AUC) usou cinco partições estratificadas de 2020--2023, com as mesmas partições em A e B. Imputação, codificação e eventual padronização foram ajustadas dentro de cada partição. O limiar que maximiza F1 foi escolhido com previsões fora da partição de treinamento, usando as mesmas divisões da seleção de hiperparâmetros, sem seleção aninhada.
+
+A avaliação utilizou, por desfecho, os registros de 2024 com condição determinada, mantendo os preditores ausentes tratáveis pelo modelo. A ROC AUC mede ordenação dos escores. A precisão média (AP) resume a curva precisão--sensibilidade e deve ser interpretada considerando a frequência de positivos \cite{saito2015}. Precisão, sensibilidade e F1 são medidas no limiar escolhido. Para o contraste A menos B foram usados intervalos percentílicos por bootstrap pareado de registros de 2024, em 1.000 reamostras, com semente 42. Esses intervalos condicionam-se aos modelos ajustados e ignoram o desenho da pesquisa. O protocolo de limiar e de ponderação de classes do XGBoost foi revisto após a análise inicial de 2024. Assim, a avaliação dessa edição é temporal e exploratória, com exposição anterior aos seus resultados.
+
+\subsection{Implementação e verificação do protótipo}
+O protótipo usa Python e Streamlit, com validação em módulo separado da interface. A Figura~\ref{fig:fluxo-produto} mostra o fluxo implementado. O diário aceita duração estimada de tela recreativa no dia, horas de sono da noite anterior e atividades escolhidas de uma lista. Para guardar um dia, basta preencher um desses campos. O histórico usa a data como referência, preserva a diferença entre ausência e zero e permite consultar os valores em tabela e gráficos. Registrar a mesma data substitui a entrada anterior. Esses campos têm períodos de referência e formas de registro diferentes dos itens da NSCH.
+
+O plano oferece combinados editáveis de uma lista e perguntas para conversar sobre atividades e prioridades. Os registros e as escolhas ficam em memória na sessão Streamlit e podem ser apagados. A interface familiar não solicita nome ou diagnóstico nem carrega os classificadores. A verificação funcional combinou testes das regras de registro e um teste de navegação que percorre diário, histórico, plano e exclusão dos dados. Não houve coleta de dados de famílias ou aplicação de questionários de usabilidade.
+
+\begin{figure}[htbp]
+\centering
+\fbox{\parbox[c][2.1em][c]{0.25\linewidth}{\centering Registro voluntário}}
+\quad$\longrightarrow$\quad
+\fbox{\parbox[c][2.1em][c]{0.22\linewidth}{\centering Histórico visual}}
+\quad$\longrightarrow$\quad
+\fbox{\parbox[c][2.1em][c]{0.22\linewidth}{\centering Plano familiar}}
+\caption{Percurso de uso do MindScreen. O diário e o plano permanecem disponíveis durante a sessão.}
+\label{fig:fluxo-produto}
+\end{figure}
+
+\section{Resultados}
+\subsection{Composição da amostra e associações}
+Das cinco edições, 166.343 registros atenderam ao recorte etário (Tabela~\ref{tab:fluxo}). Havia 2.705 registros sem categoria de tela. Para depressão atual, 11.193 tinham relato positivo, 154.185 negativo e 965 indeterminado. Para ansiedade atual, foram 26.051 positivos, 138.650 negativos e 1.642 indeterminados. Ausências podem se sobrepor.
+
+\begin{table}[htbp]
+\centering
+\caption{Registros por edição antes e após a seleção etária.}
+\label{tab:fluxo}
+\begin{tabular}{lrr}\hline
+Ano & Arquivo original & 6--17 anos \\\hline
+2020 & 42.777 & 30.636 \\
+2021 & 50.892 & 30.173 \\
+2022 & 54.103 & 34.362 \\
+2023 & 55.162 & 33.638 \\
+2024 & 51.375 & 37.534 \\\hline
+Total & 254.309 & 166.343 \\\hline
+\end{tabular}
+\end{table}
+
+Em 2020--2023, havia 128.809 registros no recorte. Após excluir linhas incompletas em cada regressão, restaram 124.795 para depressão e 124.299 para ansiedade. As maiores OR amostrais apareceram na categoria de quatro horas ou mais, frente a menos de uma hora: 1,79 para depressão e 1,65 para ansiedade. Na categoria de uma hora, a OR para depressão foi 0,97. A Figura~\ref{fig:or} mostra os contrastes para cada categoria. A precisão dessas OR sob o desenho amostral permanece desconhecida.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.92\linewidth]{figuras/associacao.png}
+\caption{Razões de chances condicionais não ponderadas em 2020--2023. Ajuste por idade, sexo, sono, atividade física, dificuldade para fazer amigos e ano. Pontos sem intervalos de confiança.}
+\label{fig:or}
+\end{figure}
+
+\subsection{Contribuição incremental de tempo de tela}
+O XGBoost foi selecionado no desenvolvimento para ambos os desfechos e conjuntos de preditores. Na avaliação de 2024, havia 2.537 relatos positivos entre 37.275 registros de depressão determinada e 6.450 entre 37.128 registros de ansiedade determinada. A Tabela~\ref{tab:predicao} apresenta as métricas dos modelos selecionados.
+
+\begin{table}[htbp]
+\centering
+\caption{Desempenho amostral dos modelos XGBoost em 2024.}
+\label{tab:predicao}
+\begin{tabular}{llrrrrr}\hline
+Desfecho & Modelo & ROC AUC & AP & Precisão & Sensib. & F1 \\\hline
+Depressão & A & 0,839 & 0,327 & 0,300 & 0,508 & 0,377 \\
+Depressão & B & 0,835 & 0,322 & 0,320 & 0,471 & 0,381 \\
+Ansiedade & A & 0,761 & 0,450 & 0,402 & 0,546 & 0,463 \\
+Ansiedade & B & 0,758 & 0,448 & 0,403 & 0,541 & 0,462 \\\hline
+\end{tabular}
+
+\smallskip{\footnotesize A inclui tempo de tela e B exclui essa variável. Cada modelo usa seu próprio limiar escolhido no desenvolvimento.}
+\end{table}
+
+A diferença de ROC AUC entre A e B foi de 0,00425 para depressão (intervalo bootstrap de 95\% de 0,00268 a 0,00571) e de 0,00291 para ansiedade (0,00140 a 0,00438). As diferenças em AP foram 0,00495 e 0,00209, respectivamente. A inclusão de tempo de tela elevou a sensibilidade no limiar de ambos os desfechos, enquanto F1 diminuiu para depressão e mudou pouco para ansiedade. Os intervalos descrevem apenas a variabilidade da reamostragem com modelos fixos.
+
+\subsection{Verificação funcional}
+Os testes automatizados verificaram o tratamento de valores ausentes e de zero, a rejeição de datas futuras e durações inválidas e a substituição de uma entrada pela data. A interface foi exercitada com inclusão de um registro, consulta à tabela, escolha de combinado, retorno à página do plano e exclusão do diário. Essas verificações documentam o comportamento do código para os casos testados. A interface também apresenta a origem e as limitações da pesquisa numa página separada.
+
+\section{Discussão}
+\subsection{O que as duas análises informam}
+A associação condicional e a contribuição incremental respondem a perguntas diferentes. As razões de chances comparam categorias de uso da tela dentro de uma especificação de regressão, em casos completos. A comparação A/B mede quanto o desempenho de classificação muda ao incluir a variável em modelos que já dispõem de outras características e que são ajustados separadamente. Por isso, uma OR acima de um e uma diferença pequena de ROC AUC podem coexistir. O contraste A/B depende das outras variáveis disponíveis, da família de modelos e do protocolo de avaliação. Os limiares próprios de cada versão também alteram o equilíbrio entre sensibilidade e precisão.
+
+O resultado para a categoria mais alta é compatível com a presença de associações descritas em outros estudos, mas os tamanhos de efeito têm escalas, exposições e desfechos distintos \cite{boers2019,gao2024,paulich2021}. Evidências prospectivas mais fracas, sobretudo para ansiedade, reforçam a importância de distinguir coocorrência de precedência temporal \cite{tang2021,li2025}. A análise transversal da NSCH admite que condições anteriores influenciem o uso de telas ou que ambos estejam associados ao contexto familiar, socioeconômico ou de acesso a cuidados. Sono, atividade física e relações sociais também são contemporâneos aos desfechos e podem integrar essas vias. A seleção por casos completos, a redação do item de tela em 2024 e a ausência de análise separada por idade limitam as comparações. As edições agrupadas não representam trajetórias individuais, e os resultados aqui apresentados têm alcance amostral.
+
+\subsection{Implicações para o MindScreen e avaliação futura}
+A precisão observada é um motivo para restringir a interpretação dos classificadores. Para depressão no modelo A, aproximadamente metade dos relatos positivos foi identificada, mas cerca de três em cada dez classificações positivas correspondiam a um relato positivo. A avaliação de 2024 teve exposição anterior, os escores carecem de calibração e a NSCH cobre outra população. Em conjunto com o pequeno valor incremental da medida de tela, esses limites sustentam a decisão de oferecer visualização dos próprios registros e perguntas para reflexão, sem produzir rótulos ou prescrever limites de tela a partir da amostra.
+
+O vínculo entre observação e conversa é a hipótese de uso do MindScreen. Os gráficos tornam visíveis os dias registrados e o plano torna explícitas as escolhas de rotina da família. O protótipo atual perde o histórico quando termina a sessão, o que limita a observação entre dias, e depende de estimativas voluntárias sujeitas a erro de recordação. Um estudo de usabilidade pode observar se responsáveis e adolescentes conseguem registrar e corrigir um dia, interpretar lacunas no gráfico, escolher um combinado e apagar os dados. Podem ser medidos o sucesso nas tarefas, erros de interpretação e utilidade percebida. A hipótese de que o registro e o plano ajudam a organizar conversas demandaria um piloto com desenho e critérios definidos previamente. A avaliação de mudanças de hábitos ou saúde demandaria medidas e comparação apropriadas, além da revisão ética institucional aplicável.
+
+\section{Conclusão}
+O MindScreen implementa um diário voluntário, um histórico visual e um plano familiar de rotina digital. A análise secundária mostrou maiores razões de chances condicionais nas categorias superiores de tela e uma contribuição incremental pequena para a ordenação dos relatos de depressão e ansiedade em 2024. As análises têm alcance exploratório e fundamentam a delimitação do protótipo, cuja verificação funcional foi realizada com testes automatizados. Compreensão, utilidade e adoção pelas famílias permanecem questões empíricas.
+
+\bibliographystyle{sbc}
+\bibliography{referencias}
+\end{document}
