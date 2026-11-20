@@ -62,7 +62,7 @@ def test_streamlit_paginas_e_formulario_reais(monkeypatch):
     monkeypatch.setattr("mindscreen.treinamento.train", no_training)
     monkeypatch.setattr("sklearn.pipeline.Pipeline.fit", no_training)
     # AppTest resolve caminhos relativos a partir deste arquivo, não do diretório de trabalho.
-    script = Path(__file__).resolve().parents[1] / "app" / "streamlit_app.py"
+    script = Path(__file__).resolve().parents[1] / "app" / "pesquisa_streamlit.py"
     app = AppTest.from_file(str(script), default_timeout=60).run()
     assert not app.exception
     for page in ["Análise exploratória", "Comparação dos modelos", "Explicabilidade"]:

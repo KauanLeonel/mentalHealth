@@ -1,8 +1,16 @@
 # MindScreen AI
 
-Projeto acadêmico para analisar a associação entre tempo de exposição a telas e indicadores de saúde mental de crianças e adolescentes nos microdados do National Survey of Children's Health (NSCH), edições de 2020 a 2024. `SCREENTIME` é a variável principal de interesse. Os dois problemas de classificação binária serão independentes: presença atual de depressão e presença atual de ansiedade. Estão previstos Logistic Regression, Random Forest e XGBoost, com interface futura em Streamlit.
+Projeto acadêmico que investiga rotina digital e apresenta um protótipo de reflexão familiar. A pesquisa preservada analisa, de forma exploratória, tempo de tela e relatos de ansiedade e depressão na National Survey of Children's Health (NSCH), edições de 2020 a 2024. O protótipo não faz previsões individuais nem diagnósticos.
 
-O projeto contém auditoria, harmonização, análise exploratória e pipelines de treinamento. A interface Streamlit permanece para uma etapa futura. Associação não implica causalidade e previsões não devem ser apresentadas como diagnósticos médicos.
+O aplicativo permite registrar voluntariamente tempo recreativo de tela, sono e atividades, ver um histórico da sessão e escolher combinados familiares. Os dados permanecem apenas em memória durante a sessão e podem desaparecer ao recarregar ou desconectar; o aplicativo não os grava em arquivos ou banco de dados. Ainda não foi avaliado com famílias. O código e as análises anteriores permanecem disponíveis para pesquisa; associação não implica causalidade.
+
+## Abrir o protótipo
+
+```powershell
+.\.venv\Scripts\python.exe -m streamlit run app/streamlit_app.py
+```
+
+O protótipo funciona sem carregar os microdados ou os classificadores. A interface anterior de pesquisa foi preservada em `app/pesquisa_streamlit.py` e não integra o fluxo familiar. Consulte `docs/rotina-digital.md` e `artigo/main.tex` para decisões e limitações.
 
 ## Instalação no Windows (PowerShell)
 
@@ -30,7 +38,7 @@ A CLI verifica a execução do pacote, não a disponibilidade de todas as depend
 ## Organização
 
 - `src/mindscreen/`: pacote Python, CLI e lógica de negócio.
-- `app/`: futura interface Streamlit.
+- `app/`: protótipo familiar e interface de pesquisa preservada.
 - `data/raw/`, `data/interim/`, `data/processed/`: dados originais, intermediários e processados, respectivamente.
 - `configs/`: regras de harmonização e configurações de treinamento; `docs/`: decisões e documentação metodológica.
 - `models/`, `reports/`: artefatos de modelos e relatórios.

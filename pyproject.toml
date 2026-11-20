@@ -17,6 +17,7 @@ dependencies = [
     "xgboost",
     "shap",
     "plotly",
+    "Pillow",
     "streamlit>=1.50",
     "joblib",
 ]

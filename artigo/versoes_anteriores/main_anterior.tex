@@ -1,0 +1,86 @@
+\documentclass[12pt]{article}
+\usepackage{sbc-template}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[brazil]{babel}
+\usepackage{graphicx,url}
+\sloppy
+
+\title{MindScreen AI: uma abordagem exploratória para análise de tempo de tela e indicadores de saúde mental na infância e adolescência}
+% Substitua os campos abaixo pelos dados reais antes da submissão.
+\author{Nome do(a) autor(a)\inst{1}}
+\address{Instituição e departamento -- Cidade -- Estado -- Brasil
+  \email{email@instituicao.br}}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+This paper presents MindScreen AI, a research prototype for studying associations between screen time and parent-reported current depression and anxiety in children and adolescents. The project harmonizes 2020--2024 National Survey of Children's Health data and implements exploratory analyses, predictive models, explanations and an interactive interface. The harmonized sample contains 166,343 records aged 6--17. Unweighted complete-case analyses suggest associations, but do not establish causality or population estimates. The prototype is not a diagnostic tool.
+\end{abstract}
+
+\begin{resumo}
+Este artigo apresenta o MindScreen AI, protótipo de pesquisa sobre associações entre tempo de tela e relatos de responsáveis sobre depressão e ansiedade atuais em crianças e adolescentes. O projeto harmoniza dados da National Survey of Children's Health de 2020 a 2024 e implementa análises exploratórias, modelos preditivos, explicações e interface interativa. A amostra harmonizada contém 166.343 registros de 6 a 17 anos. Análises não ponderadas de casos completos sugerem associações, sem estabelecer causalidade ou estimativas populacionais. O protótipo não é uma ferramenta de diagnóstico.
+\end{resumo}
+
+\section{Introdução}
+O uso de telas integra o cotidiano de crianças e adolescentes, e sua relação com indicadores de saúde mental requer análise cuidadosa de fatores contextuais e das limitações dos dados observacionais. A disponibilidade de microdados da \textit{National Survey of Children's Health} (NSCH), realizada nos Estados Unidos, permite investigar padrões em respostas fornecidas por responsáveis \cite{census2020,census2024}. Contudo, relações observadas em uma pesquisa transversal não demonstram que a exposição precedeu ou causou um desfecho.
+
+O objetivo deste trabalho é apresentar o MindScreen AI, um protótipo que organiza microdados da NSCH, investiga associações entre categorias de tempo de tela e dois indicadores de saúde mental e disponibiliza recursos de modelagem e visualização. As tarefas de classificação de depressão e ansiedade atuais são independentes. As contribuições consistem na documentação de um processo de harmonização entre edições, em uma análise amostral ajustada e na implementação de uma infraestrutura reprodutível de experimentos. Nenhuma saída do sistema constitui diagnóstico médico.
+
+\section{Dados e harmonização}
+São utilizadas as edições \textit{topical} da NSCH de 2020 a 2024, com população analítica de 6 a 17 anos. A escolha busca um universo comum para as variáveis inicialmente consideradas. As listas e frequências oficiais de cada edição orientam as regras e verificações; as listas de 2020 e 2024 exemplificam a documentação consultada \cite{census2020,census2024}. O projeto preserva os arquivos de origem separados dos dados processados.
+
+Cada arquivo é submetido a verificações técnicas de colunas, identificadores, domínios e frequências selecionadas, incluindo comparações de pesos e distribuições com publicações do Census. Um manifesto vincula o dataset produzido a seu hash e registra os preditores permitidos. Essas verificações não equivalem a revisão científica independente nem autenticam integralmente a origem dos arquivos.
+
+A variável \texttt{SCREENTIME} é mantida em cinco categorias, de menos de uma hora a quatro horas ou mais em dias de semana. A documentação de 2024 explicita a exclusão de tarefas escolares, expressão ausente das listas anteriores consultadas; essa diferença documental não comprova, por si só, mudança no instrumento. Os preditores iniciais também incluem idade, sexo, sono, atividade física e dificuldade para fazer amizades. Variáveis de bullying e itens comportamentais são mantidos para exploração, mas excluídos do conjunto inicial de preditores por diferenças documentais ou proximidade com sintomas.
+
+Os desfechos são construídos separadamente a partir das perguntas sobre histórico e condição atual de depressão ou ansiedade. Um histórico negativo com salto documentado é tratado como negativo; quando o histórico é positivo, a resposta sobre condição atual determina o desfecho. Respostas inconsistentes ou insuficientes permanecem indeterminadas. Os componentes dos desfechos são armazenados separadamente e não são utilizados como preditores. Ausências preservam os motivos disponíveis; campos vazios de CSV não permitem recuperar motivos que tenham sido perdidos na conversão.
+
+\section{Métodos}
+\subsection{Associação ajustada}
+Para cada desfecho, uma regressão logística não penalizada é ajustada aos casos completos de 2020 a 2023. As categorias de tempo de tela são comparadas à categoria de menos de uma hora, com ajuste simultâneo por idade, sexo, sono, atividade física, dificuldade para fazer amizades e ano. As razões de chances (\textit{odds ratios}, ORs) são exponenciais dos coeficientes e descrevem associações condicionais na amostra. A análise não usa pesos amostrais e não apresenta intervalos de confiança que representem o desenho complexo da pesquisa. Covariáveis contemporâneas podem ser mediadoras ou consequências dos desfechos; o ajuste não elimina confundimento nem causalidade reversa.
+
+\subsection{Modelagem e avaliação}
+O sistema implementa regressão logística, Random Forest e XGBoost, além de um classificador de referência constante. Comparam-se dois conjuntos de preditores: experimento A, com tempo de tela, e experimento B, sem essa variável. A seleção de hiperparâmetros utiliza a área sob a curva ROC média em cinco partições estratificadas dos dados de 2020 a 2023. Imputação e codificação são ajustadas dentro de cada partição para reduzir vazamento de informação. Os pesos amostrais são preservados nos dados, mas não são aplicados ao treinamento.
+
+A implementação prevê avaliação temporal em 2024 com métricas de discriminação e classificação e bootstrap pareado entre experimentos, sem incorporar o desenho amostral. Na revisão documentada do protocolo, o limiar é escolhido por F1 em predições fora da partição de desenvolvimento e a busca do XGBoost passa a incluir balanceamento de classes. Essa revisão ocorreu após observação de desempenho em 2024; portanto, esse ano deixou de ser um teste totalmente cego para a decisão de protocolo. É necessário um novo conjunto independente para avaliação confirmatória.
+
+\subsection{Explicabilidade e interface}
+O projeto implementa explicações SHAP para modelos selecionados, com verificações de aditividade e agrupamento posterior de colunas codificadas por variável original \cite{lundberg2017}. As contribuições descrevem o comportamento do modelo em relação a uma amostra de referência; não medem efeitos de uma intervenção. A interface Streamlit reúne visualizações e um simulador de pesquisa que usa preditores aprovados. Pontuações não calibradas e rótulos são apresentados sem interpretação clínica. O carregamento de modelos depende de artefatos locais e verificações de integridade.
+
+\section{Resultados disponíveis}
+O relatório de harmonização presente no projeto registra 166.343 observações de 6 a 17 anos, distribuídas conforme a Tabela~\ref{tab:amostra}. As contagens são amostrais e não ponderadas. Na amostra completa, o desfecho de depressão apresenta 11.193 positivos, 154.185 negativos e 965 indeterminados; o de ansiedade apresenta 26.051 positivos, 138.650 negativos e 1.642 indeterminados. Os desfechos refletem relatos dos responsáveis e não diagnósticos produzidos pelo sistema.
+
+\begin{table}[ht]
+\centering
+\caption{Registros por edição e após restrição etária.}
+\label{tab:amostra}
+\begin{tabular}{lrr}
+\hline
+Ano & Total na edição & 6--17 anos \\
+\hline
+2020 & 42.777 & 30.636 \\
+2021 & 50.892 & 30.173 \\
+2022 & 54.103 & 34.362 \\
+2023 & 55.162 & 33.638 \\
+2024 & 51.375 & 37.534 \\
+\hline
+\end{tabular}
+\end{table}
+
+A análise ajustada disponível inclui 124.795 casos completos para depressão e 124.299 para ansiedade. Em relação a menos de uma hora, as ORs amostrais para quatro horas ou mais são, respectivamente, 1,79 e 1,65. Essas estimativas não ponderadas não representam razões de risco, efeitos causais ou inferência populacional, e não há intervalos de confiança que permitam avaliar sua precisão sob o desenho da NSCH. A análise excluiu, respectivamente, 4.014 e 4.510 registros de 2020--2023 por ausência no desfecho ou nas covariáveis.
+
+Há registros locais de uma execução anterior de treinamento, cuja configuração não inclui a busca de balanceamento do XGBoost prevista na revisão. Naquele registro, o XGBoost foi selecionado por validação cruzada no experimento A para ambos os desfechos. Como o relatório de avaliação temporal e os artefatos completos da revisão não estão disponíveis nesta cópia, não são apresentados resultados de teste de 2024 nem se atribuem métricas dessa execução anterior ao protocolo revisado. A comparação A/B e as explicações dependem da geração e revisão dos respectivos relatórios.
+
+\section{Discussão e limitações}
+As associações encontradas são compatíveis com diferenças entre categorias de tempo de tela na amostra analisada, mas não permitem concluir que alterar o tempo de tela alteraria a ocorrência dos desfechos. Medidas autorreferidas por responsáveis, dados ausentes, seleção de casos completos e possíveis diferenças entre edições podem introduzir vieses. A ausência de pesos e de estimadores de variância apropriados impede generalização estatística à população. Além disso, os dados se referem aos Estados Unidos, e não houve validação clínica, calibração individual ou avaliação de transporte para o Brasil.
+
+O manifesto e os hashes auxiliam a rastreabilidade, mas não substituem uma revisão metodológica humana. A comparação entre modelos com e sem tempo de tela pode investigar contribuição preditiva nas condições do experimento, sem atribuir causalidade. A revisão após observar 2024 reforça a necessidade de avaliação independente posterior. Limites de páginas, identificação de autoria e demais exigências devem ser adequados ao evento pretendido.
+
+\section{Conclusão}
+O MindScreen AI reúne harmonização, análise de associação, experimentos preditivos e interface para pesquisa exploratória com dados da NSCH. Os resultados disponíveis demonstram a viabilidade do fluxo e indicam associações amostrais que exigem interpretação cautelosa. Como trabalhos futuros, destacam-se revisão científica dos dados e preditores, aplicação de métodos adequados ao desenho complexo, avaliação em dados independentes e verificação de calibração e transportabilidade antes de qualquer uso além da pesquisa.
+
+\bibliographystyle{sbc}
+\bibliography{referencias}
+\end{document}

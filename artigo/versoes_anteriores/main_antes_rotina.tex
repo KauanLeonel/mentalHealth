@@ -1,0 +1,131 @@
+﻿\documentclass[12pt]{article}
+\usepackage{sbc-template}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[brazil]{babel}
+\usepackage{graphicx,url}
+\sloppy
+\title{Tempo de tela e indicadores de saúde mental em crianças e adolescentes: uma análise exploratória da NSCH de 2020 a 2024}
+\author{Kauan Edson Leonel Lira\inst{1}, Eduarda Gonçalves Luiz de Andrade\inst{1}}
+\address{Instituto Federal de São Paulo -- Câmpus Caraguatatuba -- Brasil}
+\begin{document}
+\maketitle
+\begin{abstract}
+This study examines parent-reported screen time and current anxiety and depression in US National Survey of Children's Health data. Five annual cross-sections yielded 166,343 records aged 6--17. Unweighted complete-case logistic models used 2020--2023 only. For four or more hours versus less than one, sample odds ratios were 1.79 for depression and 1.65 for anxiety. These exploratory estimates lack design-based uncertainty and cannot support population or causal inference.
+\end{abstract}
+\begin{resumo}
+Este estudo examina tempo de tela e relatos de responsáveis sobre ansiedade e depressão atuais na National Survey of Children's Health dos EUA. Cinco edições transversais reuniram 166.343 registros de 6 a 17 anos. Regressões logísticas não ponderadas de casos completos usaram somente 2020--2023. Para quatro horas ou mais frente a menos de uma, as razões de chances amostrais foram 1,79 para depressão e 1,65 para ansiedade. As estimativas exploratórias não têm incerteza compatível com o desenho e não fundamentam inferência populacional ou causal.
+\end{resumo}
+\section{Introdução}
+O tempo diante de dispositivos eletrônicos reúne práticas distintas, como assistir a programas, jogar e interagir em redes sociais. A possível relação dessas práticas com a saúde mental de crianças e adolescentes é relevante, mas uma medida agregada de duração não identifica conteúdo, contexto familiar ou motivos de uso. Na coorte norte-americana estudada por \cite{paulich2021}, associações com saúde mental e sono tiveram magnitudes modestas, enquanto relações sociais também apresentaram padrões distintos. A interpretação exige, portanto, distinguir duração, tipo de atividade e características dos participantes.
+
+A \textit{National Survey of Children's Health} (NSCH) fornece dados anuais sobre crianças residentes em domicílios nos Estados Unidos \cite{censusdata}. A combinação de edições amplia o número de observações, mas não constitui seguimento longitudinal e exige tratamento do plano amostral \cite{censusguide}. Este trabalho pergunta como categorias de tempo de tela se relacionam com relatos de depressão e ansiedade atuais na amostra disponível. A hipótese exploratória é que categorias superiores apresentem maiores chances condicionais desses relatos, sem pressupor uma relação causal ou monotônica.
+
+O objetivo é documentar a harmonização das edições de 2020 a 2024, examinar associações amostrais em 2020--2023 e relatar a avaliação exploratória temporal dos classificadores em 2024. A contribuição é um registro reproduzível das definições, dos resultados e das condições ainda necessárias para inferência populacional e validação preditiva. 
+\section{Trabalhos relacionados}
+A literatura associa alguns usos de tela a sintomas depressivos, mas os resultados variam segundo desenho e medida. Em acompanhamento de adolescentes canadenses, \cite{boers2019} distinguiram atividades digitais e associações entre pessoas e dentro da mesma pessoa. A metanálise de coortes prospectivas de \cite{gao2024} encontrou associação agregada entre exposição inicial e depressão posterior, acompanhada de heterogeneidade elevada; os estudos observacionais reunidos não eliminam confundimento.
+
+Em contraste, \cite{li2025} encontraram associações longitudinais mais fracas que as transversais, sem associação longitudinal com ansiedade em sua análise de adolescentes australianos. As diferenças de população, instrumento e intervalo de acompanhamento impedem comparar diretamente coeficientes com a NSCH. A aparente divergência também pode refletir causalidade reversa ou fatores comuns ao uso e aos sintomas, hipóteses que dados transversais não conseguem separar.
+
+A revisão longitudinal de \cite{tang2021} encontrou associações pequenas ou muito pequenas com sintomas depressivos posteriores e evidência limitada para ansiedade. Na revisão de revisões de \cite{valkenburg2022}, a maioria das sínteses qualificou as associações de redes sociais com saúde mental como fracas ou inconsistentes, embora algumas as interpretassem como substanciais. Em outra análise de adolescentes norte-americanos, \cite{kreski2021} não encontraram associação forte e consistente entre uso diário de redes sociais e sintomas depressivos. Essas medidas de redes sociais não equivalem ao tempo total de tela da NSCH.
+
+Os instrumentos e o contexto influenciam a comparação dos achados. \cite{stiglic2019} identificaram evidência de qualidade variável em revisão de revisões sobre telas e saúde de crianças, enquanto \cite{orben2020} ressaltou que diferenças individuais e escolhas analíticas dificultam resumir experiências digitais em uma média única. Um estudo anterior com a própria NSCH examinou envolvimento com telas e funcionamento psicossocial \cite{przybylski2020}, mas usou edição e desfechos diferentes dos adotados aqui. A presente análise não estima exposição a plataformas específicas nem conteúdo consumido.
+
+Sono ilustra a dificuldade de escolher covariáveis: revisão de \cite{hale2015} descreve associações frequentes entre telas e desfechos do sono, com limitações de mensuração e de causalidade. Se sono ou relações sociais forem intermediários, seu ajuste pode retirar parte de uma associação de interesse; se forem consequências do desfecho, a interpretação também muda. Assim, os modelos descritos abaixo representam associações condicionais a variáveis contemporâneas, não efeitos totais.
+\section{Materiais e métodos}
+\subsection{Fonte, população e harmonização}
+Foram utilizados arquivos locais CSV do questionário \textit{topical} das edições de 2020 a 2024 e o dataset Parquet produzido pelo projeto. Cada edição é transversal e a unidade é a criança selecionada; registros agrupados não identificam trajetórias individuais. A análise harmonizada restringiu idade a 6--17 anos, universo comum às variáveis usadas. A rotina verificou identificador, idade, formulário, estrato, peso e domínios; comparou frequências de tela e totais e pesos por sexo com publicações oficiais. Esses controles sustentam compatibilidade, mas não autenticam os arquivos originais byte a byte.
+
+Os arquivos de 2020 e 2021 têm nome da versão aprimorada e seus controles de pesos coincidiram com frequências publicadas conforme o relatório do projeto. O guia oficial exige versões aprimoradas das edições anteriores a 2022 em comparações com anos posteriores \cite{censusguide}; o nome, isoladamente, não comprova a procedência. As listas de variáveis e as regras por ano estão documentadas em \texttt{docs/harmonizacao.md}. A comparação de pesos publicados não substitui conferência independente de proveniência completa.
+
+\subsection{Exposição, desfechos e dados ausentes}
+A variável \texttt{SCREENTIME} descreve tempo habitual em dias de semana em cinco categorias: menos de uma hora, uma, duas, três e quatro horas ou mais. A última é aberta e não representa duração exata. A lista de 2024 exclui explicitamente tarefas escolares \cite{census2024}; segundo a comparação documental do projeto, essa frase não aparece no item das listas anteriores, o que limita a suposição de equivalência perfeita com 2024 \cite{census2020}. A medida não separa dispositivos, conteúdo ou uso simultâneo.
+
+Depressão e ansiedade foram construídas separadamente com os itens de condição alguma vez informada por profissional e condição atual (\texttt{K2Q32A/B} e \texttt{K2Q33A/B}). Histórico negativo com salto documentado implica condição atual negativa; histórico positivo exige resposta válida ao item atual. Histórico desconhecido, atual indeterminado ou combinações inconsistentes permanecem ausentes. Trata-se de relato do responsável sobre condição informada, não de avaliação clínica conduzida neste estudo. Na regressão foram removidos registros com ausência em qualquer variável do respectivo modelo; não houve imputação.
+
+\subsection{Análise e desenho amostral}
+O código existente ajusta regressões logísticas separadas, sem penalização, com intercepto, idade contínua e indicadores para sexo, sono, atividade física, dificuldade para fazer amigos, ano e tempo de tela. A referência é menos de uma hora. As razões de chances (\textit{odds ratios}, OR) são exponenciais dos coeficientes condicionais; não são razões de prevalência. O algoritmo \texttt{lbfgs} usa tolerância de $10^{-8}$ e limite de 3.000 iterações, com verificação de convergência. As regressões de associação usam exclusivamente 2020--2023. Não foram executados testes de tendência ou comparações por idade.
+
+As regressões não usam \texttt{FWC}, estratos nem erro-padrão adequado ao desenho. Portanto, seus coeficientes descrevem apenas os casos completos da amostra e não são estimativas nacionais; tampouco há intervalos de confiança ou testes de hipótese. Para estimativa populacional futura, o guia do Census recomenda pesos revisados e estimação de variância compatível com o plano; para tamanho populacional anual médio de cinco anos, divide-se o peso anual por cinco, o que não altera proporções por si só \cite{censusguide}. Seus exemplos usam estado e estrato, unidade domiciliar e procedimentos próprios para pesquisas complexas. A definição de estratos e identificadores entre anos e a estimação por domínio devem ser validadas antes de produzir intervalos: simplesmente ponderar uma regressão convencional não resolve a variância.
+
+Os dados são arquivos públicos disponibilizados pelo Census; o processamento usa identificadores apenas para integridade e não apresenta registros individuais. A aprovação ética aplicável à instituição e ao evento deve ser verificada pelos responsáveis. O pipeline e versões estão registrados no material de reprodução.
+
+\subsection{Experimentos preditivos}
+Em análise complementar, o projeto comparou dois conjuntos de preditores: A, com tempo de tela, e B, sem ele; ambos incluem idade, sexo, sono, atividade física e dificuldade para fazer amigos. Em 2020--2023, regressão logística, floresta aleatória e XGBoost foram comparados a um classificador de referência por validação cruzada estratificada em cinco partes, com seleção por área sob a curva ROC (ROC AUC). A transformação categórica e o tratamento de faltantes integram os pipelines; para variáveis numéricas usa-se imputação pela mediana e para categóricas, categoria de ausência. O limiar maximiza F1 em previsões fora do respectivo fold de desenvolvimento. Como parâmetros foram escolhidos usando esses mesmos folds, tais previsões não constituem validação aninhada independente.
+
+Os modelos salvos foram avaliados em registros de 2024 com desfecho conhecido. O projeto também calculou intervalos percentílicos por 1.000 reamostras bootstrap pareadas de registros para a diferença A menos B; esses intervalos não consideram pesos nem estratos e condicionam-se aos modelos ajustados. Após uma primeira avaliação de 2024, o protocolo de treinamento e limiar foi revisado; portanto, 2024 deixou de ser uma avaliação totalmente cega. Os escores não foram calibrados e a análise mede desempenho na amostra, sem equivaler a diagnóstico ou efeito causal da variável incluída.
+\section{Resultados}
+A Tabela~\ref{tab:fluxo} apresenta as contagens por edição antes e depois da seleção etária. O conjunto final reuniu 166.343 registros, sem duplicação do identificador analítico. Havia 2.705 valores ausentes de tempo de tela, 965 de depressão atual e 1.642 de ansiedade atual; essas ausências podem se sobrepor. Em todo o conjunto etário, os rótulos de depressão compreenderam 11.193 positivos e 154.185 negativos; os de ansiedade, 26.051 positivos e 138.650 negativos. Essas contagens são amostrais, sem ponderação.
+\begin{table}[ht]
+\centering
+\caption{Registros por edição, antes e após seleção etária. Contagens não ponderadas.}
+\label{tab:fluxo}
+\begin{tabular}{lrr}\hline
+Ano & Arquivo original & 6--17 anos \\\hline
+2020 & 42.777 & 30.636 \\
+2021 & 50.892 & 30.173 \\
+2022 & 54.103 & 34.362 \\
+2023 & 55.162 & 33.638 \\
+2024 & 51.375 & 37.534 \\\hline
+\end{tabular}
+\end{table}
+
+Nas quatro edições de desenvolvimento havia 128.809 registros de 6--17 anos. Após exclusão por dados ausentes no desfecho ou em variáveis do modelo, restaram 124.795 para depressão e 124.299 para ansiedade, com exclusão respectiva de 4.014 e 4.510 registros. A Tabela~\ref{tab:or} mostra as OR condicionais obtidas na reprodução. Para quatro horas ou mais, as OR foram 1,79 e 1,65, respectivamente; na categoria de uma hora, a OR de depressão foi 0,97. Não há evidência de precisão estatística nessas saídas, nem justificativa para interpretar diferenças pequenas entre categorias como conclusivas.
+\begin{table}[ht]
+\centering
+\caption{Razões de chances condicionais amostrais, 2020--2023, por tempo de tela.}
+\label{tab:or}
+\begin{tabular}{lrr}\hline
+Tempo de tela & Depressão & Ansiedade \\\hline
+Menos de 1 hora & 1,00 & 1,00 \\
+1 hora & 0,97 & 1,13 \\
+2 horas & 1,22 & 1,27 \\
+3 horas & 1,37 & 1,43 \\
+4 horas ou mais & 1,79 & 1,65 \\\hline
+\end{tabular}
+
+\smallskip\footnotesize Referência: menos de uma hora. Casos completos; ajuste por idade, sexo, sono, atividade física, amizade e ano. Sem pesos ou intervalos de confiança.
+\end{table}
+
+A Figura~\ref{fig:or} apresenta os mesmos coeficientes para facilitar a comparação visual. Os pontos não incluem barras de incerteza porque os modelos de associação não as estimaram; a posição de um ponto não demonstra diferença estatisticamente estabelecida.
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.95\textwidth]{figuras/associacao.png}
+\caption{Razões de chances condicionais não ponderadas em 2020--2023; sem intervalos de confiança.}
+\label{fig:or}
+\end{figure}
+
+\subsection{Avaliação temporal exploratória}
+Para cada desfecho e conjunto de preditores, XGBoost foi selecionado pela ROC AUC no desenvolvimento. A Tabela~\ref{tab:predicao} resume a avaliação em 2024. A área ROC mede a ordenação dos escores; a precisão média (AP) resume a curva precisão--sensibilidade e depende da frequência do desfecho. Precisão é a fração de positivos previstos que corresponde a positivos observados; sensibilidade é a fração dos positivos observados identificada pelo limiar. Ambas e F1 dependem do limiar escolhido.
+\begin{table}[ht]
+\centering
+\caption{Avaliação exploratória de XGBoost em 2024, sem ponderação.}
+\label{tab:predicao}
+\begin{tabular}{llrrrrr}\hline
+Desfecho & Modelo & ROC AUC & AP & Precisão & Sensib. & F1 \\\hline
+Depressão & A & 0,839 & 0,327 & 0,300 & 0,508 & 0,377 \\
+Depressão & B & 0,835 & 0,322 & 0,320 & 0,471 & 0,381 \\
+Ansiedade & A & 0,761 & 0,450 & 0,402 & 0,546 & 0,463 \\
+Ansiedade & B & 0,758 & 0,448 & 0,403 & 0,541 & 0,462 \\\hline
+\end{tabular}
+
+\smallskip\footnotesize A inclui tempo de tela; B o exclui. Limiar escolhido no desenvolvimento e diferente entre modelos. Desfecho conhecido: depressão $n=37.275$; ansiedade $n=37.128$. AP: precisão média.
+\end{table}
+
+Em 2024, os registros positivos somaram 2.537 para depressão e 6.450 para ansiedade. Na comparação pareada A menos B, as diferenças de ROC AUC foram 0,00425 para depressão e 0,00291 para ansiedade; os intervalos percentílicos bootstrap de 95\% foram, respectivamente, [0,00268; 0,00571] e [0,00140; 0,00438]. Esses intervalos descrevem a variabilidade da reamostragem de registros sob modelos fixos e não representam incerteza do plano amostral, da seleção de modelos ou da adaptação do protocolo. As diferenças são pequenas, e F1 diminuiu para depressão e aumentou pouco para ansiedade. Não se deve interpretar esse contraste preditivo como efeito isolado de telas sobre a saúde.
+
+\section{Discussão}
+As OR amostrais das categorias mais altas foram superiores à referência nos dois modelos, mas não constituem uma estimativa de associação para a população dos Estados Unidos. A diferença entre os dois desfechos e a proximidade da unidade para depressão na categoria de uma hora desaconselham resumir o resultado como uma progressão comprovada. Sem intervalos de confiança que incorporem o desenho, não é possível avaliar a precisão nem concluir que categorias diferem entre si.
+
+O padrão exploratório é compatível com a existência de associações relatadas em estudos anteriores, mas os desfechos e as populações diferem daqueles de \cite{boers2019,paulich2021}. A atenuação longitudinal descrita por \cite{li2025} reforça que associação transversal não determina direção temporal. A metanálise de \cite{gao2024} também não elimina heterogeneidade nem fornece um coeficiente diretamente transferível para a escala categórica da NSCH. O relato do responsável pode depender de reconhecimento de sintomas, acesso a serviços e recordação, enquanto a exposição não mede a qualidade da experiência digital.
+
+Além da seleção por não resposta, os casos completos podem diferir dos excluídos. Idade e sexo não esgotam fatores socioeconômicos, familiares ou de saúde preexistente. Sono, atividade e amizade podem ser confundidores, mediadores ou consequências e foram medidos contemporaneamente; ajustar por eles não identifica uma via causal. A faixa de 6--17 anos mistura etapas de desenvolvimento, e a categoria aberta de exposição impede distinguir durações mais longas. Diferenças na redação entre edições e mudanças no contexto do período também restringem comparações temporais. A regressão de associação não inclui 2024 e não descreve a associação nesse ano.
+
+No componente preditivo, uma ROC AUC relativamente alta pode coexistir com precisão limitada quando há desequilíbrio entre classes. No modelo A para depressão, por exemplo, aproximadamente metade dos positivos observados foi identificada, mas menos de um terço das classificações positivas correspondia ao relato positivo na amostra. O desempenho é específico ao conjunto de variáveis e ao relato dos responsáveis; a dificuldade de fazer amigos pode conter informação contemporânea relacionada ao próprio desfecho. O resultado não estabelece utilidade clínica, calibração ou transporte para crianças brasileiras. Além disso, a revisão do protocolo após contato prévio com 2024 requer uma avaliação externa ou temporal inteiramente nova para validação independente.
+
+Uma extensão defensável exige verificar a procedência enhanced, documentar comparabilidade dos instrumentos e especificar o desenho completo antes da seleção de domínio. Deverá apresentar contagens não ponderadas, prevalências ponderadas, intervalos de confiança apropriados e análises de sensibilidade para ausências, idade e conjuntos de ajuste justificados. A escolha de covariáveis deve refletir uma pergunta causal explícita caso se pretenda estimar efeitos, e não ser ditada apenas pela disponibilidade de campos.
+\section{Conclusão}
+Na amostra de 2020--2023, os modelos exploratórios encontraram maiores chances condicionais de relatos de depressão e ansiedade nas categorias superiores de tempo de tela em comparação com menos de uma hora. As estimativas são não ponderadas e sem medidas adequadas de incerteza; não respondem se a associação ocorre na população nem se o uso de tela causa condições de saúde mental. A harmonização de 2020--2024 e a reprodução dos coeficientes fornecem base para uma análise futura que respeite o desenho amostral, examine a comparabilidade e relate a incerteza. Nenhum resultado constitui diagnóstico médico.
+\bibliographystyle{sbc}
+\bibliography{referencias}
+\end{document}

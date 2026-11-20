@@ -1,0 +1,9 @@
+# Protótipo de rotina digital
+
+O protótipo auxilia a reflexão sobre rotina, não calcula escores de saúde. O diário aceita duração estimada de tela recreativa e sono anterior, e atividades de lista pré-definida. Valores não informados permanecem ausentes; zero é um valor explicitamente informado. Datas futuras e durações fora de 0–24 horas são rejeitadas. Uma nova entrada da mesma data substitui a anterior. O histórico mostra apenas os valores preenchidos e não estima relações causais ou parâmetros populacionais.
+
+O plano usa combinados pré-definidos e perguntas para conversa. Registros e plano ficam em memória na sessão Streamlit, sem gravação pelo aplicativo em arquivo, log ou banco de dados; o botão de apagar remove esses dados do estado da sessão. Podem ser perdidos quando a conexão ou o processo termina. Essa arquitetura não constitui garantia sobre infraestrutura de hospedagem, navegador ou logs de terceiros e não substitui revisão antes de implantação. Não há conta, compartilhamento, persistência ou comparação com dados de outras famílias.
+
+As regras de validação e tratamento do diário estão em `src/mindscreen/rotina.py`; a interface está em `app/streamlit_app.py`. A antiga interface, inclusive seu simulador exploratório, foi preservada em `app/pesquisa_streamlit.py` para pesquisa, sem acesso pelo aplicativo familiar. Os modelos não são utilizados no novo fluxo.
+
+Os dados NSCH e os registros do aplicativo têm origens, populações e medições distintas. A análise da NSCH informa o contexto da pesquisa, mas não valida recomendações individuais nem a utilidade da interface. Nenhuma avaliação com famílias foi realizada. Para avaliar o produto, definir protocolo e tarefas, verificar exigências éticas com as instituições envolvidas e medir compreensão, usabilidade e utilidade percebida; não apresentar benefícios clínicos sem estudo adequado.

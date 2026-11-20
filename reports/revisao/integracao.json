@@ -1,0 +1,28 @@
+{
+  "inicio": "2026-11-06T20:35:27.375091",
+  "checagens": {
+    "auditoria_cinco_edicoes": true,
+    "harmonizacao_reproduz_dataset": true,
+    "originais_inalterados": true
+  },
+  "tempo_auditoria_s": 13.903378900000462,
+  "tempo_harmonizacao_s": 20.804530899999918,
+  "chave_revisao_dados": {
+    "fontes_sha256": {
+      "C:\\Users\\cg3033775\\Development\\mentalHealth\\Dados\\nsch_2020e_topical.csv": "5407058bacdf0d42eadd891379f5ff0198140d74c6ebff77202229fc1a575b40",
+      "C:\\Users\\cg3033775\\Development\\mentalHealth\\Dados\\nsch_2021e_topical.csv": "9abe4531d80ab28f969d08b50f0c2069acba3a6309a36c66ba99b04d094d37c9",
+      "C:\\Users\\cg3033775\\Development\\mentalHealth\\Dados\\nsch_2022e_topical.csv": "261f70f4863fed7e702bc744177377086f91eb1963b7360c4cc037b909c590d9",
+      "C:\\Users\\cg3033775\\Development\\mentalHealth\\Dados\\nsch_2023e_topical.csv": "dd1a56299fe7fa88a51506d0522621f7fb6e293f8307d1dce539dc0bed53c76d",
+      "C:\\Users\\cg3033775\\Development\\mentalHealth\\Dados\\nsch_2024e_topical.csv": "36cd860f9028d03296f3afab28bf0ff504761c68466aa9fce13c52d3378947fd",
+      "C:\\Users\\cg3033775\\Development\\mentalHealth\\data\\raw\\.gitkeep": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "dataset_sha256": "25edab4c0ff04a42fbba02f27d58b6e8e22c9ad2dfd43642b1a6e6f3b080da40",
+    "config_sha256": "3dff939d5cca7a3baabd3779d83d5e769b7f2647fd1660a90af318f936cfc48c",
+    "codigo_harmonizacao_sha256": "b90f135a2ce8bfe53c37de34f70d042f5436c791e75d8ca12be5ae9fbead59c5"
+  },
+  "status": "dados_concluidos_modelos_pendentes",
+  "tempo_total_s": 34.99108780000006,
+  "pico_memoria_processo_revisao_mb": 1131.22,
+  "tamanho_modelos_mb": 23.27,
+  "tamanho_dataset_mb": 5.83
+}

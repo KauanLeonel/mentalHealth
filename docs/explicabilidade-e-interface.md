@@ -1,5 +1,7 @@
 # Experimentos, explicabilidade e interface
 
+**Atualização:** a interface descrita neste documento foi preservada em `app/pesquisa_streamlit.py`. O aplicativo principal em `app/streamlit_app.py` agora é o protótipo familiar sem inferência individual, documentado em `docs/rotina-digital.md`. As análises históricas e suas limitações permanecem disponíveis para pesquisa.
+
 Execute os comandos a partir da raiz do repositório, no ambiente virtual instalado:
 
 ```powershell
@@ -7,7 +9,7 @@ $env:PYTHONPATH = "src"
 .\.venv\Scripts\python.exe -m mindscreen.analises --treinar
 .\.venv\Scripts\python.exe -m mindscreen.exploratoria --manifesto data/processed/manifesto.json --output reports/exploratoria
 .\.venv\Scripts\python.exe -m pytest -p no:cacheprovider
-.\.venv\Scripts\python.exe -m streamlit run app/streamlit_app.py
+.\.venv\Scripts\python.exe -m streamlit run app/pesquisa_streamlit.py
 ```
 
 O primeiro comando reutiliza experimentos já concluídos quando dataset e configuração coincidem. Sem `--treinar`, exige modelos prontos e apenas reproduz avaliação, SHAP, associação e relatórios. Artefatos incompletos não são tratados como treinamento concluído. Os modelos ficam em `models/experimentos/A` e `B`; métricas em `reports/avaliacao`, odds ratios em `reports/associacao`, gráficos HTML/JSON em `reports/figures` e interpretação em `reports/resultados`. Ao compartilhar os HTMLs, inclua o arquivo `plotly.min.js` da mesma pasta. A interface usa JSON/Plotly e não depende de rede para carregar gráficos.
