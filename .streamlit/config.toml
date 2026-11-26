@@ -1,10 +1,52 @@
+# Tema claro e escuro: o usuário alterna em Settings > Appearance (padrão: preferência do sistema).
+# Fontes, raios e espaçamentos são compartilhados em [theme]; cores ficam em [theme.light] / [theme.dark].
 [theme]
-base = "light"
-primaryColor = "#6754bb"
-backgroundColor = "#f8f9fc"
-secondaryBackgroundColor = "#eef0f8"
-textColor = "#17243b"
-font = "sans serif"
+font = "Nunito:https://fonts.googleapis.com/css2?family=Nunito:wght@500;600;700;800&display=swap"
+headingFont = "Nunito:https://fonts.googleapis.com/css2?family=Nunito:wght@700;800&display=swap"
+baseFontWeight = 500
+headingFontWeights = [800, 800, 700, 700, 700, 700]
+baseRadius = "0.9rem"
+buttonRadius = "full"
+showSidebarBorder = false
+paddingTop = "1.5rem"
+
+[theme.light]
+primaryColor = "#6c4ce0"
+backgroundColor = "#f7f6fd"
+secondaryBackgroundColor = "#efecfb"
+textColor = "#1e1a4d"
+borderColor = "#cdc5ef"
+linkColor = "#5a3fd0"
+chartCategoricalColors = ["#6c4ce0", "#2e9e7e", "#f2843a", "#3b8beb", "#c2549d", "#8a84b8"]
+
+[theme.light.sidebar]
+backgroundColor = "#1e1b4b"
+secondaryBackgroundColor = "#2b2766"
+textColor = "#e9e7ff"
+borderColor = "#3a3585"
+primaryColor = "#7c5cf0"
+linkColor = "#c4b5fd"
+codeBackgroundColor = "#2b2766"
+codeTextColor = "#e9e7ff"
+
+[theme.dark]
+primaryColor = "#7c5cf0"
+backgroundColor = "#12102a"
+secondaryBackgroundColor = "#221e45"
+textColor = "#ece9ff"
+borderColor = "#3d3680"
+linkColor = "#b9a6ff"
+chartCategoricalColors = ["#9b82ff", "#3fbf98", "#ff9a55", "#5ea3ff", "#e06bb7", "#a9a3d6"]
+
+[theme.dark.sidebar]
+backgroundColor = "#0c0a1f"
+secondaryBackgroundColor = "#1c1938"
+textColor = "#e9e7ff"
+borderColor = "#2e2966"
+primaryColor = "#7c5cf0"
+linkColor = "#c4b5fd"
+codeBackgroundColor = "#1c1938"
+codeTextColor = "#e9e7ff"
 
 [client]
 showErrorDetails = false
