@@ -1,0 +1,115 @@
+/* Estilo visual do protótipo familiar. Cores base ficam em .streamlit/config.toml; aqui só o que o tema nativo não cobre.
+   Os tokens usam currentColor (a cor de texto do tema ativo) e transparências, para acompanhar a troca
+   entre tema claro e escuro imediatamente, sem depender do Python. */
+:root {
+  --ms-roxo: #7c5cf0;
+  --ms-superficie: color-mix(in srgb, var(--ms-roxo) 6%, transparent);
+  --ms-faixa-inicio: color-mix(in srgb, var(--ms-roxo) 3%, transparent);
+  --ms-faixa-fim: color-mix(in srgb, var(--ms-roxo) 16%, transparent);
+  --ms-borda: color-mix(in srgb, var(--ms-roxo) 50%, transparent);
+  --ms-subtitulo: color-mix(in srgb, currentColor 85%, transparent);
+  --ms-legenda: color-mix(in srgb, currentColor 72%, transparent);
+  --ms-sombra: rgba(0, 0, 0, 0.07);
+  --ms-sombra-forte: rgba(0, 0, 0, 0.14);
+  --ms-icone-diario: rgba(124, 92, 240, 0.16);
+  --ms-icone-plano: rgba(46, 158, 126, 0.16);
+  --ms-icone-historico: rgba(242, 132, 58, 0.16);
+  --ms-icone-saiba: rgba(59, 139, 235, 0.16);
+}
+
+/* Navegação lateral: rádio exibido como menu */
+.st-key-pagina [role="radiogroup"] { gap: 0.25rem; }
+.st-key-pagina [role="radiogroup"] label {
+  width: 100%; padding: 0.55rem 0.9rem; border-radius: 0.8rem; margin: 0;
+  transition: background 0.15s ease;
+}
+.st-key-pagina [role="radiogroup"] label:hover { background: rgba(255, 255, 255, 0.07); }
+.st-key-pagina [role="radiogroup"] label > div:first-child { display: none; }
+.st-key-pagina [role="radiogroup"] label:has(input:checked) {
+  background: linear-gradient(90deg, #7c5cf0, #6a4bdc);
+  box-shadow: 0 6px 16px rgba(108, 76, 224, 0.35);
+}
+.st-key-pagina [role="radiogroup"] label p { font-weight: 600; font-size: 0.98rem; }
+
+/* Ações da barra lateral */
+.st-key-acoes_sessao button {
+  background: transparent; border: 1px solid #3a3585; justify-content: flex-start;
+}
+.st-key-acoes_sessao button:hover,
+.st-key-acoes_sessao button:focus,
+.st-key-acoes_sessao button:focus-visible,
+.st-key-acoes_sessao button:active {
+  background: rgba(255, 255, 255, 0.1) !important; border-color: #7c5cf0 !important; color: #ffffff !important;
+}
+.st-key-acoes_sessao button * { color: inherit !important; }
+
+/* Faixa de boas-vindas */
+.st-key-hero {
+  background: linear-gradient(135deg, var(--ms-faixa-inicio) 0%, var(--ms-faixa-fim) 100%);
+  border: 1.5px solid var(--ms-borda); border-radius: 1.4rem; padding: 1.6rem 1.8rem;
+  box-shadow: 0 6px 20px var(--ms-sombra);
+}
+.st-key-hero p { color: var(--ms-subtitulo); font-size: 1.1rem; font-weight: 600; }
+.st-key-hero h1 { font-size: 2.4rem; line-height: 1.15; }
+
+/* Cards da página inicial */
+[class*="st-key-card_"] {
+  background: var(--ms-superficie); border-radius: 1.2rem !important;
+  box-shadow: 0 8px 24px var(--ms-sombra);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+[class*="st-key-card_"]:hover { transform: translateY(-2px); box-shadow: 0 12px 28px var(--ms-sombra-forte); }
+[class*="st-key-icone_"] {
+  width: 3.2rem; height: 3.2rem; border-radius: 0.9rem; display: flex;
+  align-items: center; justify-content: center;
+}
+[class*="st-key-icone_"] span { font-size: 1.7rem !important; }
+[class*="st-key-icone_"] p { margin: 0; }
+
+.st-key-icone_diario { background: var(--ms-icone-diario); color: #6c4ce0; }
+.st-key-icone_plano { background: var(--ms-icone-plano); color: #2e9e7e; }
+.st-key-icone_historico { background: var(--ms-icone-historico); color: #f2843a; }
+.st-key-icone_saiba { background: var(--ms-icone-saiba); color: #3b8beb; }
+
+/* Botões dos cards: cor fixa em todos os estados (o Streamlit pinta texto/fundo com a cor primária no hover e no foco) */
+.st-key-ir_diario button { --ms-botao: #6c4ce0; }
+.st-key-ir_plano button { --ms-botao: #23876a; }
+.st-key-ir_historico button { --ms-botao: #d96a1f; }
+.st-key-ir_saiba button { --ms-botao: #2f78d6; }
+[class*="st-key-ir_"] button,
+[class*="st-key-ir_"] button:hover,
+[class*="st-key-ir_"] button:focus,
+[class*="st-key-ir_"] button:focus-visible,
+[class*="st-key-ir_"] button:active {
+  background: var(--ms-botao) !important; border-color: var(--ms-botao) !important;
+  color: #ffffff !important; font-weight: 700;
+}
+[class*="st-key-ir_"] button:hover { filter: brightness(1.1); }
+[class*="st-key-ir_"] button:active { filter: brightness(0.92); }
+[class*="st-key-ir_"] button * { color: inherit !important; }
+
+/* Cabeçalho das páginas internas */
+.st-key-cabecalho {
+  background: linear-gradient(135deg, var(--ms-faixa-inicio) 0%, var(--ms-faixa-fim) 100%);
+  border: 1.5px solid var(--ms-borda); border-radius: 1.2rem; padding: 1rem 1.4rem;
+  box-shadow: 0 6px 20px var(--ms-sombra);
+}
+.st-key-cabecalho [data-testid="stCaptionContainer"] {
+  color: var(--ms-subtitulo); font-size: 1.02rem; font-weight: 600;
+}
+.st-key-voltar button { padding-left: 0; }
+
+/* Formulários e cards: borda mais visível */
+[data-testid="stForm"], [class*="st-key-card_"] {
+  border: 1.5px solid var(--ms-borda) !important;
+}
+[data-testid="stForm"] {
+  border-radius: 1.2rem;
+  box-shadow: 0 6px 20px var(--ms-sombra);
+}
+
+/* Legendas um pouco mais escuras para leitura */
+[data-testid="stCaptionContainer"] { color: var(--ms-legenda); }
+
+/* Ilustrações com cantos arredondados, para não parecerem um recorte no tema escuro */
+.st-key-hero img, .st-key-cabecalho img { border-radius: 1rem; }

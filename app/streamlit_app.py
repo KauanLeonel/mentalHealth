@@ -18,17 +18,40 @@ from mindscreen.rotina import (ATIVIDADES, AVALIACAO, COMBINADOS, ESCALA, PERGUN
                                exportar, historico, nova_atividade, progresso_objetivos, registrar, registrar_reflexao,
                                resumo_periodo)
 
-st.set_page_config(page_title="MindScreen | Rotina digital", page_icon="🌱", layout="wide")
+st.set_page_config(page_title="MindScreen | Rotina digital", page_icon=":material/psychology:", layout="wide")
 
 MANIFEST = ROOT / "data/processed/manifesto.json"
+ASSETS = Path(__file__).resolve().parent / "assets"
 CHAVES = ("registros_rotina", "plano_salvo", "combinados", "objetivos", "atividades_familia", "reflexoes", "avaliacao_prototipo",
           "dia", "tela", "sono", "atividades", "atrapalhou", "quem", "nova_atividade")
-PAGINAS = ["Início", "Diário de rotina", "Histórico", "Plano em família", "Saiba mais", "Pesquisa", "Avaliar o protótipo"]
+ICONES = {"Início": "home", "Diário de rotina": "edit_calendar", "Histórico": "donut_large", "Plano em família": "groups",
+          "Saiba mais": "info", "Pesquisa": "search", "Avaliar o protótipo": "rate_review"}
+PAGINAS = list(ICONES)
+# Cards da página inicial: (chave de estilo, página, ícone, descrição, rótulo do botão)
+CARDS = [("diario", "Diário de rotina", "calendar_month", "Registre o que aconteceu no seu dia e acompanhe sua rotina.", "Acessar"),
+         ("plano", "Plano em família", "assignment_turned_in", "Defina objetivos e combinados para toda a família.", "Acessar"),
+         ("historico", "Histórico", "bar_chart", "Veja os registros desta sessão e acompanhe os objetivos.", "Ver histórico"),
+         ("saiba", "Saiba mais", "menu_book", "Entenda o MindScreen, as fontes e quando procurar um profissional.", "Saiba mais")]
 
 
 def limpar_sessao():
     for key in CHAVES:
         st.session_state.pop(key, None)
+
+
+def ir_para(pagina):
+    st.session_state["pagina"] = pagina
+
+
+def cabecalho(titulo, texto, imagem=None):
+    """Botão de voltar, título com ícone e ilustração opcional, como nas páginas internas do mockup."""
+    st.button("Voltar", icon=":material/arrow_back:", type="tertiary", key="voltar", on_click=ir_para, args=("Início",))
+    with st.container(key="cabecalho"):
+        texto_col, img_col = st.columns([4, 1], vertical_alignment="center")
+        texto_col.title(titulo, anchor=False, icon=f":material/{ICONES[titulo]}:")
+        texto_col.caption(texto)
+        if imagem:
+            img_col.image(str(ASSETS / imagem), alt="", width="stretch")
 
 
 def atividades():
@@ -40,21 +63,30 @@ def num(valor, casas=1):
 
 
 def inicio():
-    st.title("Uma rotina digital que faça sentido para sua família")
-    st.write("Observe o dia a dia, converse sobre o que é importante e construa pequenos combinados em conjunto.")
-    st.info("Este é um protótipo de pesquisa e ainda não foi avaliado com famílias. Ele não faz diagnósticos nem prevê condições de saúde.")
-    st.subheader("Como usar")
-    st.write("1. **Diário**: registre o que quiser sobre um dia — tela, sono, atividades.  \n"
-             "2. **Histórico**: veja como o tempo de tela se encaixa no resto da rotina.  \n"
-             "3. **Plano em família**: escolham juntos objetivos e combinados, e conversem sobre as perguntas.  \n"
-             "4. **Saiba mais** e **Pesquisa**: entenda o que os dados mostram, seus limites e quando procurar um profissional.")
+    with st.container(key="hero"):
+        texto, imagem = st.columns([1.15, 1], vertical_alignment="center")
+        with texto:
+            st.markdown("#### :material/wb_sunny: Olá!")
+            st.title("Uma rotina digital que faça sentido para sua família", anchor=False)
+            st.write("Observe o dia a dia, converse sobre o que é importante e construa pequenos combinados em conjunto.")
+        imagem.image(str(ASSETS / "familia.png"), alt="Ilustração de uma família usando um tablet no sofá", width="stretch")
+    st.info("Este é um protótipo de pesquisa e ainda não foi avaliado com famílias. Ele não faz diagnósticos nem prevê condições de saúde.",
+            icon=":material/lightbulb:")
+    for coluna, (chave, pagina, icone, descricao, rotulo) in zip(st.columns(len(CARDS)), CARDS):
+        with coluna, st.container(border=True, key=f"card_{chave}", height="stretch"):
+            with st.container(key=f"icone_{chave}"):
+                st.markdown(f":material/{icone}:")
+            st.subheader(pagina, anchor=False)
+            st.write(descricao)
+            st.button(rotulo, icon=":material/arrow_forward:", icon_position="right", key=f"ir_{chave}",
+                      on_click=ir_para, args=(pagina,))
     st.caption("Os registros são voluntários, ficam na sessão em memória e podem desaparecer ao recarregar, desconectar ou reiniciar o aplicativo. "
                "Não são gravados pelo aplicativo em arquivos ou banco de dados. Evite inserir dados em dispositivos compartilhados.")
 
 
 def diario():
-    st.title("Diário de rotina")
-    st.write("Preencha apenas o que fizer sentido. Tempo de tela refere-se ao uso recreativo estimado no dia; sono refere-se à noite anterior.")
+    cabecalho("Diário de rotina", "Preencha apenas o que fizer sentido. Tempo de tela refere-se ao uso recreativo estimado no dia; "
+              "sono refere-se à noite anterior.", "diario.png")
     with st.form("registro"):
         dia = st.date_input("Data do registro", value=date.today(), max_value=date.today(), key="dia")
         c1, c2 = st.columns(2)
@@ -84,7 +116,7 @@ def diario():
 
 
 def ver_historico():
-    st.title("Meu histórico nesta sessão")
+    cabecalho("Histórico", "Seus registros nesta sessão, para observar a rotina e conversar em família.")
     registros = st.session_state.get("registros_rotina", [])
     if not registros:
         st.info("Você ainda não adicionou registros. Use o Diário de rotina para começar.")
@@ -101,8 +133,8 @@ def ver_historico():
     contagem = resumo_periodo(registros, dias=(frame.data.max() - frame.data.min()).days + 1, fim=frame.data.max().date())["atividades"]
     if contagem:
         fig = px.bar(x=list(contagem.values()), y=list(contagem.keys()), orientation="h", title="Atividades registradas (dias)",
-                     labels={"x": "Dias", "y": ""}, color_discrete_sequence=["#6b8c65"])
-        fig.update_layout(template="plotly_white", height=300)
+                     labels={"x": "Dias", "y": ""}, color_discrete_sequence=["#6c4ce0"])
+        fig.update_layout(height=300)
         st.plotly_chart(fig, width="stretch")
     tabela = frame.copy()
     tabela["data"] = tabela["data"].dt.strftime("%d/%m/%Y")
@@ -121,8 +153,8 @@ def ver_historico():
 
 
 def plano():
-    st.title("Plano em família")
-    st.write("Conversem e escolham juntos o que desejam experimentar. Os objetivos e combinados podem mudar quando deixarem de fazer sentido.")
+    cabecalho("Plano em família", "Conversem e escolham juntos o que desejam experimentar. Os objetivos e combinados podem mudar "
+              "quando deixarem de fazer sentido.", "plano.png")
     if "combinados" not in st.session_state:
         st.session_state["combinados"] = st.session_state.get("plano_salvo", [])
     def guardar_plano():
@@ -166,7 +198,7 @@ def plano():
 
 def saiba_mais():
     conteudo = carregar_conteudo()
-    st.title("Saiba mais")
+    cabecalho("Saiba mais", "Conteúdo educativo com fontes sobre rotina digital, sono e bem-estar.")
     st.info(conteudo["aviso"])
     for secao in conteudo["secoes"]:
         st.subheader(secao["titulo"])
@@ -177,11 +209,9 @@ def saiba_mais():
 
 
 def pesquisa():
-    st.title("A pesquisa por trás do projeto")
+    cabecalho("Pesquisa", "A pesquisa por trás do projeto, em linguagem simples.")
     st.write("O estudo explora dados da National Survey of Children’s Health dos Estados Unidos de 2020 a 2024. A pesquisa reúne relatos de responsáveis e não acompanha as mesmas crianças ao longo do tempo.")
     st.write("O artigo compara associações amostrais com uma análise complementar que considera o desenho da NSCH. A classificação de relatos foi avaliada em 2024 após uma revisão de protocolo. O diário funciona de forma independente dessas análises.")
-    st.write("O estudo explora dados da National Survey of Children’s Health dos Estados Unidos de 2020 a 2024. A pesquisa reúne relatos de "
-             "responsáveis e não acompanha as mesmas crianças ao longo do tempo.")
     try:
         resultados = carregar_resultados_pesquisa(caminho_resultados_pesquisa(ROOT), MANIFEST)
     except (FileNotFoundError, KeyError, ValueError):
@@ -218,7 +248,7 @@ def pesquisa():
 
 
 def avaliar():
-    st.title("Avaliar o protótipo")
+    cabecalho("Avaliar o protótipo", "Conte o que achou do protótipo.")
     st.write("Sua opinião ajuda a decidir se vale a pena continuar desenvolvendo o protótipo. As respostas ficam só nesta sessão; "
              "se quiser compartilhá-las com a equipe, baixe o arquivo abaixo e envie por um canal combinado com a pesquisa.")
     with st.form("avaliacao"):
@@ -235,15 +265,19 @@ def avaliar():
 
 
 def main():
+    st.html(ASSETS / "estilo.css")
+    st.logo(str(ASSETS / "logo.svg"), size="large")
     with st.sidebar:
-        st.header("🌱 MindScreen")
-        pagina = st.radio("Navegação", PAGINAS)
+        pagina = st.radio("Navegação", PAGINAS, key="pagina", label_visibility="collapsed",
+                          format_func=lambda p: f":material/{ICONES[p]}: &nbsp; {p}")
         st.divider()
-        st.button("Apagar dados desta sessão", on_click=limpar_sessao)
-        st.download_button("Baixar meus dados (JSON)", file_name="mindscreen_rotina.json", mime="application/json",
-                           data=exportar(st.session_state.get("registros_rotina", []), st.session_state.get("objetivos", []),
-                                         st.session_state.get("plano_salvo", []), st.session_state.get("reflexoes", []),
-                                         st.session_state.get("avaliacao_prototipo")))
+        with st.container(key="acoes_sessao"):
+            st.button("Apagar dados desta sessão", icon=":material/delete:", on_click=limpar_sessao, width="stretch")
+            st.download_button("Baixar meus dados (JSON)", icon=":material/download:", width="stretch",
+                               file_name="mindscreen_rotina.json", mime="application/json",
+                               data=exportar(st.session_state.get("registros_rotina", []), st.session_state.get("objetivos", []),
+                                             st.session_state.get("plano_salvo", []), st.session_state.get("reflexoes", []),
+                                             st.session_state.get("avaliacao_prototipo")))
         st.caption("Os dados do diário são temporários e não ficam salvos para a próxima sessão. O arquivo é gerado só quando você o baixa.")
     {"Início": inicio, "Diário de rotina": diario, "Histórico": ver_historico, "Plano em família": plano,
      "Saiba mais": saiba_mais, "Pesquisa": pesquisa, "Avaliar o protótipo": avaliar}[pagina]()

@@ -54,3 +54,23 @@ def test_fluxo_diario_plano_e_apagar(monkeypatch):
     assert not app.exception
     assert not app.dataframe
     assert "avaliacao_prototipo" not in app.session_state and "objetivos" not in app.session_state
+
+
+def test_cards_e_voltar_navegam(monkeypatch):
+    def pasta_streamlit(*args, **kwargs):
+        path = Path(".tmp").resolve() / ("rotina-" + uuid4().hex)
+        path.mkdir(parents=True)
+        return str(path)
+
+    with monkeypatch.context() as scope:
+        scope.setattr(tempfile, "mkdtemp", pasta_streamlit)
+        from streamlit.testing.v1 import AppTest
+    script = Path(__file__).resolve().parents[1] / "app" / "streamlit_app.py"
+    app = AppTest.from_file(str(script), default_timeout=30).run()
+    destinos = {"ir_diario": "Diário de rotina", "ir_plano": "Plano em família", "ir_historico": "Histórico", "ir_saiba": "Saiba mais"}
+    for chave, pagina in destinos.items():
+        app.button(key=chave).click().run()
+        assert not app.exception
+        assert app.sidebar.radio[0].value == pagina
+        app.button(key="voltar").click().run()
+        assert app.sidebar.radio[0].value == "Início"
